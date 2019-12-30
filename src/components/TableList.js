@@ -7,10 +7,10 @@ const TableList = ({ tables }) => {
       <table className="table">
         <thead className="thead-dark">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">N</th>
+            <th scope="col">Name</th>
+            <th scope="col">price</th>
+            <th scope="col">time</th>
           </tr>
         </thead>
         <tbody>
