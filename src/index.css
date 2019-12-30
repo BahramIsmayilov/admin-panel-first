@@ -1,13 +1,81 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --mainWhite: #fff;
+  --mainBlack: #000;
+  --mainGray: #d6d8db;
+  --mainDarkGray: #6c757d;
+  --mainDarkGreen: #209e91;
+  --mainSlowTransition: all 0.5s ease;
+  --mainLetterSpacing: 4px;
+}
+body {
+  background-color: var(--mainGray) !important;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* ##### sidebar ##### */
+.sidebar {
+  width: 180px;
+  height: 100vh;
+  padding-top: 4.5rem;
+  position: fixed;
 }
+.sidebar nav {
+  padding: 0;
+  width: 100%;
+}
+.sidebar li {
+  padding-left: 15px;
+  font-size: 18px;
+  width: 180px !important;
+  transition: var(--mainSlowTransition);
+}
+.sidebar li a {
+  transition: var(--mainSlowTransition);
+}
+.sidebar li:hover {
+  background-color: var(--mainGray);
+}
+.sidebar li:hover a {
+  color: var(--mainBlack) !important;
+}
+.sidebar span {
+  margin-left: 15px;
+}
+/* ##### end of sidebar ##### */
+/* ##### author ##### */
+.author {
+  width: calc(100vw - 180px);
+  position: absolute;
+  top: 56px;
+  left: 180px;
+}
+.author table {
+  width: 95%;
+  margin: 2rem auto 0 auto;
+}
+.author tr {
+  background-color: var(--mainWhite);
+  border-bottom: 2px solid var(--mainDarkGray);
+  transition: var(--mainSlowTransition);
+  cursor: pointer;
+}
+
+.author tr:hover {
+  background-color: var(--mainGray);
+}
+@media screen and (min-width: 992px) {
+  .author table {
+    width: 85%;
+  }
+}
+.loading {
+  padding-top: 6rem;
+  text-align: center;
+  font-size: 3rem;
+  letter-spacing: var(--mainLetterSpacing);
+}
+/* ##### end of author ##### */
