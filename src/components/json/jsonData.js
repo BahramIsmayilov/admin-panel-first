@@ -15,7 +15,7 @@ export const items = [
   },
   {
     id: 2,
-    name: ' Vintage Computer',
+    name: 'Vintage Computer',
     author: 'Arthur Conan Doyle',
     type: ' Fairy Tale',
     pages: 390

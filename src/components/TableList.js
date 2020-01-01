@@ -1,22 +1,81 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SingleRowTable from './SingleRowTable';
 import { Link } from 'react-router-dom';
 
 const TableList = ({ tables }) => {
+  const [allBooks, setAllBooks] = React.useState([]);
+  const handleNumber = () => {
+    const tempSort = tables.slice(0);
+    tempSort.sort((a, b) => {
+      return a.id - b.id;
+    });
+    setAllBooks(tempSort);
+  };
+  const handleName = () => {
+    const tempSort = tables.slice(0);
+    tempSort.sort((a, b) => {
+      let x = a.name.toLowerCase();
+      let y = b.name.toLowerCase();
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    setAllBooks(tempSort);
+  };
+  const handleAuthor = () => {
+    const tempSort = tables.slice(0);
+    tempSort.sort((a, b) => {
+      let x = a.author.toLowerCase();
+      let y = b.author.toLowerCase();
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    setAllBooks(tempSort);
+  };
+  const handleType = () => {
+    const tempSort = tables.slice(0);
+    tempSort.sort((a, b) => {
+      let x = a.type.toLowerCase();
+      let y = b.type.toLowerCase();
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    setAllBooks(tempSort);
+  };
+  const handlePages = () => {
+    const tempSort = tables.slice(0);
+    tempSort.sort((a, b) => {
+      return a.pages - b.pages;
+    });
+    setAllBooks(tempSort);
+  };
+  useEffect(() => {
+    setAllBooks(tables);
+  }, [tables]);
+
+  // const [nameSort, setNameSort] = React.useState([]);
+  // const [nameSort, setNameSort] = React.useState([]);
+
   return (
     <div className="table-list">
       <table className="table">
         <thead className="thead-dark">
           <tr>
-            <th scope="col">N</th>
-            <th scope="col">Name</th>
-            <th scope="col">Author</th>
-            <th scope="col">Type</th>
-            <th scope="col">Page</th>
+            <th scope="col" onClick={() => handleNumber()}>
+              N
+            </th>
+            <th scope="col" onClick={() => handleName()}>
+              Name
+            </th>
+            <th scope="col" onClick={() => handleAuthor()}>
+              Author
+            </th>
+            <th scope="col" onClick={() => handleType()}>
+              Type
+            </th>
+            <th scope="col" onClick={() => handlePages()}>
+              Page
+            </th>
           </tr>
         </thead>
         <tbody>
-          {tables.map(item => {
+          {allBooks.map(item => {
             return <SingleRowTable key={item.id} {...item} />;
           })}
         </tbody>
