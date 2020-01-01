@@ -1,13 +1,22 @@
 import React from 'react';
 import { types } from '../components/json/typeJsonData';
 import { authors } from '../components/json/jsonAutors';
+import { BookContext } from '../components/context/context';
 
 const AddBook = () => {
+  const { singleEditBook } = React.useContext(BookContext);
+  const { id, name, author, type, pages } = singleEditBook;
+
   const handleSubmit = e => {
     e.preventDefault();
   };
   authors.sort();
+  types.sort();
+  // if (name) {
 
+  // } else {
+  //   console.log('bye');
+  // }
   return (
     <section className="section">
       <div className="container col-12  pt-5">
@@ -16,6 +25,7 @@ const AddBook = () => {
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input
+                defaultValue={name}
                 name="name"
                 type="text"
                 className="form-control"
@@ -31,9 +41,14 @@ const AddBook = () => {
                 name="author"
                 className="form-control"
               >
-                <option value="DEFAULT" disabled>
-                  Choose a author ...
-                </option>
+                {author ? (
+                  <option value="DEFAULT">{author}</option>
+                ) : (
+                  <option value="DEFAULT" disabled>
+                    Choose a author ...
+                  </option>
+                )}
+
                 {authors.map((author, index) => {
                   return (
                     <option key={index} value={authors.index}>
@@ -51,9 +66,13 @@ const AddBook = () => {
                 defaultValue={'DEFAULT'}
                 className="form-control"
               >
-                <option value="DEFAULT" disabled>
-                  Choose a book type ...
-                </option>
+                {type ? (
+                  <option value="DEFAULT">{type}</option>
+                ) : (
+                  <option value="DEFAULT" disabled>
+                    Choose a book type ...
+                  </option>
+                )}
                 {types.map(type => {
                   return (
                     <option key={type.id} value={type.id}>
@@ -66,6 +85,7 @@ const AddBook = () => {
             <div className="form-group">
               <label htmlFor="price">Page</label>
               <input
+                defaultValue={pages}
                 name="page"
                 type="number"
                 className="form-control"
@@ -74,12 +94,21 @@ const AddBook = () => {
               />
             </div>
             <div className="coltext-center">
-              <button
-                type="submit"
-                className="col-6 btn btn-dark btn-block mx-auto px-4 py-2 spacing"
-              >
-                Add Book
-              </button>
+              {name ? (
+                <button
+                  type="submit"
+                  className="col-6 btn btn-success btn-block mx-auto px-4 py-2 spacing"
+                >
+                  Edit Book
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="col-6 btn btn-dark btn-block mx-auto px-4 py-2 spacing"
+                >
+                  Add Book
+                </button>
+              )}
             </div>
           </form>
         </div>

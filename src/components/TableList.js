@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 const TableList = ({ tables }) => {
   const [allBooks, setAllBooks] = React.useState([]);
+  // ######## sort table`s value  ########
   const handleNumber = () => {
     const tempSort = tables.slice(0);
     tempSort.sort((a, b) => {
@@ -45,13 +46,10 @@ const TableList = ({ tables }) => {
     });
     setAllBooks(tempSort);
   };
+  // ######## end of sort table`s value  ########
   useEffect(() => {
     setAllBooks(tables);
   }, [tables]);
-
-  // const [nameSort, setNameSort] = React.useState([]);
-  // const [nameSort, setNameSort] = React.useState([]);
-
   return (
     <div className="table-list">
       <table className="table">
@@ -71,6 +69,12 @@ const TableList = ({ tables }) => {
             </th>
             <th scope="col" onClick={() => handlePages()}>
               Page
+            </th>
+            <th scope="col" className="text-center">
+              Edit
+            </th>
+            <th scope="col" className="text-center">
+              Delete
             </th>
           </tr>
         </thead>
