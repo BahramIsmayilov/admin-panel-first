@@ -15,7 +15,31 @@
 body {
   background-color: var(--mainGray) !important;
 }
-
+/* ##### globall ##### */
+.section {
+  width: calc(100vw - 180px);
+  position: absolute;
+  top: 56px;
+  left: 180px;
+}
+.text-center {
+  text-align: center;
+}
+input[type],
+button[type],
+select,
+textarea {
+  outline: none;
+  box-shadow: none !important;
+  border: 1px solid #ccc !important;
+}
+.spacing {
+  letter-spacing: var(--mainLetterSpacing);
+}
+a:hover {
+  text-decoration: none;
+}
+/* ##### end of globall ##### */
 /* ##### sidebar ##### */
 .sidebar {
   width: 180px;
@@ -46,29 +70,23 @@ body {
   margin-left: 15px;
 }
 /* ##### end of sidebar ##### */
-/* ##### author ##### */
-.author {
-  width: calc(100vw - 180px);
-  position: absolute;
-  top: 56px;
-  left: 180px;
-}
-.author table {
+/* ##### books ##### */
+.books table {
   width: 95%;
   margin: 2rem auto 0 auto;
 }
-.author tr {
+.books tr {
   background-color: var(--mainWhite);
   border-bottom: 2px solid var(--mainDarkGray);
   transition: var(--mainSlowTransition);
   cursor: pointer;
 }
 
-.author tr:hover {
+.books tr:hover {
   background-color: var(--mainGray);
 }
 @media screen and (min-width: 992px) {
-  .author table {
+  .books table {
     width: 85%;
   }
 }
@@ -78,4 +96,18 @@ body {
   font-size: 3rem;
   letter-spacing: var(--mainLetterSpacing);
 }
-/* ##### end of author ##### */
+/* ##### end of books ##### */
+/* ##### error ##### */
+.error-page {
+  padding-top: 8rem;
+  text-align: center;
+  text-transform: capitalize;
+  letter-spacing: var(--mainLetterSpacing);
+}
+.error-page a {
+  margin-top: 2rem;
+}
+/* ##### end of error ##### */
+/* ##### add book ##### */
+
+/* ##### end of add book ##### */

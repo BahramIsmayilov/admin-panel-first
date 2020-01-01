@@ -1,8 +1,8 @@
 import React from 'react';
 import TableList from '../components/TableList';
-import { items } from '../components/jsonData';
+import { items } from '../components/json/jsonData';
 
-const Dashboard = () => {
+const Books = () => {
   const [loading, setLoading] = React.useState(false);
   const [tables, setTables] = React.useState([]);
 
@@ -32,10 +32,10 @@ const Dashboard = () => {
     return <h1 className="loading">Loading...</h1>;
   }
   return (
-    <section className="author">
+    <section className="section books">
       <TableList tables={tables} />
     </section>
   );
 };
 
-export default Dashboard;
+export default Books;
