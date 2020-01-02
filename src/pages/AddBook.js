@@ -7,16 +7,19 @@ const AddBook = () => {
   const { singleEditBook } = React.useContext(BookContext);
   const { id, name, author, type, pages } = singleEditBook;
 
+  // const [names, setNames] = React.useState(id);
+
+  const handleChange = e => {
+    e.target.defaultValue = e.target.value;
+    console.log(e.target.defaultValue);
+  };
   const handleSubmit = e => {
     e.preventDefault();
+    // setNames('');
+    // console.log(names);
   };
   authors.sort();
   types.sort();
-  // if (name) {
-
-  // } else {
-  //   console.log('bye');
-  // }
   return (
     <section className="section">
       <div className="container col-12  pt-5">
@@ -31,6 +34,7 @@ const AddBook = () => {
                 className="form-control"
                 id="name"
                 placeholder="Name"
+                onChange={e => handleChange(e)}
               />
             </div>
             <div className="form-group">

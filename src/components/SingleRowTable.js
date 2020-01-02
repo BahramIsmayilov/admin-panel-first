@@ -2,17 +2,29 @@ import React from 'react';
 import { BookContext } from './context/context';
 import { Link } from 'react-router-dom';
 
-const SingleRowTable = ({ ...item }) => {
+const SingleRowTable = ({ index, ...item }) => {
   const { handleEdit } = React.useContext(BookContext);
-  const { id, name, author, type, pages } = item;
+  const {
+    id,
+    title,
+    author,
+    category,
+    price,
+    language,
+    publishDate,
+    pageCount
+  } = item;
 
   return (
     <tr>
-      <th scope="row">{`${id + 1}`}</th>
-      <td>{name}</td>
+      <th scope="row">{`${index + 1}`}</th>
+      <td>{title}</td>
       <td>{author}</td>
-      <td>{type}</td>
-      <td>{pages}</td>
+      <td>{category}</td>
+      <td>{price}</td>
+      <td>{language}</td>
+      <td>{publishDate}</td>
+      <td>{pageCount}</td>
       <td className="text-center">
         <Link
           to="/addBook"
