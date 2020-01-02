@@ -1,13 +1,23 @@
 import React from 'react';
-import { types } from '../components/json/typeJsonData';
-import { authors } from '../components/json/jsonAutors';
 import { BookContext } from '../components/context/context';
+import { CategoriesContext } from '../components/context/categoriesContext';
 
 const AddBook = () => {
   const { singleEditBook } = React.useContext(BookContext);
-  const { id, name, author, type, pages } = singleEditBook;
+  const { categories } = React.useContext(CategoriesContext);
+  const {
+    id,
+    title,
+    author,
+    category,
+    price,
+    language,
+    publishDate,
+    pageCount
+  } = singleEditBook;
 
-  // const [names, setNames] = React.useState(id);
+  // # sort categories
+  categories.sort();
 
   const handleChange = e => {
     e.target.defaultValue = e.target.value;
@@ -18,17 +28,16 @@ const AddBook = () => {
     // setNames('');
     // console.log(names);
   };
-  authors.sort();
-  types.sort();
+
   return (
     <section className="section">
-      <div className="container col-12  pt-5">
-        <div className="row pt-5">
+      <div className="container col-12  pt-2">
+        <div className="row pt-3">
           <form onSubmit={handleSubmit} className=" mx-auto col-sm-10 col-md-6">
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input
-                defaultValue={name}
+                defaultValue={title}
                 name="name"
                 type="text"
                 className="form-control"
@@ -38,67 +47,87 @@ const AddBook = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="author">Author</label>
-              <select
-                id="author"
-                defaultValue={'DEFAULT'}
-                name="author"
-                className="form-control"
-              >
-                {author ? (
-                  <option value="DEFAULT">{author}</option>
-                ) : (
-                  <option value="DEFAULT" disabled>
-                    Choose a author ...
-                  </option>
-                )}
-
-                {authors.map((author, index) => {
-                  return (
-                    <option key={index} value={authors.index}>
-                      {author}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="type">Type</label>
-              <select
-                id="type"
-                name="type"
-                defaultValue={'DEFAULT'}
-                className="form-control"
-              >
-                {type ? (
-                  <option value="DEFAULT">{type}</option>
-                ) : (
-                  <option value="DEFAULT" disabled>
-                    Choose a book type ...
-                  </option>
-                )}
-                {types.map(type => {
-                  return (
-                    <option key={type.id} value={type.id}>
-                      {type.type}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="price">Page</label>
+              <label htmlFor="name">Author</label>
               <input
-                defaultValue={pages}
-                name="page"
+                defaultValue={author}
+                name="author"
+                type="text"
+                className="form-control"
+                id="author"
+                placeholder="Author"
+                onChange={e => handleChange(e)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="type">Category</label>
+              <select
+                id="category"
+                name="category"
+                defaultValue={'DEFAULT'}
+                className="form-control"
+              >
+                {category ? (
+                  <option value="DEFAULT">{category}</option>
+                ) : (
+                  <option value="DEFAULT" disabled>
+                    Choose a book category ...
+                  </option>
+                )}
+                {categories.map((item, index) => {
+                  return (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="price">Price</label>
+              <input
+                defaultValue={price}
+                name="price"
+                type="text"
+                className="form-control"
+                id="price"
+                placeholder="25 AZN"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="language">Language</label>
+              <input
+                defaultValue={language}
+                name="language"
+                type="text"
+                className="form-control"
+                id="language"
+                placeholder="Language"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="publishDate">Publish Date</label>
+              <input
+                defaultValue={publishDate}
+                name="publishDate"
                 type="number"
                 className="form-control"
-                id="page"
-                placeholder="547"
+                id="publishDate"
+                placeholder="2020"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="pageCount">Page</label>
+              <input
+                defaultValue={pageCount}
+                name="pageCount"
+                type="number"
+                className="form-control"
+                id="pageCount"
+                placeholder="123"
               />
             </div>
             <div className="coltext-center">
-              {name ? (
+              {title ? (
                 <button
                   type="submit"
                   className="col-6 btn btn-success btn-block mx-auto px-4 py-2 spacing"

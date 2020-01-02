@@ -2,7 +2,7 @@ import React from 'react';
 import { BookContext } from './context/context';
 import { Link } from 'react-router-dom';
 
-const SingleRowTable = ({ index, ...item }) => {
+const SingleRowTable = ({ ...item }) => {
   const { handleEdit } = React.useContext(BookContext);
   const {
     id,
@@ -17,7 +17,7 @@ const SingleRowTable = ({ index, ...item }) => {
 
   return (
     <tr>
-      <th scope="row">{`${index + 1}`}</th>
+      <th scope="row">{id}</th>
       <td>{title}</td>
       <td>{author}</td>
       <td>{category}</td>

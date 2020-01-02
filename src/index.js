@@ -4,10 +4,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BookProvider } from './components/context/context';
+import { CategoriesProvider } from './components/context/categoriesContext';
 
 ReactDOM.render(
   <BookProvider>
-    <App />
+    <CategoriesProvider>
+      <App />
+    </CategoriesProvider>
   </BookProvider>,
   document.getElementById('root')
 );

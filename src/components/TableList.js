@@ -8,7 +8,7 @@ const TableList = ({ books }) => {
   const handleNumber = () => {
     const tempSort = books.slice(0);
     tempSort.sort((a, b) => {
-      return a.index - b.index;
+      return a.id - b.id;
     });
     setAllBooks(tempSort);
   };
@@ -79,7 +79,7 @@ const TableList = ({ books }) => {
         <thead className="thead-dark">
           <tr>
             <th scope="col" onClick={() => handleNumber()}>
-              N
+              ID
             </th>
             <th scope="col" onClick={() => handleName()}>
               Name
@@ -112,8 +112,8 @@ const TableList = ({ books }) => {
           </tr>
         </thead>
         <tbody>
-          {allBooks.map((item, index) => {
-            return <SingleRowTable key={item.id} index={index} {...item} />;
+          {allBooks.map(item => {
+            return <SingleRowTable key={item.id} {...item} />;
           })}
         </tbody>
       </table>
