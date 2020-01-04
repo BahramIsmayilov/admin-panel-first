@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import SingleRowTable from './SingleRowTable';
 import { Link } from 'react-router-dom';
+import { BookContext } from '../components/context/context';
 
 const TableList = ({ books }) => {
+  const { handleClear } = React.useContext(BookContext);
   const [allBooks, setAllBooks] = React.useState([]);
   // ######## sort table`s value  ########
   const handleNumber = () => {
@@ -114,15 +116,24 @@ const TableList = ({ books }) => {
           })}
         </tbody>
       </table>
-      <div className="text-center mt-4">
+      <div className="text-center mt-4 mb-5">
         <Link to="/addBook">
           <button
             type="submit"
-            className="col-4 btn btn-dark mx-auto px-4 py-2 spacing"
+            className="col-2 btn btn-dark mr-4 px-4 py-2 spacing"
           >
             Add New Book
           </button>
         </Link>
+        {books.length > 0 ? (
+          <button
+            onClick={handleClear}
+            type="submit"
+            className="col-2 btn btn-danger px-4 py-2 spacing"
+          >
+            Clear All Books
+          </button>
+        ) : null}
       </div>
     </div>
   );

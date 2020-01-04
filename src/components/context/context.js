@@ -14,7 +14,7 @@ export function BookProvider({ children }) {
   const [category, setCategory] = React.useState('');
   const [price, setPrice] = React.useState('');
   const [language, setLanguage] = React.useState('');
-  const [publishDate, setPublishDate] = React.useState();
+  const [publishDate, setPublishDate] = React.useState('');
   const [pageCount, setPageCount] = React.useState('');
   // edit book
   const [edit, setEdit] = React.useState(false);
@@ -126,7 +126,27 @@ export function BookProvider({ children }) {
     setPublishDate('');
     setPageCount('');
   };
-
+  // handle Clear
+  const handleClear = () => {
+    setBooks([]);
+    async function clearAllBooks() {
+      await fetch(`${URL}/books/delete-all`, {
+        method: 'DELETE'
+      });
+    }
+    clearAllBooks();
+  };
+  // handle Delete
+  const handleDelete = id => {
+    const tempBooks = books.filter(book => book.id !== id);
+    setBooks(tempBooks);
+    async function deleteBooks() {
+      await fetch(`${URL}/books/delete/${id}`, {
+        method: 'DELETE'
+      });
+    }
+    deleteBooks();
+  };
   // handle edit
   const handleEdit = id => {
     const tempBook = books.find(book => book.id === id);
@@ -152,6 +172,8 @@ export function BookProvider({ children }) {
   return (
     <BookContext.Provider
       value={{
+        handleClear,
+        handleDelete,
         handleEdit,
         handleSubmit,
         handleTitle,
