@@ -3,68 +3,68 @@ import { BookContext } from '../components/context/context';
 import { CategoriesContext } from '../components/context/categoriesContext';
 
 const AddBook = () => {
-  const { singleEditBook } = React.useContext(BookContext);
-  const { categories } = React.useContext(CategoriesContext);
   const {
-    id,
     title,
     author,
     category,
     price,
     language,
     publishDate,
-    pageCount
-  } = singleEditBook;
+    pageCount,
+    handleTitle,
+    handleAuthor,
+    handleCategory,
+    handlePrice,
+    handleLanguage,
+    handlePublishDate,
+    handlePageCount,
+    handleSubmit,
+    edit
+  } = React.useContext(BookContext);
+  const { categories } = React.useContext(CategoriesContext);
 
   // # sort categories
   categories.sort();
-
-  const handleChange = e => {
-    e.target.defaultValue = e.target.value;
-    console.log(e.target.defaultValue);
-  };
-  const handleSubmit = e => {
-    e.preventDefault();
-    // setNames('');
-    // console.log(names);
-  };
 
   return (
     <section className="section">
       <div className="container col-12  pt-2">
         <div className="row pt-3">
-          <form onSubmit={handleSubmit} className=" mx-auto col-sm-10 col-md-6">
+          <form onSubmit={handleSubmit} className="mx-auto col-sm-10 col-md-6">
             <div className="form-group">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="title">Name</label>
               <input
-                defaultValue={title}
-                name="name"
+                name="title"
                 type="text"
                 className="form-control"
-                id="name"
-                placeholder="Name"
-                onChange={e => handleChange(e)}
+                id="title"
+                value={title}
+                onChange={handleTitle}
+                placeholder="e.g JavaScript"
+                required
               />
             </div>
             <div className="form-group">
-              <label htmlFor="name">Author</label>
+              <label htmlFor="author">Author</label>
               <input
-                defaultValue={author}
                 name="author"
                 type="text"
                 className="form-control"
                 id="author"
-                placeholder="Author"
-                onChange={e => handleChange(e)}
+                value={author}
+                onChange={handleAuthor}
+                placeholder="e.g David Flanagan"
+                required
               />
             </div>
             <div className="form-group">
               <label htmlFor="type">Category</label>
               <select
-                id="category"
                 name="category"
+                id="category"
                 defaultValue={'DEFAULT'}
                 className="form-control"
+                onChange={handleCategory}
               >
                 {category ? (
                   <option value="DEFAULT">{category}</option>
@@ -85,61 +85,70 @@ const AddBook = () => {
             <div className="form-group">
               <label htmlFor="price">Price</label>
               <input
-                defaultValue={price}
                 name="price"
                 type="text"
                 className="form-control"
                 id="price"
-                placeholder="25 AZN"
+                value={price}
+                onChange={handlePrice}
+                placeholder="e.g 25 AZN"
+                required
               />
             </div>
             <div className="form-group">
               <label htmlFor="language">Language</label>
               <input
-                defaultValue={language}
                 name="language"
                 type="text"
                 className="form-control"
                 id="language"
-                placeholder="Language"
+                value={language}
+                onChange={handleLanguage}
+                placeholder="e.g English"
+                required
               />
             </div>
             <div className="form-group">
               <label htmlFor="publishDate">Publish Date</label>
               <input
-                defaultValue={publishDate}
                 name="publishDate"
                 type="number"
                 className="form-control"
                 id="publishDate"
-                placeholder="2020"
+                value={publishDate}
+                onChange={handlePublishDate}
+                placeholder="e.g 2020"
+                required
               />
             </div>
             <div className="form-group">
               <label htmlFor="pageCount">Page</label>
               <input
-                defaultValue={pageCount}
                 name="pageCount"
                 type="number"
                 className="form-control"
                 id="pageCount"
-                placeholder="123"
+                value={pageCount}
+                onChange={handlePageCount}
+                placeholder="e.g 123"
+                required
               />
             </div>
+
             <div className="coltext-center">
-              {title ? (
+              {edit ? (
                 <button
                   type="submit"
                   className="col-6 btn btn-success btn-block mx-auto px-4 py-2 spacing"
                 >
-                  Edit Book
+                  Edit
                 </button>
               ) : (
                 <button
                   type="submit"
                   className="col-6 btn btn-dark btn-block mx-auto px-4 py-2 spacing"
                 >
-                  Add Book
+                  Submit
                 </button>
               )}
             </div>

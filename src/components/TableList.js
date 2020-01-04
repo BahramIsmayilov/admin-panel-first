@@ -41,8 +41,9 @@ const TableList = ({ books }) => {
   };
   const handlePrice = () => {
     const tempSort = books.slice(0);
+
     tempSort.sort((a, b) => {
-      return a.price - b.price;
+      return parseInt(a.price) - parseInt(b.price);
     });
     setAllBooks(tempSort);
   };
@@ -77,7 +78,7 @@ const TableList = ({ books }) => {
     <div className="table-list">
       <table className="table">
         <thead className="thead-dark">
-          <tr>
+          <tr className="text-center">
             <th scope="col" onClick={() => handleNumber()}>
               ID
             </th>
@@ -97,18 +98,14 @@ const TableList = ({ books }) => {
               Language
             </th>
             <th scope="col" onClick={() => handlePublishDate()}>
-              Publish Date
+              Publish
             </th>
             <th scope="col" onClick={() => handlePage()}>
               Page
             </th>
 
-            <th scope="col" className="text-center">
-              Edit
-            </th>
-            <th scope="col" className="text-center">
-              Delete
-            </th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>

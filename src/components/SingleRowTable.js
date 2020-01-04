@@ -16,7 +16,7 @@ const SingleRowTable = ({ ...item }) => {
   } = item;
 
   return (
-    <tr>
+    <tr className="text-center">
       <th scope="row">{id}</th>
       <td>{title}</td>
       <td>{author}</td>
@@ -25,7 +25,7 @@ const SingleRowTable = ({ ...item }) => {
       <td>{language}</td>
       <td>{publishDate}</td>
       <td>{pageCount}</td>
-      <td className="text-center">
+      <td>
         <Link
           to="/addBook"
           onClick={() => handleEdit(id)}
@@ -35,7 +35,7 @@ const SingleRowTable = ({ ...item }) => {
           Edit
         </Link>
       </td>
-      <td className="text-center">
+      <td>
         <button type="button" className="btn btn-danger">
           Delete
         </button>
