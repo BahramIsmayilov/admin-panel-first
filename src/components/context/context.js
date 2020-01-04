@@ -19,7 +19,8 @@ export function BookProvider({ children }) {
   // edit book
   const [edit, setEdit] = React.useState(false);
   const [id, setId] = React.useState();
-
+  // alert
+  const [alert, setAlert] = React.useState({ show: true });
   //**** useEffect get books from data ****
 
   React.useEffect(() => {
@@ -39,6 +40,12 @@ export function BookProvider({ children }) {
   }, []);
 
   // book`s handle function
+  const handleAlert = ({ type, text }) => {
+    setAlert({ show: true, type, text });
+    setTimeout(() => {
+      setAlert({ show: false });
+    }, 3000);
+  };
   const handleTitle = e => {
     setTitle(e.target.value);
   };
@@ -94,9 +101,9 @@ export function BookProvider({ children }) {
           },
           { headers: { 'Content-Type': 'application/json' } }
         );
-        console.log(response);
       }
       postEditBooks();
+      handleAlert({ type: 'success', text: 'edit book' });
       setEdit(false);
     } else {
       async function postBooks() {
@@ -116,6 +123,7 @@ export function BookProvider({ children }) {
         console.log(response);
       }
       postBooks();
+      handleAlert({ type: 'success', text: 'book add' });
       setBooks([...books]);
     }
     setTitle('');
@@ -135,6 +143,7 @@ export function BookProvider({ children }) {
       });
     }
     clearAllBooks();
+    handleAlert({ type: 'danger', text: 'all books deleted' });
   };
   // handle Delete
   const handleDelete = id => {
@@ -146,6 +155,7 @@ export function BookProvider({ children }) {
       });
     }
     deleteBooks();
+    handleAlert({ type: 'danger', text: 'book deleted' });
   };
   // handle edit
   const handleEdit = id => {
@@ -183,6 +193,8 @@ export function BookProvider({ children }) {
         handleLanguage,
         handlePublishDate,
         handlePageCount,
+        handleAlert,
+        alert,
         refreshPage,
         edit,
         loading,

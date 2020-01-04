@@ -7,12 +7,7 @@ const Navbar = () => {
       <ul className="navbar-nav">
         <li className="nav-item active">
           <Link to="/" className="nav-link">
-            Active
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/" className="nav-link">
-            Link
+            <h4>Book Admin Panel</h4>
           </Link>
         </li>
       </ul>

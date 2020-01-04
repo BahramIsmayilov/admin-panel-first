@@ -28,7 +28,7 @@ const AddBook = () => {
 
   return (
     <section className="section">
-      <div className="container col-12  pt-2">
+      <div className="container col-12  pb-5">
         <div className="row pt-3">
           <form onSubmit={handleSubmit} className="mx-auto col-sm-10 col-md-6">
             <div className="form-group">
@@ -135,7 +135,7 @@ const AddBook = () => {
               />
             </div>
 
-            <div className="coltext-center">
+            <div className="coltext-center mt-4">
               {edit ? (
                 <button
                   type="submit"

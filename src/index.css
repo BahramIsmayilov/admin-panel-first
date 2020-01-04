@@ -9,6 +9,8 @@
   --mainGray: #d6d8db;
   --mainDarkGray: #6c757d;
   --mainDarkGreen: #209e91;
+  --mainRed: #d50000;
+  --mainGreen: #4caf50;
   --mainSlowTransition: all 0.5s ease;
   --mainLetterSpacing: 4px;
 }
@@ -17,9 +19,9 @@ body {
 }
 /* ##### globall ##### */
 .section {
-  width: calc(100vw - 180px);
+  width: calc(100vw - 197px);
   position: absolute;
-  top: 56px;
+  top: 68.8px;
   left: 180px;
 }
 .text-center {
@@ -70,6 +72,28 @@ a:hover {
   margin-left: 15px;
 }
 /* ##### end of sidebar ##### */
+/* ##### Alert ##### */
+
+.alert {
+  padding: 0.75rem 1.25rem;
+  color: var(--mainWhite) !important;
+  text-align: center;
+  text-transform: capitalize;
+  width: 50%;
+  margin-top: 70px;
+  border-radius: 2px;
+  position: fixed !important;
+  left: 50%;
+  transform: translateX(-40%);
+  z-index: 10;
+}
+.alert-success {
+  background-color: var(--mainGreen) !important;
+}
+.alert-danger {
+  background-color: var(--mainRed) !important;
+}
+/* ##### end of alert ##### */
 /* ##### books ##### */
 .books table {
   width: 95%;
