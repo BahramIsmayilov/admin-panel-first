@@ -4,13 +4,13 @@ import { URL } from '../../utils/URL';
 
 export const BookContext = React.createContext();
 
-// Provider Consumer useContext()
 export function BookProvider({ children }) {
   const [loading, setLoading] = React.useState(false);
   const [books, setBooks] = React.useState([]);
   // book`s parametrs
   const [title, setTitle] = React.useState('');
-  const [author, setAuthor] = React.useState('');
+  const [authorId, setAuthorId] = React.useState();
+  const [singleAuthetFullName, setSingleAuthetFullName] = React.useState('');
   const [category, setCategory] = React.useState('');
   const [price, setPrice] = React.useState('');
   const [language, setLanguage] = React.useState('');
@@ -21,8 +21,10 @@ export function BookProvider({ children }) {
   const [id, setId] = React.useState();
   // alert
   const [alert, setAlert] = React.useState({ show: true });
-  //**** useEffect get books from data ****
+  // authors
+  const [authors, setAuthors] = React.useState([]);
 
+  //**** useEffect get books from data ****
   React.useEffect(() => {
     async function getBooks() {
       try {
@@ -39,6 +41,29 @@ export function BookProvider({ children }) {
     getBooks();
   }, []);
 
+  //**** useEffect get authors from data ****
+  React.useEffect(() => {
+    async function getAuthors() {
+      try {
+        setLoading(true);
+        const response = await fetch(`${URL}/authors`);
+        const data = await response.json();
+        const tempAuthors = await data;
+        const tempSort = tempAuthors.slice(0);
+        tempSort.sort((a, b) => {
+          let x = a.fullName.toLowerCase();
+          let y = b.fullName.toLowerCase();
+          return x < y ? -1 : x > y ? 1 : 0;
+        });
+        setAuthors(tempSort);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    }
+    getAuthors();
+  }, []);
+
   // book`s handle function
   const handleAlert = ({ type, text }) => {
     setAlert({ show: true, type, text });
@@ -49,8 +74,8 @@ export function BookProvider({ children }) {
   const handleTitle = e => {
     setTitle(e.target.value);
   };
-  const handleAuthor = e => {
-    setAuthor(e.target.value);
+  const handleAuthorId = e => {
+    setAuthorId(e.target.value);
   };
   const handleCategory = e => {
     setCategory(e.target.value);
@@ -85,6 +110,8 @@ export function BookProvider({ children }) {
   // handle Submit
   const handleSubmit = e => {
     e.preventDefault();
+    const intAuthorId = parseInt(authorId);
+    const tempAutherId = authors.find(item => item.id === intAuthorId);
     if (edit) {
       async function postEditBooks() {
         const response = await axios.post(
@@ -92,18 +119,27 @@ export function BookProvider({ children }) {
           {
             id,
             title,
-            author,
             category,
             price,
             language,
             publishDate,
-            pageCount
+            pageCount,
+            author: {
+              id: tempAutherId.id
+            }
           },
-          { headers: { 'Content-Type': 'application/json' } }
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
         );
       }
       postEditBooks();
-      handleAlert({ type: 'success', text: 'edit book' });
+      handleAlert({
+        type: 'success',
+        text: 'edit book'
+      });
       setEdit(false);
     } else {
       async function postBooks() {
@@ -111,23 +147,32 @@ export function BookProvider({ children }) {
           `${URL}/books/add`,
           {
             title,
-            author,
             category,
             price,
             language,
             publishDate,
-            pageCount
+            pageCount,
+            author: {
+              id: tempAutherId.id
+            }
           },
-          { headers: { 'Content-Type': 'application/json' } }
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
         );
         console.log(response);
       }
       postBooks();
-      handleAlert({ type: 'success', text: 'book add' });
+      handleAlert({
+        type: 'success',
+        text: 'book add'
+      });
       setBooks([...books]);
     }
     setTitle('');
-    setAuthor('');
+    setAuthorId('');
     setCategory('');
     setPrice('');
     setLanguage('');
@@ -162,15 +207,17 @@ export function BookProvider({ children }) {
     const tempBook = books.find(book => book.id === id);
     const {
       title,
-      author,
       category,
       price,
       language,
       publishDate,
       pageCount
     } = tempBook;
+    const { fullName } = tempBook.author;
+    const tempAuthorId = tempBook.author.id;
     setTitle(title);
-    setAuthor(author);
+    setAuthorId(tempAuthorId);
+    setSingleAuthetFullName(fullName);
     setCategory(category);
     setPrice(price);
     setLanguage(language);
@@ -179,6 +226,7 @@ export function BookProvider({ children }) {
     setEdit(true);
     setId(id);
   };
+
   return (
     <BookContext.Provider
       value={{
@@ -187,7 +235,7 @@ export function BookProvider({ children }) {
         handleEdit,
         handleSubmit,
         handleTitle,
-        handleAuthor,
+        handleAuthorId,
         handleCategory,
         handlePrice,
         handleLanguage,
@@ -200,12 +248,14 @@ export function BookProvider({ children }) {
         loading,
         books,
         title,
-        author,
+        authorId,
+        singleAuthetFullName,
         category,
         price,
         language,
         publishDate,
-        pageCount
+        pageCount,
+        authors
       }}
     >
       {children}

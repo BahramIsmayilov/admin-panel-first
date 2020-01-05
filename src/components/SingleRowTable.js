@@ -4,22 +4,14 @@ import { Link } from 'react-router-dom';
 
 const SingleRowTable = ({ ...item }) => {
   const { handleEdit, handleDelete } = React.useContext(BookContext);
-  const {
-    id,
-    title,
-    author,
-    category,
-    price,
-    language,
-    publishDate,
-    pageCount
-  } = item;
+  const { id, title, category, price, language, publishDate, pageCount } = item;
+  const { fullName } = item.author;
 
   return (
     <tr className="text-center">
       <th scope="row">{id}</th>
       <td>{title}</td>
-      <td>{author}</td>
+      <td>{fullName}</td>
       <td>{category}</td>
       <td>{price}</td>
       <td>{language}</td>

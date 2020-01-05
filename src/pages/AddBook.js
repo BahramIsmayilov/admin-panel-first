@@ -5,21 +5,23 @@ import { CategoriesContext } from '../components/context/categoriesContext';
 const AddBook = () => {
   const {
     title,
-    author,
+    authorId,
+    singleAuthetFullName,
     category,
     price,
     language,
     publishDate,
     pageCount,
     handleTitle,
-    handleAuthor,
+    handleAuthorId,
     handleCategory,
     handlePrice,
     handleLanguage,
     handlePublishDate,
     handlePageCount,
     handleSubmit,
-    edit
+    edit,
+    authors
   } = React.useContext(BookContext);
   const { categories } = React.useContext(CategoriesContext);
 
@@ -46,16 +48,28 @@ const AddBook = () => {
             </div>
             <div className="form-group">
               <label htmlFor="author">Author</label>
-              <input
+              <select
                 name="author"
-                type="text"
-                className="form-control"
                 id="author"
-                value={author}
-                onChange={handleAuthor}
-                placeholder="e.g David Flanagan"
-                required
-              />
+                defaultValue={'DEFAULT'}
+                className="form-control"
+                onChange={handleAuthorId}
+              >
+                {authorId ? (
+                  <option value="DEFAULT">{singleAuthetFullName}</option>
+                ) : (
+                  <option value="DEFAULT" disabled>
+                    Choose a book author ...
+                  </option>
+                )}
+                {authors.map(item => {
+                  return (
+                    <option key={item.id} value={item.id}>
+                      {item.fullName}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
             <div className="form-group">
               <label htmlFor="type">Category</label>
@@ -112,7 +126,7 @@ const AddBook = () => {
               <label htmlFor="publishDate">Publish Date</label>
               <input
                 name="publishDate"
-                type="number"
+                type="date"
                 className="form-control"
                 id="publishDate"
                 value={publishDate}
