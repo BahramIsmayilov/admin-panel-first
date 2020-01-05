@@ -2,7 +2,8 @@
 import React from 'react';
 import axios from 'axios';
 import { URL } from '../../utils/URL';
-import { toast } from 'react-toastify';
+import { succesNotify } from './properties';
+import { errorNotify } from './properties';
 
 export const BookContext = React.createContext();
 
@@ -139,12 +140,8 @@ export function BookProvider({ children }) {
         );
         {
           response.status === 200
-            ? toast.success('Successfully Edited !', {
-                position: toast.POSITION.BOTTOM_RIGHT
-              })
-            : toast.error('Something went wrong !', {
-                position: toast.POSITION.BOTTOM_RIGHT
-              });
+            ? succesNotify('Successfully Edited !')
+            : errorNotify();
         }
       }
       postEditBooks();
@@ -172,12 +169,8 @@ export function BookProvider({ children }) {
         );
         {
           response.status === 200
-            ? toast.success('Successfully Added !', {
-                position: toast.POSITION.BOTTOM_RIGHT
-              })
-            : toast.error('Something went wrong !', {
-                position: toast.POSITION.BOTTOM_RIGHT
-              });
+            ? succesNotify('Successfully Added !')
+            : errorNotify();
         }
       }
       postBooks();
@@ -193,12 +186,8 @@ export function BookProvider({ children }) {
       });
       {
         response.status === 200
-          ? toast.success('Success Delete all books !', {
-              position: toast.POSITION.BOTTOM_RIGHT
-            })
-          : toast.error('Something went wrong !', {
-              position: toast.POSITION.BOTTOM_RIGHT
-            });
+          ? succesNotify('Successfully Delete all Books !')
+          : errorNotify();
       }
     }
     clearAllBooks();
@@ -213,12 +202,8 @@ export function BookProvider({ children }) {
       });
       {
         response.status === 200
-          ? toast.success('Successfully Deleted !', {
-              position: toast.POSITION.BOTTOM_RIGHT
-            })
-          : toast.error('Something went wrong !', {
-              position: toast.POSITION.BOTTOM_RIGHT
-            });
+          ? succesNotify('Successfully Deleted !')
+          : errorNotify();
       }
     }
     deleteBooks();
