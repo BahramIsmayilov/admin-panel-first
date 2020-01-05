@@ -2,7 +2,7 @@ import React from 'react';
 import { BookContext } from './context/context';
 import { Link } from 'react-router-dom';
 
-const SingleRowTable = ({ ...item }) => {
+const SingleBook = ({ ...item }) => {
   const { handleEdit, handleDelete } = React.useContext(BookContext);
   const { id, title, category, price, language, publishDate, pageCount } = item;
   const { fullName } = item.author;
@@ -40,4 +40,4 @@ const SingleRowTable = ({ ...item }) => {
   );
 };
 
-export default SingleRowTable;
+export default SingleBook;

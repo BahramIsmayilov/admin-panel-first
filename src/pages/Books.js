@@ -1,16 +1,17 @@
 import React from 'react';
-import TableList from '../components/TableList';
+import BooksList from '../components/BooksList';
+import Loading from '../components/Loading';
 import { BookContext } from '../components/context/context';
 
 const Books = () => {
   const { books, loading } = React.useContext(BookContext);
 
   if (loading) {
-    return <h1 className="loading">Loading...</h1>;
+    return <Loading />;
   }
   return (
     <section className="section books">
-      <TableList books={books} />
+      <BooksList books={books} />
     </section>
   );
 };

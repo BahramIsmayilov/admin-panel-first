@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import SingleRowTable from './SingleRowTable';
+import SingleBook from './SingleBook';
 import { Link } from 'react-router-dom';
-import { BookContext } from '../components/context/context';
+import { BookContext } from './context/context';
 
-const TableList = ({ books }) => {
+const BooksList = ({ books }) => {
   const { handleClear } = React.useContext(BookContext);
   const [allBooks, setAllBooks] = React.useState([]);
   // ######## sort table`s value  ########
@@ -112,7 +112,7 @@ const TableList = ({ books }) => {
         </thead>
         <tbody>
           {allBooks.map(item => {
-            return <SingleRowTable key={item.id} {...item} />;
+            return <SingleBook key={item.id} {...item} />;
           })}
         </tbody>
       </table>
@@ -139,4 +139,4 @@ const TableList = ({ books }) => {
   );
 };
 
-export default TableList;
+export default BooksList;

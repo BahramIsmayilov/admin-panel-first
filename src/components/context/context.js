@@ -139,7 +139,7 @@ export function BookProvider({ children }) {
         );
         {
           response.status === 200
-            ? toast.success('Success Edit !', {
+            ? toast.success('Successfully Edited !', {
                 position: toast.POSITION.BOTTOM_RIGHT
               })
             : toast.error('Something went wrong !', {
@@ -172,7 +172,7 @@ export function BookProvider({ children }) {
         );
         {
           response.status === 200
-            ? toast.success('Success Add !', {
+            ? toast.success('Successfully Added !', {
                 position: toast.POSITION.BOTTOM_RIGHT
               })
             : toast.error('Something went wrong !', {
@@ -213,7 +213,7 @@ export function BookProvider({ children }) {
       });
       {
         response.status === 200
-          ? toast.success('Success Delete !', {
+          ? toast.success('Successfully Deleted !', {
               position: toast.POSITION.BOTTOM_RIGHT
             })
           : toast.error('Something went wrong !', {

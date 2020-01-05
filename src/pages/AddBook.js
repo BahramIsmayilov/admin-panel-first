@@ -160,7 +160,7 @@ const AddBook = () => {
               ) : (
                 <button
                   type="submit"
-                  className="col-6 btn btn-dark mx-auto px-4 py-2 spacing"
+                  className="col-6 btn btn-dark px-4 py-2 spacing"
                 >
                   Submit
                 </button>
@@ -168,7 +168,7 @@ const AddBook = () => {
               <button
                 onClick={() => handleClearInput()}
                 type="button"
-                className="col-6 btn btn-danger mx-auto px-4 py-2 spacing"
+                className="col-6 btn btn-danger px-4 py-2 spacing"
               >
                 Clear input
               </button>

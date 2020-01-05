@@ -110,6 +110,13 @@ a:hover {
   margin-top: 2rem;
 }
 /* ##### end of error ##### */
-/* ##### add book ##### */
-
-/* ##### end of add book ##### */
+/* ##### loading ##### */
+.back-dark {
+  background-color: var(--mainBlack);
+  height: 100vh;
+  padding-top: 9rem;
+}
+.back-dark img {
+  width: 300px;
+}
+/* ##### end of loading ##### */
