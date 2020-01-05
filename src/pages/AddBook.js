@@ -27,7 +27,6 @@ const AddBook = () => {
 
   // # sort categories
   categories.sort();
-
   return (
     <section className="section">
       <div className="container col-12  pb-5">

@@ -72,28 +72,6 @@ a:hover {
   margin-left: 15px;
 }
 /* ##### end of sidebar ##### */
-/* ##### Alert ##### */
-
-.alert {
-  padding: 0.75rem 1.25rem;
-  color: var(--mainWhite) !important;
-  text-align: center;
-  text-transform: capitalize;
-  width: 50%;
-  margin-top: 70px;
-  border-radius: 2px;
-  position: fixed !important;
-  left: 50%;
-  transform: translateX(-40%);
-  z-index: 10;
-}
-.alert-success {
-  background-color: var(--mainGreen) !important;
-}
-.alert-danger {
-  background-color: var(--mainRed) !important;
-}
-/* ##### end of alert ##### */
 /* ##### books ##### */
 .books table {
   width: 95%;

@@ -1,6 +1,8 @@
+/* eslint-disable no-lone-blocks */
 import React from 'react';
 import axios from 'axios';
 import { URL } from '../../utils/URL';
+import { toast } from 'react-toastify';
 
 export const BookContext = React.createContext();
 
@@ -19,11 +21,8 @@ export function BookProvider({ children }) {
   // edit book
   const [edit, setEdit] = React.useState(false);
   const [id, setId] = React.useState();
-  // alert
-  const [alert, setAlert] = React.useState({ show: true });
   // authors
   const [authors, setAuthors] = React.useState([]);
-
   //**** useEffect get books from data ****
   React.useEffect(() => {
     async function getBooks() {
@@ -65,12 +64,6 @@ export function BookProvider({ children }) {
   }, []);
 
   // book`s handle function
-  const handleAlert = ({ type, text }) => {
-    setAlert({ show: true, type, text });
-    setTimeout(() => {
-      setAlert({ show: false });
-    }, 3000);
-  };
   const handleTitle = e => {
     setTitle(e.target.value);
   };
@@ -92,7 +85,7 @@ export function BookProvider({ children }) {
   const handlePageCount = e => {
     setPageCount(e.target.value);
   };
-  const refreshPage = () => {
+  const refreshBooks = () => {
     async function getBooks() {
       try {
         setLoading(true);
@@ -134,12 +127,17 @@ export function BookProvider({ children }) {
             }
           }
         );
+        {
+          response.status === 200
+            ? toast.success('Success Edit !', {
+                position: toast.POSITION.BOTTOM_RIGHT
+              })
+            : toast.error('Something went wrong !', {
+                position: toast.POSITION.BOTTOM_RIGHT
+              });
+        }
       }
       postEditBooks();
-      handleAlert({
-        type: 'success',
-        text: 'edit book'
-      });
       setEdit(false);
     } else {
       async function postBooks() {
@@ -162,17 +160,21 @@ export function BookProvider({ children }) {
             }
           }
         );
-        console.log(response);
+        {
+          response.status === 200
+            ? toast.success('Success Add !', {
+                position: toast.POSITION.BOTTOM_RIGHT
+              })
+            : toast.error('Something went wrong !', {
+                position: toast.POSITION.BOTTOM_RIGHT
+              });
+        }
       }
       postBooks();
-      handleAlert({
-        type: 'success',
-        text: 'book add'
-      });
       setBooks([...books]);
     }
     setTitle('');
-    setAuthorId('');
+    setSingleAuthetFullName('');
     setCategory('');
     setPrice('');
     setLanguage('');
@@ -183,24 +185,40 @@ export function BookProvider({ children }) {
   const handleClear = () => {
     setBooks([]);
     async function clearAllBooks() {
-      await fetch(`${URL}/books/delete-all`, {
+      const response = await fetch(`${URL}/books/delete-all`, {
         method: 'DELETE'
       });
+      {
+        response.status === 200
+          ? toast.success('Success Delete all books !', {
+              position: toast.POSITION.BOTTOM_RIGHT
+            })
+          : toast.error('Something went wrong !', {
+              position: toast.POSITION.BOTTOM_RIGHT
+            });
+      }
     }
     clearAllBooks();
-    handleAlert({ type: 'danger', text: 'all books deleted' });
   };
   // handle Delete
   const handleDelete = id => {
     const tempBooks = books.filter(book => book.id !== id);
     setBooks(tempBooks);
     async function deleteBooks() {
-      await fetch(`${URL}/books/delete/${id}`, {
+      const response = await fetch(`${URL}/books/delete/${id}`, {
         method: 'DELETE'
       });
+      {
+        response.status === 200
+          ? toast.success('Success Delete !', {
+              position: toast.POSITION.BOTTOM_RIGHT
+            })
+          : toast.error('Something went wrong !', {
+              position: toast.POSITION.BOTTOM_RIGHT
+            });
+      }
     }
     deleteBooks();
-    handleAlert({ type: 'danger', text: 'book deleted' });
   };
   // handle edit
   const handleEdit = id => {
@@ -241,9 +259,7 @@ export function BookProvider({ children }) {
         handleLanguage,
         handlePublishDate,
         handlePageCount,
-        handleAlert,
-        alert,
-        refreshPage,
+        refreshBooks,
         edit,
         loading,
         books,

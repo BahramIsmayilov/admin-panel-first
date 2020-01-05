@@ -2,31 +2,33 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Books from './pages/Books';
-import Author from './pages/Author';
 import AddBook from './pages/AddBook';
+import Authors from './pages/Authors';
+import AddAuthor from './pages/AddAuthor';
 import Error from './pages/Error';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
-import Alert from './components/Alert';
-import { BookContext } from './components/context/context';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const { alert } = React.useContext(BookContext);
   return (
     <Router>
       <Navbar />
       <Sidebar />
-      {alert.show === true && <Alert type={alert.type} text={alert.text} />}
-      <Alert />
+      <ToastContainer />
       <Switch>
         <Route exact path="/">
           <Books />
         </Route>
-        <Route path="/author">
-          <Author />
-        </Route>
         <Route path="/addBook">
           <AddBook />
+        </Route>
+        <Route path="/authors">
+          <Authors />
+        </Route>
+        <Route path="/addAuthor">
+          <AddAuthor />
         </Route>
         <Route path="*">
           <Error />

@@ -26,8 +26,8 @@ const TableList = ({ books }) => {
   const handleAuthor = () => {
     const tempSort = books.slice(0);
     tempSort.sort((a, b) => {
-      let x = a.author.toLowerCase();
-      let y = b.author.toLowerCase();
+      let x = a.author.fullName.toLowerCase();
+      let y = b.author.fullName.toLowerCase();
       return x < y ? -1 : x > y ? 1 : 0;
     });
     setAllBooks(tempSort);
