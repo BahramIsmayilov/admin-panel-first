@@ -1,3 +1,4 @@
+// ####### Notification #######
 import { toast } from 'react-toastify';
 
 export const succesNotify = text =>
@@ -9,3 +10,4 @@ export const errorNotify = () =>
   toast.error('Something went wrong !', {
     position: toast.POSITION.BOTTOM_RIGHT
   });
+// ####### end of Notification #######
