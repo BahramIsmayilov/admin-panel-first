@@ -100,6 +100,16 @@ export function BookProvider({ children }) {
     }
     getBooks();
   };
+  // clear input
+  const handleClearInput = () => {
+    setTitle('');
+    setAuthorId();
+    setCategory('');
+    setPrice('');
+    setLanguage('');
+    setPublishDate('');
+    setPageCount('');
+  };
   // handle Submit
   const handleSubmit = e => {
     e.preventDefault();
@@ -173,13 +183,6 @@ export function BookProvider({ children }) {
       postBooks();
       setBooks([...books]);
     }
-    setTitle('');
-    setSingleAuthetFullName('');
-    setCategory('');
-    setPrice('');
-    setLanguage('');
-    setPublishDate('');
-    setPageCount('');
   };
   // handle Clear
   const handleClear = () => {
@@ -259,6 +262,7 @@ export function BookProvider({ children }) {
         handleLanguage,
         handlePublishDate,
         handlePageCount,
+        handleClearInput,
         refreshBooks,
         edit,
         loading,

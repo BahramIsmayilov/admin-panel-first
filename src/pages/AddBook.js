@@ -20,6 +20,7 @@ const AddBook = () => {
     handlePublishDate,
     handlePageCount,
     handleSubmit,
+    handleClearInput,
     edit,
     authors
   } = React.useContext(BookContext);
@@ -152,18 +153,25 @@ const AddBook = () => {
               {edit ? (
                 <button
                   type="submit"
-                  className="col-6 btn btn-success btn-block mx-auto px-4 py-2 spacing"
+                  className="col-6 btn btn-success mx-auto px-4 py-2 spacing"
                 >
                   Edit
                 </button>
               ) : (
                 <button
                   type="submit"
-                  className="col-6 btn btn-dark btn-block mx-auto px-4 py-2 spacing"
+                  className="col-6 btn btn-dark mx-auto px-4 py-2 spacing"
                 >
                   Submit
                 </button>
               )}
+              <button
+                onClick={() => handleClearInput()}
+                type="button"
+                className="col-6 btn btn-danger mx-auto px-4 py-2 spacing"
+              >
+                Clear input
+              </button>
             </div>
           </form>
         </div>
