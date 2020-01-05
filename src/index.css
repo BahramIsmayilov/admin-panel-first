@@ -6,7 +6,8 @@
 :root {
   --mainWhite: #fff;
   --mainBlack: #000;
-  --mainGray: #d6d8db;
+  --mainLightGray: #d6d8db;
+  --mainGray: #bbbcbe;
   --mainDarkGray: #6c757d;
   --mainDarkGreen: #209e91;
   --mainRed: #d50000;
@@ -15,7 +16,7 @@
   --mainLetterSpacing: 4px;
 }
 body {
-  background-color: var(--mainGray) !important;
+  background-color: var(--mainLightGray) !important;
 }
 /* ##### globall ##### */
 .section {
@@ -63,7 +64,7 @@ a:hover {
   transition: var(--mainSlowTransition);
 }
 .sidebar li:hover {
-  background-color: var(--mainGray);
+  background-color: var(--mainLightGray);
 }
 .sidebar li:hover a {
   color: var(--mainBlack) !important;
@@ -85,7 +86,7 @@ a:hover {
 }
 
 .books tr:hover {
-  background-color: var(--mainGray);
+  background-color: var(--mainLightGray);
 }
 @media screen and (min-width: 992px) {
   .books table {
@@ -111,12 +112,11 @@ a:hover {
 }
 /* ##### end of error ##### */
 /* ##### loading ##### */
-.back-dark {
-  background-color: var(--mainBlack);
+.loading {
+  background-color: var(--mainGray);
+  margin-left: 180px;
   height: 100vh;
   padding-top: 9rem;
-}
-.back-dark img {
-  width: 300px;
+  width: calc(100vw - 180px);
 }
 /* ##### end of loading ##### */

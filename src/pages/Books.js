@@ -7,7 +7,7 @@ const Books = () => {
   const { books, loading } = React.useContext(BookContext);
 
   if (loading) {
-    return <Loading />;
+    return <Loading type="spokes" color="#000" />;
   }
   return (
     <section className="section books">
