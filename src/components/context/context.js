@@ -174,20 +174,21 @@ export function BookProvider({ children }) {
         }
       }
       postBooks();
-      setBooks([...books]);
     }
   };
   // handle Clear
   const handleClear = () => {
-    setBooks([]);
     async function clearAllBooks() {
       const response = await fetch(`${URL}/books/delete-all`, {
         method: 'DELETE'
       });
       {
-        response.status === 200
-          ? succesNotify('Successfully Delete all Books !')
-          : errorNotify();
+        if (response.status === 200) {
+          succesNotify('Successfully Delete all Books !');
+          setBooks([]);
+        } else {
+          errorNotify();
+        }
       }
     }
     clearAllBooks();
@@ -195,15 +196,17 @@ export function BookProvider({ children }) {
   // handle Delete
   const handleDelete = id => {
     const tempBooks = books.filter(book => book.id !== id);
-    setBooks(tempBooks);
     async function deleteBooks() {
       const response = await fetch(`${URL}/books/delete/${id}`, {
         method: 'DELETE'
       });
       {
-        response.status === 200
-          ? succesNotify('Successfully Deleted !')
-          : errorNotify();
+        if (response.status === 200) {
+          succesNotify('Successfully Deleted !');
+          setBooks(tempBooks);
+        } else {
+          errorNotify();
+        }
       }
     }
     deleteBooks();
@@ -252,6 +255,7 @@ export function BookProvider({ children }) {
         edit,
         loading,
         books,
+        id,
         title,
         authorId,
         singleAuthetFullName,
