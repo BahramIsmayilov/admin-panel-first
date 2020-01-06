@@ -113,7 +113,6 @@ export function AuthorProvider({ children }) {
             }
           }
         );
-        // eslint-disable-next-line no-lone-blocks
         {
           response.status === 200
             ? successNotify('Successfully Added !')

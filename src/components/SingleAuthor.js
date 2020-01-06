@@ -1,9 +1,11 @@
 import React from 'react';
 import { AuthorContext } from './context/authorsContext';
+import { BookContext } from './context/context';
 import { Link } from 'react-router-dom';
 
 const SingleAuthor = ({ ...item }) => {
   const { handleEdit, handleDelete } = React.useContext(AuthorContext);
+  const { handleAuthorAllBooks } = React.useContext(BookContext);
   const { id, fullName, birthDate, email, gender } = item;
   return (
     <tr className="text-center">
@@ -15,7 +17,7 @@ const SingleAuthor = ({ ...item }) => {
       <td>
         <Link
           to="/"
-          // onClick={() => handleAllBooks(id)}
+          onClick={() => handleAuthorAllBooks(id)}
           type="button"
           className="btn btn-info"
         >

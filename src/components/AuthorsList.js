@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import SingleAuthor from './SingleAuthor';
 import { Link } from 'react-router-dom';
 import { AuthorContext } from '../components/context/authorsContext';
 
 const AuthorsList = ({ authors }) => {
   const { handleClear } = React.useContext(AuthorContext);
-  const [allAuthors, setAllAuthors] = React.useState([]);
 
   return (
     <div className="table-list">
       <table className="table">
         <thead className="thead-dark">
           <tr className="text-center">
-            <th scope="col">ID</th>
+            <th scope="col-1">ID</th>
             <th scope="col">Full Name</th>
             <th scope="col">Birthday</th>
             <th scope="col">Gender</th>

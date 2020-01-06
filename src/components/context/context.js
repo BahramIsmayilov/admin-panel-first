@@ -244,6 +244,23 @@ export function BookProvider({ children }) {
     setId(id);
   };
 
+  //**** handleAuthorAllBooks get author all books from data ****
+  const handleAuthorAllBooks = id => {
+    async function getAuthorAllBooks() {
+      try {
+        setLoading(true);
+        const response = await fetch(`${URL}/books/by-author/${id}`);
+        const data = await response.json();
+        const tempBooks = await data;
+        setBooks(tempBooks);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    }
+    getAuthorAllBooks();
+  };
+
   return (
     <BookContext.Provider
       value={{
@@ -272,7 +289,8 @@ export function BookProvider({ children }) {
         language,
         publishDate,
         pageCount,
-        authors
+        authors,
+        handleAuthorAllBooks
       }}
     >
       {children}

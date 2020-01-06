@@ -6,6 +6,7 @@ import { BookContext } from './context/context';
 const BooksList = ({ books }) => {
   const { handleClear } = React.useContext(BookContext);
   const [allBooks, setAllBooks] = React.useState([]);
+
   // ######## sort table`s value  ########
   const handleNumber = () => {
     const tempSort = books.slice(0);
@@ -76,6 +77,7 @@ const BooksList = ({ books }) => {
   useEffect(() => {
     setAllBooks(books);
   }, [books]);
+
   return (
     <div className="table-list">
       <table className="table">

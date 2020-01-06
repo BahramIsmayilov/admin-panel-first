@@ -3,7 +3,6 @@ import { AuthorContext } from '../components/context/authorsContext';
 
 const AddAuthor = () => {
   const {
-    id,
     fullName,
     birthDate,
     gender,
