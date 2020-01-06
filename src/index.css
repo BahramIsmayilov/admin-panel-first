@@ -114,9 +114,12 @@ a:hover {
 /* ##### loading ##### */
 .loading {
   background-color: var(--mainGray);
-  margin-left: 180px;
   height: 100vh;
-  padding-top: 9rem;
-  width: calc(100vw - 180px);
+  width: 100vw;
+}
+.loading .loading-logo {
+  position: absolute;
+  left: calc(50% + 90px);
+  transform: translateX(-50%);
 }
 /* ##### end of loading ##### */

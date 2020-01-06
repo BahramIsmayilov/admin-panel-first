@@ -3,17 +3,15 @@ import React from 'react';
 import ReactLoading from 'react-loading';
 
 const Loading = ({ type, color }) => (
-  <div className="loading">
-    <div className="container section pt-4">
-      <div className="row">
-        <ReactLoading
-          className="mx-auto"
-          type={type}
-          color={color}
-          height={'25%'}
-          width={'25%'}
-        />
-      </div>
+  <div className="container-fluid loading">
+    <div className="row">
+      <ReactLoading
+        className="mx-auto loading-logo"
+        type={type}
+        color={color}
+        height={'20%'}
+        width={'20%'}
+      />
     </div>
   </div>
 );
