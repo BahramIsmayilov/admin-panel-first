@@ -28,13 +28,14 @@ const SingleBook = ({ ...item }) => {
         </Link>
       </td>
       <td>
-        <button
+        <Link
           onClick={() => handleDelete(id)}
+          id={id}
           type="button"
           className="btn btn-danger"
         >
           Delete
-        </button>
+        </Link>
       </td>
     </tr>
   );

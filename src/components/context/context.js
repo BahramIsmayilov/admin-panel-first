@@ -209,7 +209,11 @@ export function BookProvider({ children }) {
         }
       }
     }
-    deleteBooks();
+    const disable = document.getElementById(id);
+    if (disable) {
+      disable.classList.add('disabled');
+      deleteBooks();
+    }
   };
   // handle edit
   const handleEdit = id => {

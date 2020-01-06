@@ -28,13 +28,13 @@ body {
 .text-center {
   text-align: center;
 }
+a,
 input[type],
 button[type],
 select,
 textarea {
   outline: none;
   box-shadow: none !important;
-  border: 1px solid #ccc !important;
 }
 .spacing {
   letter-spacing: var(--mainLetterSpacing);
