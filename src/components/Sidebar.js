@@ -7,7 +7,9 @@ import { BookContext } from '../components/context/context';
 import { AuthorContext } from '../components/context/authorsContext';
 
 const Sidebar = () => {
-  const { refreshBooks } = React.useContext(BookContext);
+  const { refreshBooks, handleRefreshAuthorsName } = React.useContext(
+    BookContext
+  );
   const { refreshAuthors } = React.useContext(AuthorContext);
   return (
     <section className="sidebar bg-secondary navbar-dark">
@@ -20,7 +22,11 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="nav-item active">
-            <Link to="/addBook" className="nav-link">
+            <Link
+              to="/addBook"
+              onClick={() => handleRefreshAuthorsName(1)}
+              className="nav-link"
+            >
               <FaBookMedical className="align-middle" />{' '}
               <span className="align-middle">Add Book</span>
             </Link>

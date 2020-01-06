@@ -24,6 +24,8 @@ export function BookProvider({ children }) {
   const [id, setId] = React.useState();
   // authors
   const [authors, setAuthors] = React.useState([]);
+  // refresh add book onClick
+  const [refreshAuthorsName, setRefreshAuthorsName] = React.useState(1);
   //**** useEffect get books from data ****
   React.useEffect(() => {
     async function getBooks() {
@@ -62,7 +64,7 @@ export function BookProvider({ children }) {
       setLoading(false);
     }
     getAuthors();
-  }, []);
+  }, [refreshAuthorsName]);
 
   // book`s handle function
   const handleTitle = e => {
@@ -101,6 +103,11 @@ export function BookProvider({ children }) {
       setLoading(false);
     }
     getBooks();
+  };
+  // handle refresh add book onClick
+  const handleRefreshAuthorsName = count => {
+    count++;
+    setRefreshAuthorsName(count);
   };
   // clear input
   const handleClearInput = () => {
@@ -290,7 +297,8 @@ export function BookProvider({ children }) {
         publishDate,
         pageCount,
         authors,
-        handleAuthorAllBooks
+        handleAuthorAllBooks,
+        handleRefreshAuthorsName
       }}
     >
       {children}
