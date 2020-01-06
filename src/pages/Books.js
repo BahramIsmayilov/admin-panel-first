@@ -6,7 +6,7 @@ import { BookContext } from '../components/context/context';
 const Books = () => {
   const { books, loading } = React.useContext(BookContext);
 
-  if (!loading) {
+  if (loading) {
     return <Loading type="spokes" color="#000" />;
   }
   return (
