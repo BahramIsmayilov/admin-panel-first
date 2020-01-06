@@ -64,7 +64,7 @@ const AddBook = () => {
                 </div>
               </div>
             ) : (
-              <div className="form-group">
+              <div className="form-group mb-4">
                 <label htmlFor="title">Name</label>
                 <input
                   name="title"
@@ -78,7 +78,7 @@ const AddBook = () => {
                 />
               </div>
             )}
-            <div class="form-row mb-3">
+            <div className="form-row mb-3">
               <div className="form-group col-md-6">
                 <label htmlFor="author">Author</label>
                 <select
@@ -130,7 +130,7 @@ const AddBook = () => {
                 </select>
               </div>
             </div>
-            <div class="form-row mb-3">
+            <div className="form-row mb-3">
               <div className="form-group col-md-6">
                 <label htmlFor="price">Price</label>
                 <input
@@ -158,7 +158,7 @@ const AddBook = () => {
                 />
               </div>
             </div>
-            <div class="form-row mb-4">
+            <div className="form-row mb-4">
               <div className="form-group col-md-6">
                 <label htmlFor="publishDate">Publish Date</label>
                 <input
@@ -168,7 +168,7 @@ const AddBook = () => {
                   id="publishDate"
                   value={publishDate}
                   onChange={handlePublishDate}
-                  placeholder="e.g 2020"
+                  placeholder="e.g 02/16/2019"
                   required
                 />
               </div>
@@ -190,14 +190,14 @@ const AddBook = () => {
               {edit ? (
                 <button
                   type="submit"
-                  className="col-6 btn btn-success mx-auto px-4 py-2 spacing"
+                  className="col-md-6 col-lg-5 btn btn-success mx-auto px-4 py-2 spacing"
                 >
                   Edit
                 </button>
               ) : (
                 <button
                   type="submit"
-                  className="col-6 btn btn-dark px-4 py-2 spacing"
+                  className="col-md-6 col-lg-5 btn btn-dark px-4 py-2 spacing"
                 >
                   Submit
                 </button>
@@ -205,7 +205,7 @@ const AddBook = () => {
               <button
                 onClick={() => handleClearInput()}
                 type="button"
-                className="col-6 btn btn-danger px-4 py-2 spacing"
+                className="col-md-6 col-lg-5 mt-sm-3 mt-md-0 float-right btn btn-danger px-4 py-2 spacing"
               >
                 Clear input
               </button>

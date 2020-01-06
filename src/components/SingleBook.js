@@ -29,6 +29,7 @@ const SingleBook = ({ ...item }) => {
       </td>
       <td>
         <Link
+          to="/"
           onClick={() => handleDelete(id)}
           id={id}
           type="button"

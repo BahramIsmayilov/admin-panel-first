@@ -35,6 +35,7 @@ select,
 textarea {
   outline: none;
   box-shadow: none !important;
+  border: none;
 }
 .spacing {
   letter-spacing: var(--mainLetterSpacing);

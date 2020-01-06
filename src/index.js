@@ -5,16 +5,17 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BookProvider } from './components/context/context';
 import { CategoriesProvider } from './components/context/categoriesContext';
-// import { AuthorProvider } from './components/context/authorsContext';
+import { AuthorProvider } from './components/context/authorsContext';
 
 ReactDOM.render(
-  // <AuthorProvider>
-  <BookProvider>
-    <CategoriesProvider>
-      <App />
-    </CategoriesProvider>
-  </BookProvider>,
-  // </AuthorProvider>,
+  <AuthorProvider>
+    <BookProvider>
+      <CategoriesProvider>
+        <App />
+      </CategoriesProvider>
+    </BookProvider>
+    ,
+  </AuthorProvider>,
   document.getElementById('root')
 );
 

@@ -1,7 +1,18 @@
 import React from 'react';
+import AuthorsList from '../components/AuthorsList';
+import Loading from '../components/Loading';
+import { AuthorContext } from '../components/context/authorsContext';
 
 const Authors = () => {
-  return <div className="section">hello from author</div>;
+  const { authors, loading } = React.useContext(AuthorContext);
+  if (loading) {
+    return <Loading type="spokes" color="#000" />;
+  }
+  return (
+    <section className="section books">
+      <AuthorsList authors={authors} />
+    </section>
+  );
 };
 
 export default Authors;

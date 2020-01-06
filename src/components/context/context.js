@@ -2,7 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import { URL } from '../../utils/URL';
-import { succesNotify } from './properties';
+import { successNotify } from './properties';
 import { errorNotify } from './properties';
 
 export const BookContext = React.createContext();
@@ -86,6 +86,7 @@ export function BookProvider({ children }) {
   const handlePageCount = e => {
     setPageCount(e.target.value);
   };
+  // refresh function books data
   const refreshBooks = () => {
     async function getBooks() {
       try {
@@ -140,7 +141,7 @@ export function BookProvider({ children }) {
         );
         {
           response.status === 200
-            ? succesNotify('Successfully Edited !')
+            ? successNotify('Successfully Edited !')
             : errorNotify();
         }
       }
@@ -169,7 +170,7 @@ export function BookProvider({ children }) {
         );
         {
           response.status === 200
-            ? succesNotify('Successfully Added !')
+            ? successNotify('Successfully Added !')
             : errorNotify();
         }
       }
@@ -184,7 +185,7 @@ export function BookProvider({ children }) {
       });
       {
         if (response.status === 200) {
-          succesNotify('Successfully Delete all Books !');
+          successNotify('Successfully Delete all Books !');
           setBooks([]);
         } else {
           errorNotify();
@@ -196,13 +197,13 @@ export function BookProvider({ children }) {
   // handle Delete
   const handleDelete = id => {
     const tempBooks = books.filter(book => book.id !== id);
-    async function deleteBooks() {
+    async function deleteBook() {
       const response = await fetch(`${URL}/books/delete/${id}`, {
         method: 'DELETE'
       });
       {
         if (response.status === 200) {
-          succesNotify('Successfully Deleted !');
+          successNotify('Successfully Deleted !');
           setBooks(tempBooks);
         } else {
           errorNotify();
@@ -212,7 +213,10 @@ export function BookProvider({ children }) {
     const disable = document.getElementById(id);
     if (disable) {
       disable.classList.add('disabled');
-      deleteBooks();
+      deleteBook();
+      setTimeout(() => {
+        disable.classList.remove('disabled');
+      }, 6000);
     }
   };
   // handle edit
