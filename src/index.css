@@ -32,7 +32,9 @@ a,
 input[type],
 button[type],
 select,
-textarea {
+textarea,
+select,
+option {
   outline: none;
   box-shadow: none !important;
   border: none;

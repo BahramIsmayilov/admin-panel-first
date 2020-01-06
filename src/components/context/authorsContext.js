@@ -88,7 +88,6 @@ export function AuthorProvider({ children }) {
             }
           }
         );
-        // eslint-disable-next-line no-lone-blocks
         {
           response.status === 200
             ? successNotify('Successfully Edited !')
@@ -114,9 +113,12 @@ export function AuthorProvider({ children }) {
           }
         );
         {
-          response.status === 200
-            ? successNotify('Successfully Added !')
-            : errorNotify();
+          if (response.status === 200) {
+            successNotify('Successfully Added !');
+            refreshAuthors();
+          } else {
+            errorNotify();
+          }
         }
       }
       postAuthors();
@@ -157,7 +159,6 @@ export function AuthorProvider({ children }) {
       }
     }
     const disable = document.getElementById(id);
-    console.log(disable);
     if (disable) {
       disable.classList.add('disabled');
       deleteAuthor();

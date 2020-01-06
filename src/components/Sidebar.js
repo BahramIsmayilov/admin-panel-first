@@ -4,7 +4,7 @@ import { FaBookOpen, FaBookMedical } from 'react-icons/fa';
 import { GoPerson } from 'react-icons/go';
 import { IoMdPersonAdd } from 'react-icons/io';
 import { BookContext } from '../components/context/context';
-import { AuthorContext } from '../components/context/authorsContext';
+import { AuthorContext } from './context/authorsContext';
 
 const Sidebar = () => {
   const { refreshBooks, handleRefreshAuthorsName } = React.useContext(
@@ -17,17 +17,17 @@ const Sidebar = () => {
         <ul className="navbar-nav ">
           <li className="nav-item active">
             <Link to="/" onClick={() => refreshBooks()} className="nav-link">
-              <FaBookOpen className="align-middle" />{' '}
+              <FaBookOpen className="align-middle" />
               <span className="align-middle">Books</span>
             </Link>
           </li>
           <li className="nav-item active">
             <Link
               to="/addBook"
-              onClick={() => handleRefreshAuthorsName(1)}
+              onClick={() => handleRefreshAuthorsName()}
               className="nav-link"
             >
-              <FaBookMedical className="align-middle" />{' '}
+              <FaBookMedical className="align-middle" />
               <span className="align-middle">Add Book</span>
             </Link>
           </li>
@@ -37,7 +37,7 @@ const Sidebar = () => {
               onClick={() => refreshAuthors()}
               className="nav-link"
             >
-              <GoPerson className="align-middle" />{' '}
+              <GoPerson className="align-middle" />
               <span className="align-middle">Authors</span>
             </Link>
           </li>

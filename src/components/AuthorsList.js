@@ -16,9 +16,9 @@ const AuthorsList = ({ authors }) => {
             <th scope="col">Birthday</th>
             <th scope="col">Gender</th>
             <th scope="col">Email</th>
-            <th scope="col">All Books</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
+            <th scope="col">Books</th>
           </tr>
         </thead>
         <tbody>

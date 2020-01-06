@@ -24,8 +24,6 @@ export function BookProvider({ children }) {
   const [id, setId] = React.useState();
   // authors
   const [authors, setAuthors] = React.useState([]);
-  // refresh add book onClick
-  const [refreshAuthorsName, setRefreshAuthorsName] = React.useState(1);
   //**** useEffect get books from data ****
   React.useEffect(() => {
     async function getBooks() {
@@ -52,11 +50,11 @@ export function BookProvider({ children }) {
         const data = await response.json();
         const tempAuthors = await data;
         const tempSort = tempAuthors.slice(0);
-        tempSort.sort((a, b) => {
-          let x = a.fullName.toLowerCase();
-          let y = b.fullName.toLowerCase();
-          return x < y ? -1 : x > y ? 1 : 0;
-        });
+        // tempSort.sort((a, b) => {
+        //   let x = a.fullName.toLowerCase();
+        //   let y = b.fullName.toLowerCase();
+        //   return x < y ? -1 : x > y ? 1 : 0;
+        // });
         setAuthors(tempSort);
       } catch (error) {
         console.log(error);
@@ -64,7 +62,7 @@ export function BookProvider({ children }) {
       setLoading(false);
     }
     getAuthors();
-  }, [refreshAuthorsName]);
+  }, []);
 
   // book`s handle function
   const handleTitle = e => {
@@ -105,9 +103,22 @@ export function BookProvider({ children }) {
     getBooks();
   };
   // handle refresh add book onClick
-  const handleRefreshAuthorsName = count => {
-    count++;
-    setRefreshAuthorsName(count);
+  const handleRefreshAuthorsName = () => {
+    async function getAuthors() {
+      try {
+        setLoading(true);
+        const response = await fetch(`${URL}/authors`);
+        const data = await response.json();
+        const tempAuthors = await data;
+        const tempSort = tempAuthors.slice(0);
+        setAuthors(tempSort);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    }
+    getAuthors();
+    handleClearInput();
   };
   // clear input
   const handleClearInput = () => {
@@ -118,6 +129,7 @@ export function BookProvider({ children }) {
     setLanguage('');
     setPublishDate('');
     setPageCount('');
+    setEdit(false);
   };
   // handle Submit
   const handleSubmit = e => {
@@ -176,9 +188,13 @@ export function BookProvider({ children }) {
           }
         );
         {
-          response.status === 200
-            ? successNotify('Successfully Added !')
-            : errorNotify();
+          if (response.status === 200) {
+            successNotify('Successfully Added !');
+            refreshBooks();
+            handleRefreshAuthorsName();
+          } else {
+            errorNotify();
+          }
         }
       }
       postBooks();
@@ -253,6 +269,7 @@ export function BookProvider({ children }) {
 
   //**** handleAuthorAllBooks get author all books from data ****
   const handleAuthorAllBooks = id => {
+    handleRefreshAuthorsName();
     async function getAuthorAllBooks() {
       try {
         setLoading(true);

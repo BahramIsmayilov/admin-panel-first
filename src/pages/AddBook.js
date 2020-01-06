@@ -40,6 +40,16 @@ const AddBook = () => {
             {edit ? (
               <div className="form-row mb-3">
                 <div className="form-group col-md-6">
+                  <label htmlFor="title">ID</label>
+                  <input
+                    name="id"
+                    disabled
+                    className="form-control"
+                    id="id"
+                    value={id}
+                  />
+                </div>
+                <div className="form-group col-md-6">
                   <label htmlFor="title">Name</label>
                   <input
                     name="title"
@@ -50,16 +60,6 @@ const AddBook = () => {
                     onChange={handleTitle}
                     placeholder="e.g JavaScript"
                     required
-                  />
-                </div>
-                <div className="form-group col-md-6">
-                  <label htmlFor="title">ID</label>
-                  <input
-                    name="id"
-                    disabled
-                    className="form-control"
-                    id="id"
-                    value={id}
                   />
                 </div>
               </div>

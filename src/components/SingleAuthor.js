@@ -7,6 +7,7 @@ const SingleAuthor = ({ ...item }) => {
   const { handleEdit, handleDelete } = React.useContext(AuthorContext);
   const { handleAuthorAllBooks } = React.useContext(BookContext);
   const { id, fullName, birthDate, email, gender } = item;
+
   return (
     <tr className="text-center">
       <th scope="row">{id}</th>
@@ -14,16 +15,6 @@ const SingleAuthor = ({ ...item }) => {
       <td>{birthDate}</td>
       <td>{gender}</td>
       <td>{email}</td>
-      <td>
-        <Link
-          to="/"
-          onClick={() => handleAuthorAllBooks(id)}
-          type="button"
-          className="btn btn-info"
-        >
-          All Books
-        </Link>
-      </td>
       <td>
         <Link
           to="/addAuthor"
@@ -43,6 +34,16 @@ const SingleAuthor = ({ ...item }) => {
           className="btn btn-danger"
         >
           Delete
+        </Link>
+      </td>
+      <td>
+        <Link
+          to="/"
+          onClick={() => handleAuthorAllBooks(id)}
+          type="button"
+          className="btn btn-info"
+        >
+          Books
         </Link>
       </td>
     </tr>
