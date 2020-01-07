@@ -9,7 +9,6 @@ import { BookContext } from '../components/context/context';
 const AuthorsList = ({ authors }) => {
   const { handleClear } = React.useContext(AuthorContext);
   const { books } = React.useContext(BookContext);
-  // const [newAuthors, setNewAuthors] = React.useState([]);
   let newAuthors = [];
 
   for (let i = 0; i < authors.length; i++) {
