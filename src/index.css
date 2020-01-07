@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Righteous&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -14,9 +16,12 @@
   --mainGreen: #4caf50;
   --mainSlowTransition: all 0.5s ease;
   --mainLetterSpacing: 4px;
+  --mainFontFamily: 'Open Sans', sans-serif;
+  --mainHeaderFontFamily: 'Righteous', cursive;
 }
 body {
   background-color: var(--mainLightGray) !important;
+  font-family: var(--mainFontFamily);
 }
 /* ##### globall ##### */
 .section {
@@ -77,6 +82,13 @@ a:hover {
 }
 /* ##### end of sidebar ##### */
 /* ##### books ##### */
+.books {
+  text-align: center;
+}
+.books h1 {
+  letter-spacing: var(--mainLetterSpacing);
+  font-family: var(--mainHeaderFontFamily);
+}
 .books table {
   width: 95%;
   margin: 2rem auto 0 auto;

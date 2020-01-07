@@ -24,6 +24,8 @@ export function BookProvider({ children }) {
   const [id, setId] = React.useState();
   // authors
   const [authors, setAuthors] = React.useState([]);
+  // all books page`s header
+  const [header, setHeader] = React.useState('');
   //**** useEffect get books from data ****
   React.useEffect(() => {
     async function getBooks() {
@@ -88,6 +90,7 @@ export function BookProvider({ children }) {
   };
   // refresh function books data
   const refreshBooks = () => {
+    setHeader('');
     async function getBooks() {
       try {
         setLoading(true);
@@ -191,7 +194,6 @@ export function BookProvider({ children }) {
           if (response.status === 200) {
             successNotify('Successfully Added !');
             refreshBooks();
-            handleRefreshAuthorsName();
           } else {
             errorNotify();
           }
@@ -277,6 +279,8 @@ export function BookProvider({ children }) {
         const data = await response.json();
         const tempBooks = await data;
         setBooks(tempBooks);
+        let tempHeader = tempBooks.map(item => tempBooks[0].author.fullName);
+        setHeader(tempHeader[0]);
       } catch (error) {
         console.log(error);
       }
@@ -284,6 +288,7 @@ export function BookProvider({ children }) {
     }
     getAuthorAllBooks();
   };
+  console.log(header);
 
   return (
     <BookContext.Provider
@@ -315,7 +320,8 @@ export function BookProvider({ children }) {
         pageCount,
         authors,
         handleAuthorAllBooks,
-        handleRefreshAuthorsName
+        handleRefreshAuthorsName,
+        header
       }}
     >
       {children}
