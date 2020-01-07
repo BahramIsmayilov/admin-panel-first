@@ -3,17 +3,20 @@ import { AuthorContext } from '../components/context/authorsContext';
 
 const AddAuthor = () => {
   const {
+    id,
     fullName,
     birthDate,
-    gender,
     email,
     edit,
+    gender,
     handleFullName,
     handleBirthDate,
     handleGender,
     handleEmail,
-    handleSubmit
+    handleSubmit,
+    handleClearInput
   } = React.useContext(AuthorContext);
+
   return (
     <div className="section">
       <div className="container col-12  pb-5">
@@ -22,6 +25,18 @@ const AddAuthor = () => {
             onSubmit={handleSubmit}
             className="mx-auto col-sm-10 col-md-10 col-lg-6"
           >
+            {edit ? (
+              <div className="form-group mb-4">
+                <label htmlFor="title">ID</label>
+                <input
+                  name="id"
+                  disabled
+                  className="form-control"
+                  id="id"
+                  value={id}
+                />
+              </div>
+            ) : null}
             <div className="form-group mb-4">
               <label htmlFor="fullName">Full Name</label>
               <input
@@ -49,19 +64,6 @@ const AddAuthor = () => {
               />
             </div>
             <div className="form-group mb-4">
-              <label htmlFor="gender">Gender</label>
-              <input
-                name="gender"
-                type="text"
-                className="form-control"
-                id="gender"
-                value={gender}
-                onChange={handleGender}
-                placeholder="e.g Female"
-                required
-              />
-            </div>
-            <div className="form-group mb-5">
               <label htmlFor="email">Email</label>
               <input
                 name="email"
@@ -73,6 +75,38 @@ const AddAuthor = () => {
                 placeholder="e.g example@gmail.com"
                 required
               />
+            </div>
+
+            <div className="form-group mb-4">
+              <label className="d-block">Gender</label>
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="male"
+                  value="Male"
+                  onChange={handleGender}
+                  checked={gender === 'Male' ? true : false}
+                />
+                <label className="form-check-label" htmlFor="male">
+                  Male
+                </label>
+              </div>
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="female"
+                  value="Female"
+                  onChange={handleGender}
+                  checked={gender === 'Female' ? true : false}
+                />
+                <label className="form-check-label" htmlFor="female">
+                  Female
+                </label>
+              </div>
             </div>
             <div className="coltext-center mt-4">
               {edit ? (
@@ -91,7 +125,7 @@ const AddAuthor = () => {
                 </button>
               )}
               <button
-                // onClick={() => handleClearInput()}
+                onClick={() => handleClearInput()}
                 type="button"
                 className="col-md-6 col-lg-5 mt-sm-3 mt-md-0 float-right btn btn-danger px-4 py-2 spacing"
               >

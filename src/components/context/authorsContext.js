@@ -178,7 +178,14 @@ export function AuthorProvider({ children }) {
     setEdit(true);
     setId(id);
   };
-
+  // handle clear input
+  const handleClearInput = () => {
+    setFullName('');
+    setBirthDate('');
+    setGender('');
+    setEmail('');
+    setEdit(false);
+  };
   return (
     <AuthorContext.Provider
       value={{
@@ -197,6 +204,7 @@ export function AuthorProvider({ children }) {
         handleSubmit,
         handleEdit,
         handleClear,
+        handleClearInput,
         handleDelete,
         refreshAuthors
       }}
