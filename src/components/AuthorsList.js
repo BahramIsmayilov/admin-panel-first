@@ -1,10 +1,28 @@
+/* eslint-disable no-loop-func */
+/* eslint-disable no-const-assign */
 import React from 'react';
 import SingleAuthor from './SingleAuthor';
 import { Link } from 'react-router-dom';
 import { AuthorContext } from '../components/context/authorsContext';
+import { BookContext } from '../components/context/context';
 
 const AuthorsList = ({ authors }) => {
   const { handleClear } = React.useContext(AuthorContext);
+  const { books } = React.useContext(BookContext);
+  // const [newAuthors, setNewAuthors] = React.useState([]);
+  let newAuthors = [];
+
+  for (let i = 0; i < authors.length; i++) {
+    let count = 0;
+    books.map(item => {
+      if (item.author.id === authors[i].id) {
+        count++;
+      }
+    });
+    let tempAuthors = { ...authors[i], count };
+    newAuthors = [...newAuthors, tempAuthors];
+    count = 0;
+  }
 
   return (
     <div className="table-list">
@@ -22,7 +40,7 @@ const AuthorsList = ({ authors }) => {
           </tr>
         </thead>
         <tbody>
-          {authors.map(item => {
+          {newAuthors.map(item => {
             return <SingleAuthor key={item.id} {...item} />;
           })}
         </tbody>

@@ -9,7 +9,8 @@ const Authors = () => {
     return <Loading type="spokes" color="#000" />;
   }
   return (
-    <section className="section books">
+    <section className="section books pt-4">
+      <h1>All Authors</h1>
       <AuthorsList authors={authors} />
     </section>
   );

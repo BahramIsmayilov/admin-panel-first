@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const SingleAuthor = ({ ...item }) => {
   const { handleEdit, handleDelete } = React.useContext(AuthorContext);
   const { handleAuthorAllBooks } = React.useContext(BookContext);
-  const { id, fullName, birthDate, email, gender } = item;
+  const { id, fullName, birthDate, email, gender, count } = item;
 
   return (
     <tr className="text-center">
@@ -43,7 +43,11 @@ const SingleAuthor = ({ ...item }) => {
           type="button"
           className="btn btn-info"
         >
-          Books
+          {count > 1
+            ? `${count} Books`
+            : count === 1
+            ? `${count} Book`
+            : `No Book`}
         </Link>
       </td>
     </tr>

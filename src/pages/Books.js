@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import BooksList from '../components/BooksList';
 import Loading from '../components/Loading';
 import { BookContext } from '../components/context/context';
@@ -10,7 +10,7 @@ const Books = () => {
     return <Loading type="spokes" color="#000" />;
   }
   return (
-    <section className="section books pt-4 ">
+    <section className="section books pt-4">
       {header ? (
         <h1>
           {header}`s {books.length > 1 ? 'Books' : 'Book'}

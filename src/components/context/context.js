@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-lone-blocks */
 import React from 'react';
 import axios from 'axios';
@@ -26,6 +27,7 @@ export function BookProvider({ children }) {
   const [authors, setAuthors] = React.useState([]);
   // all books page`s header
   const [header, setHeader] = React.useState('');
+  const [authorCount, setAuthorCount] = React.useState([]);
   //**** useEffect get books from data ****
   React.useEffect(() => {
     async function getBooks() {
@@ -105,6 +107,30 @@ export function BookProvider({ children }) {
     }
     getBooks();
   };
+
+  React.useEffect(() => {
+    const countAuthorsBooks = () => {
+      const tempCount = [...books.map(item => item.author.id)];
+      tempCount.sort();
+      let countBooks = [];
+      let count = 1;
+      for (let i = 0; i < tempCount.length; i++) {
+        if (tempCount[i] === tempCount[i + 1]) {
+          count++;
+        } else {
+          let tempIdValue = { idAuthor: tempCount[i], count: count };
+
+          countBooks = [...countBooks, tempIdValue];
+          count = 1;
+        }
+      }
+      console.log(countBooks);
+      setAuthorCount(countBooks);
+    };
+    countAuthorsBooks();
+  }, [books, authors]);
+  console.log(authorCount);
+
   // handle refresh add book onClick
   const handleRefreshAuthorsName = () => {
     async function getAuthors() {
@@ -288,7 +314,6 @@ export function BookProvider({ children }) {
     }
     getAuthorAllBooks();
   };
-  console.log(header);
 
   return (
     <BookContext.Provider
@@ -321,7 +346,8 @@ export function BookProvider({ children }) {
         authors,
         handleAuthorAllBooks,
         handleRefreshAuthorsName,
-        header
+        header,
+        authorCount
       }}
     >
       {children}
