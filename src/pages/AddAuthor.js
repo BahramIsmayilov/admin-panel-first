@@ -77,8 +77,9 @@ const AddAuthor = () => {
               />
             </div>
 
-            <div className="form-group mb-4">
-              <label className="d-block">Gender</label>
+            <label>Gender</label>
+            <div className="form-group mb-4 radio-button">
+              <div></div>
               <div className="form-check form-check-inline">
                 <input
                   className="form-check-input"
@@ -108,7 +109,7 @@ const AddAuthor = () => {
                 </label>
               </div>
             </div>
-            <div className="coltext-center mt-4">
+            <div className="coltext-center mt-5">
               {edit ? (
                 <button
                   type="submit"

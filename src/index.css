@@ -126,3 +126,11 @@ a:hover {
   transform: translateX(-50%);
 }
 /* ##### end of loading ##### */
+/* ##### author ##### */
+
+.radio-button {
+  background-color: var(--mainWhite);
+  padding: 8px 10px;
+  border-radius: 5px;
+}
+/* ##### end of add author ##### */
