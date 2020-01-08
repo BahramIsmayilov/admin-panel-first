@@ -65,11 +65,11 @@ const BooksList = ({ books }) => {
     setAllBooks(tempSort);
   };
   const handlePublishDate = () => {
-    const tempSort = books.slice(0);
-    tempSort.sort((a, b) => {
-      return a.publishDate - b.publishDate;
-    });
-    setAllBooks(tempSort);
+    //   const tempSort = books.slice(0);
+    //   tempSort.sort((a, b) => {
+    //     return a.publishDate - b.publishDate;
+    //   });
+    //   setAllBooks(tempSort);
   };
   const handlePage = () => {
     const tempSort = books.slice(0);

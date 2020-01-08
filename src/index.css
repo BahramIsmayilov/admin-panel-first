@@ -16,6 +16,7 @@
   --mainGreen: #4caf50;
   --mainSlowTransition: all 0.5s ease;
   --mainLetterSpacing: 4px;
+  --mainSmallLetterSpacing: 2px;
   --mainFontFamily: 'Open Sans', sans-serif;
   --mainHeaderFontFamily: 'Righteous', cursive;
 }
@@ -39,13 +40,17 @@ button[type],
 select,
 textarea,
 select,
-option {
+option,
+button {
   outline: none;
   box-shadow: none !important;
   border: none;
 }
 .spacing {
   letter-spacing: var(--mainLetterSpacing);
+}
+.small-spacing {
+  letter-spacing: var(--mainSmallLetterSpacing);
 }
 a:hover {
   text-decoration: none;
@@ -113,6 +118,9 @@ a:hover {
   text-align: center;
   font-size: 3rem;
   letter-spacing: var(--mainLetterSpacing);
+}
+.button-group {
+  text-align: center;
 }
 /* ##### end of books ##### */
 /* ##### error ##### */

@@ -42,7 +42,7 @@ const AddAuthor = () => {
               <input
                 name="fullName"
                 type="text"
-                className="form-control"
+                className="form-control text-capitalize"
                 id="fullName"
                 value={fullName}
                 onChange={handleFullName}

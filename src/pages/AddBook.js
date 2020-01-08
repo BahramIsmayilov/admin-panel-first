@@ -20,12 +20,14 @@ const AddBook = () => {
     handleLanguage,
     handlePublishDate,
     handlePageCount,
-    handleSubmit,
+    handleAdd,
+    handleEditButton,
     handleClearInput,
     edit,
     authors
   } = React.useContext(BookContext);
   const { categories } = React.useContext(CategoriesContext);
+  console.log(id);
 
   // # sort categories
   categories.sort();
@@ -33,12 +35,9 @@ const AddBook = () => {
     <section className="section">
       <div className="container col-12  pb-5">
         <div className="row pt-5">
-          <form
-            onSubmit={handleSubmit}
-            className="mx-auto col-sm-10 col-md-10 col-lg-6"
-          >
+          <form className="mx-auto col-sm-10 col-md-10 col-lg-8">
             {edit ? (
-              <div className="form-row mb-3">
+              <div className="form-row mb-md-3">
                 <div className="form-group col-md-6">
                   <label htmlFor="title">ID</label>
                   <input
@@ -64,12 +63,12 @@ const AddBook = () => {
                 </div>
               </div>
             ) : (
-              <div className="form-group mb-4">
+              <div className="form-group mb-md-4">
                 <label htmlFor="title">Name</label>
                 <input
                   name="title"
                   type="text"
-                  className="form-control"
+                  className="form-control text-capitalize"
                   id="title"
                   value={title}
                   onChange={handleTitle}
@@ -78,7 +77,7 @@ const AddBook = () => {
                 />
               </div>
             )}
-            <div className="form-row mb-3">
+            <div className="form-row mb-md-3">
               <div className="form-group col-md-6">
                 <label htmlFor="author">Author</label>
                 <select
@@ -130,7 +129,7 @@ const AddBook = () => {
                 </select>
               </div>
             </div>
-            <div className="form-row mb-3">
+            <div className="form-row mb-md-3">
               <div className="form-group col-md-6">
                 <label htmlFor="price">Price</label>
                 <input
@@ -149,7 +148,7 @@ const AddBook = () => {
                 <input
                   name="language"
                   type="text"
-                  className="form-control"
+                  className="form-control text-capitalize"
                   id="language"
                   value={language}
                   onChange={handleLanguage}
@@ -181,31 +180,35 @@ const AddBook = () => {
                   id="pageCount"
                   value={pageCount}
                   onChange={handlePageCount}
+                  min="1"
                   placeholder="e.g 123"
                   required
                 />
               </div>
             </div>
-            <div className="coltext-center mt-4">
-              {edit ? (
+            <div className="coltext-center button-group mt-4">
+              {id ? (
                 <button
-                  type="submit"
-                  className="col-md-6 col-lg-5 btn btn-success mx-auto px-4 py-2 spacing"
+                  onClick={handleEditButton}
+                  className="col-md-6 col-lg-4 btn btn-success spacing mx-auto py-2 border border-white editButtonClass"
                 >
-                  Edit
+                  Save
                 </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="col-md-6 col-lg-5 btn btn-dark px-4 py-2 spacing"
-                >
-                  Submit
-                </button>
-              )}
+              ) : null}
+              <button
+                onClick={handleAdd}
+                className={`${
+                  id ? 'col-md-6 col-lg-4' : 'col-md-8 col-lg-6'
+                } btn btn-primary py-2 small-spacing mt-sm-3 mt-md-0 border border-white`}
+              >
+                Add New Book
+              </button>
               <button
                 onClick={() => handleClearInput()}
                 type="button"
-                className="col-md-6 col-lg-5 mt-sm-3 mt-md-0 float-right btn btn-danger px-4 py-2 spacing"
+                className={`${
+                  id ? 'col-lg-4' : 'col-lg-6'
+                } col-md-8 btn btn-danger py-2 spacing mt-sm-3 mt-md-4 mt-lg-0 border border-white`}
               >
                 Clear input
               </button>

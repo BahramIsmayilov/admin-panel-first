@@ -126,6 +126,8 @@ export function BookProvider({ children }) {
     }
     getAuthors();
     handleClearInput();
+    setEdit(false);
+    setId();
   };
   // clear input
   const handleClearInput = () => {
@@ -138,12 +140,51 @@ export function BookProvider({ children }) {
     setPageCount('');
     setEdit(false);
   };
-  // handle Submit
-  const handleSubmit = e => {
+  const handleAdd = e => {
     e.preventDefault();
     const intAuthorId = parseInt(authorId);
     const tempAutherId = authors.find(item => item.id === intAuthorId);
-    if (edit) {
+    async function postBooks() {
+      const response = await axios.post(
+        `${URL}/books/add`,
+        {
+          title,
+          category,
+          price,
+          language,
+          publishDate,
+          pageCount,
+          author: {
+            id: tempAutherId.id
+          }
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      console.log('handle added');
+      console.log(response);
+
+      {
+        if (response.status === 200) {
+          successNotify('Successfully Added !');
+          setId(response.data);
+          refreshBooks();
+        } else {
+          errorNotify();
+        }
+      }
+    }
+    postBooks();
+  };
+  // handle Edit Book button
+  const handleEditButton = e => {
+    e.preventDefault();
+    const intAuthorId = parseInt(authorId);
+    const tempAutherId = authors.find(item => item.id === intAuthorId);
+    if (edit || id) {
       async function postEditBooks() {
         const response = await axios.post(
           `${URL}/books/add`,
@@ -165,14 +206,19 @@ export function BookProvider({ children }) {
             }
           }
         );
+        console.log('handle edited');
+        console.log(response);
         {
-          response.status === 200
-            ? successNotify('Successfully Edited !')
-            : errorNotify();
+          if (response.status === 200) {
+            successNotify('Successfully Edited !');
+            setId(response.data);
+          } else {
+            errorNotify();
+          }
         }
       }
       postEditBooks();
-      setEdit(false);
+      setEdit(true);
     } else {
       async function postBooks() {
         const response = await axios.post(
@@ -194,9 +240,13 @@ export function BookProvider({ children }) {
             }
           }
         );
+        console.log('handle added');
+        console.log(response);
+
         {
           if (response.status === 200) {
             successNotify('Successfully Added !');
+            setId(response.data);
             refreshBooks();
           } else {
             errorNotify();
@@ -321,7 +371,6 @@ export function BookProvider({ children }) {
         handleClear,
         handleDelete,
         handleEdit,
-        handleSubmit,
         handleTitle,
         handleAuthorId,
         handleCategory,
@@ -349,7 +398,9 @@ export function BookProvider({ children }) {
         header,
         deleteBooksAuthorId,
         headerNoBooks,
-        handleDeleteBooksByAuthors
+        handleDeleteBooksByAuthors,
+        handleAdd,
+        handleEditButton
       }}
     >
       {children}
