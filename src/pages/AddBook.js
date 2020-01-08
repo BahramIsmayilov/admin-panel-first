@@ -24,19 +24,25 @@ const AddBook = () => {
     handleEditButton,
     handleClearInput,
     edit,
-    authors
+    authors,
+    handleSubmit
   } = React.useContext(BookContext);
   const { categories } = React.useContext(CategoriesContext);
-  console.log(id);
 
   // # sort categories
   categories.sort();
   return (
     <section className="section">
-      <div className="container col-12  pb-5">
+      <div className="container col-12  pb-5 ">
+        <h1 className="header text-center mb-0 mt-3">
+          {edit || id ? 'Edit Book or Add New Book' : 'Add New Book'}
+        </h1>
         <div className="row pt-5">
-          <form className="mx-auto col-sm-10 col-md-10 col-lg-8">
-            {edit ? (
+          <form
+            onSubmit={handleSubmit}
+            className="mx-auto col-sm-10 col-md-10 col-lg-8"
+          >
+            {edit || id ? (
               <div className="form-row mb-md-3">
                 <div className="form-group col-md-6">
                   <label htmlFor="title">ID</label>
@@ -58,7 +64,6 @@ const AddBook = () => {
                     value={title}
                     onChange={handleTitle}
                     placeholder="e.g JavaScript"
-                    required
                   />
                 </div>
               </div>
@@ -73,7 +78,6 @@ const AddBook = () => {
                   value={title}
                   onChange={handleTitle}
                   placeholder="e.g JavaScript"
-                  required
                 />
               </div>
             )}
@@ -81,6 +85,7 @@ const AddBook = () => {
               <div className="form-group col-md-6">
                 <label htmlFor="author">Author</label>
                 <select
+                  type="text"
                   name="author"
                   id="author"
                   defaultValue={'DEFAULT'}
@@ -106,6 +111,7 @@ const AddBook = () => {
               <div className="form-group col-md-6">
                 <label htmlFor="type">Category</label>
                 <select
+                  type="text"
                   name="category"
                   id="category"
                   defaultValue={'DEFAULT'}
@@ -140,7 +146,6 @@ const AddBook = () => {
                   value={price}
                   onChange={handlePrice}
                   placeholder="e.g 25 AZN"
-                  required
                 />
               </div>
               <div className="form-group col-md-6">
@@ -153,7 +158,6 @@ const AddBook = () => {
                   value={language}
                   onChange={handleLanguage}
                   placeholder="e.g English"
-                  required
                 />
               </div>
             </div>
@@ -168,7 +172,6 @@ const AddBook = () => {
                   value={publishDate}
                   onChange={handlePublishDate}
                   placeholder="e.g 02/16/2019"
-                  required
                 />
               </div>
               <div className="form-group col-md-6">
@@ -182,30 +185,94 @@ const AddBook = () => {
                   onChange={handlePageCount}
                   min="1"
                   placeholder="e.g 123"
-                  required
                 />
               </div>
             </div>
+            {title &&
+            handleAuthorId &&
+            category &&
+            price &&
+            language &&
+            publishDate &&
+            pageCount ? null : (
+              <p className="text-danger small-spacing">
+                Please Fill Out All Form Fields
+              </p>
+            )}
+
             <div className="coltext-center button-group mt-4">
               {id ? (
-                <button
-                  onClick={handleEditButton}
-                  className="col-md-6 col-lg-4 btn btn-success spacing mx-auto py-2 border border-white editButtonClass"
-                >
-                  Save
-                </button>
+                title &&
+                handleAuthorId &&
+                category &&
+                price &&
+                language &&
+                publishDate &&
+                pageCount ? (
+                  <button
+                    onClick={handleEditButton}
+                    type="submit"
+                    className="col-md-6 col-lg-4 btn btn-success spacing mx-auto py-2 border border-white editButtonClass"
+                  >
+                    Save
+                  </button>
+                ) : title &&
+                  handleAuthorId &&
+                  category &&
+                  price &&
+                  language &&
+                  publishDate &&
+                  pageCount ? (
+                  <button
+                    onClick={handleEditButton}
+                    type="submit"
+                    className="col-md-6 col-lg-4 btn btn-success spacing mx-auto py-2 border border-white editButtonClass"
+                  >
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleEditButton}
+                    type="submit"
+                    className="col-md-6 col-lg-4 btn btn-success spacing mx-auto py-2 border border-white editButtonClass"
+                    disabled
+                  >
+                    Save
+                  </button>
+                )
               ) : null}
-              <button
-                onClick={handleAdd}
-                className={`${
-                  id ? 'col-md-6 col-lg-4' : 'col-md-8 col-lg-6'
-                } btn btn-primary py-2 small-spacing mt-sm-3 mt-md-0 border border-white`}
-              >
-                Add New Book
-              </button>
+              {title &&
+              handleAuthorId &&
+              category &&
+              price &&
+              language &&
+              publishDate &&
+              pageCount ? (
+                <button
+                  onClick={handleAdd}
+                  type="submit"
+                  className={`${
+                    id ? 'col-md-6 col-lg-4' : 'col-md-8 col-lg-6'
+                  } btn btn-primary py-2 small-spacing mt-sm-3 mt-md-0 border border-white`}
+                >
+                  Add New Book
+                </button>
+              ) : (
+                <button
+                  onClick={handleAdd}
+                  type="submit"
+                  className={`${
+                    id ? 'col-md-6 col-lg-4' : 'col-md-8 col-lg-6'
+                  } btn btn-primary py-2 small-spacing mt-sm-3 mt-md-0 border border-white`}
+                  disabled
+                >
+                  Add New Book
+                </button>
+              )}
+
               <button
                 onClick={() => handleClearInput()}
-                type="button"
+                type="submit"
                 className={`${
                   id ? 'col-lg-4' : 'col-lg-6'
                 } col-md-8 btn btn-danger py-2 spacing mt-sm-3 mt-md-4 mt-lg-0 border border-white`}

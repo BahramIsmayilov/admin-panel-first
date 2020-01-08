@@ -90,7 +90,8 @@ a:hover {
 .books {
   text-align: center;
 }
-.books h1 {
+.books h1,
+.header {
   letter-spacing: var(--mainLetterSpacing);
   font-family: var(--mainHeaderFontFamily);
 }

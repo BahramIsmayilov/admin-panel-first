@@ -2,8 +2,12 @@
 import React from 'react';
 import axios from 'axios';
 import { URL } from '../../utils/URL';
-import { successNotify } from './properties';
-import { errorNotify } from './properties';
+import {
+  successNotify,
+  infoNotify,
+  errorNotify,
+  redNotify
+} from './properties';
 
 export const BookContext = React.createContext();
 
@@ -125,20 +129,30 @@ export function BookProvider({ children }) {
       setLoading(false);
     }
     getAuthors();
-    handleClearInput();
+    emptyValue();
     setEdit(false);
     setId();
   };
-  // clear input
-  const handleClearInput = () => {
+  // empty value inputs
+  const emptyValue = () => {
     setTitle('');
-    setAuthorId();
+    setAuthorId('');
     setCategory('');
     setPrice('');
     setLanguage('');
     setPublishDate('');
+    setSingleAuthetFullName('');
     setPageCount('');
-    setEdit(false);
+  };
+  // handle submit
+  const handleSubmit = e => {
+    e.preventDefault();
+  };
+  // clear input
+  const handleClearInput = () => {
+    emptyValue();
+    // setEdit(false);
+    redNotify('Successfully Clear Input`s Value !');
   };
   const handleAdd = e => {
     e.preventDefault();
@@ -169,7 +183,7 @@ export function BookProvider({ children }) {
 
       {
         if (response.status === 200) {
-          successNotify('Successfully Added !');
+          infoNotify('Successfully Added !');
           setId(response.data);
           refreshBooks();
         } else {
@@ -245,7 +259,7 @@ export function BookProvider({ children }) {
 
         {
           if (response.status === 200) {
-            successNotify('Successfully Added !');
+            infoNotify('Successfully Added !');
             setId(response.data);
             refreshBooks();
           } else {
@@ -400,7 +414,8 @@ export function BookProvider({ children }) {
         headerNoBooks,
         handleDeleteBooksByAuthors,
         handleAdd,
-        handleEditButton
+        handleEditButton,
+        handleSubmit
       }}
     >
       {children}
