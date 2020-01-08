@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 /* eslint-disable no-undef */
 /* eslint-disable no-lone-blocks */
 import React from 'react';
@@ -27,6 +28,7 @@ export function BookProvider({ children }) {
   const [authors, setAuthors] = React.useState([]);
   // all books page`s header
   const [header, setHeader] = React.useState('');
+  const [selectAuthorId, setSelectAuthorId] = React.useState();
 
   //**** useEffect get books from data ****
   React.useEffect(() => {
@@ -247,6 +249,35 @@ export function BookProvider({ children }) {
       }, 6000);
     }
   };
+  // handle Author`s books clear
+  const handleAuthorAllBooksClear = () => {
+    const tempAuthorBooks = books.filter(
+      book => book.author.id === selectAuthorId
+    );
+    let count = tempAuthorBooks.length;
+    tempAuthorBooks.map(item => {
+      async function deleteBook() {
+        const response = await fetch(`${URL}/books/delete/${item.id}`, {
+          method: 'DELETE'
+        });
+        {
+          count--;
+          console.log(count);
+
+          if (count === 0) {
+            if (response.status === 200) {
+              successNotify(`Successfully Deleted ${header}'s All Books !`);
+              setBooks([]);
+            } else {
+              errorNotify();
+            }
+          }
+        }
+      }
+      deleteBook();
+    });
+  };
+
   // handle edit
   const handleEdit = id => {
     const tempBook = books.find(book => book.id === id);
@@ -282,6 +313,7 @@ export function BookProvider({ children }) {
         const data = await response.json();
         const tempBooks = await data;
         setBooks(tempBooks);
+        setSelectAuthorId(id);
         let tempHeader = tempBooks.map(item => tempBooks[0].author.fullName);
         setHeader(tempHeader[0]);
       } catch (error) {
@@ -323,7 +355,8 @@ export function BookProvider({ children }) {
         authors,
         handleAuthorAllBooks,
         handleRefreshAuthorsName,
-        header
+        header,
+        handleAuthorAllBooksClear
       }}
     >
       {children}

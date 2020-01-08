@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable no-loop-func */
 /* eslint-disable no-const-assign */
 import React from 'react';
@@ -9,6 +10,7 @@ import { BookContext } from '../components/context/context';
 const AuthorsList = ({ authors }) => {
   const { handleClear } = React.useContext(AuthorContext);
   const { books } = React.useContext(BookContext);
+
   let newAuthors = [];
 
   for (let i = 0; i < authors.length; i++) {
