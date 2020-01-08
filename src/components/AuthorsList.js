@@ -1,6 +1,4 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable no-loop-func */
-/* eslint-disable no-const-assign */
 import React from 'react';
 import SingleAuthor from './SingleAuthor';
 import { Link } from 'react-router-dom';

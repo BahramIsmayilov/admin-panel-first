@@ -1,7 +1,7 @@
 // ####### Notification #######
 import { toast } from 'react-toastify';
 
-export const successNotify = text =>
+export let successNotify = text =>
   toast.success(text, {
     position: toast.POSITION.BOTTOM_RIGHT
   });

@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 import { BookContext } from './context/context';
 
 const BooksList = ({ books }) => {
-  const { handleClear, handleAuthorAllBooksClear, header } = React.useContext(
-    BookContext
-  );
+  const {
+    handleClear,
+    handleDeleteBooksByAuthors,
+    header,
+    deleteBooksAuthorId
+  } = React.useContext(BookContext);
   const [allBooks, setAllBooks] = React.useState([]);
-  console.log(header);
 
   // ######## sort table`s value  ########
   const handleNumber = () => {
@@ -132,7 +134,11 @@ const BooksList = ({ books }) => {
         </Link>
         {books.length > 0 ? (
           <button
-            onClick={header ? handleAuthorAllBooksClear : handleClear}
+            onClick={
+              header
+                ? () => handleDeleteBooksByAuthors(deleteBooksAuthorId)
+                : handleClear
+            }
             type="submit"
             className="col-2 btn btn-danger px-4 py-2 spacing"
           >

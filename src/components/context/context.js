@@ -1,5 +1,3 @@
-/* eslint-disable no-loop-func */
-/* eslint-disable no-undef */
 /* eslint-disable no-lone-blocks */
 import React from 'react';
 import axios from 'axios';
@@ -26,9 +24,10 @@ export function BookProvider({ children }) {
   const [id, setId] = React.useState();
   // authors
   const [authors, setAuthors] = React.useState([]);
+  const [deleteBooksAuthorId, setDeleteBooksAuthorId] = React.useState();
   // all books page`s header
   const [header, setHeader] = React.useState('');
-  const [selectAuthorId, setSelectAuthorId] = React.useState();
+  const [headerNoBooks, setHeaderNoBooks] = React.useState(false);
 
   //**** useEffect get books from data ****
   React.useEffect(() => {
@@ -249,33 +248,25 @@ export function BookProvider({ children }) {
       }, 6000);
     }
   };
-  // handle Author`s books clear
-  const handleAuthorAllBooksClear = () => {
-    const tempAuthorBooks = books.filter(
-      book => book.author.id === selectAuthorId
-    );
-    let count = tempAuthorBooks.length;
-    tempAuthorBooks.map(item => {
-      async function deleteBook() {
-        const response = await fetch(`${URL}/books/delete/${item.id}`, {
-          method: 'DELETE'
-        });
-        {
-          count--;
-          console.log(count);
 
-          if (count === 0) {
-            if (response.status === 200) {
-              successNotify(`Successfully Deleted ${header}'s All Books !`);
-              setBooks([]);
-            } else {
-              errorNotify();
-            }
-          }
+  // handle Delete
+  const handleDeleteBooksByAuthors = id => {
+    const tempAuthorBooks = books.filter(book => book.author.id !== id);
+    async function deleteBook() {
+      const response = await fetch(`${URL}/books/by-author/${id}`, {
+        method: 'DELETE'
+      });
+      {
+        if (response.status === 200) {
+          successNotify(`Successfully Deleted ${header}'s All Books!`);
+          setBooks(tempAuthorBooks);
+          setHeaderNoBooks(true);
+        } else {
+          errorNotify();
         }
       }
-      deleteBook();
-    });
+    }
+    deleteBook();
   };
 
   // handle edit
@@ -313,9 +304,9 @@ export function BookProvider({ children }) {
         const data = await response.json();
         const tempBooks = await data;
         setBooks(tempBooks);
-        setSelectAuthorId(id);
         let tempHeader = tempBooks.map(item => tempBooks[0].author.fullName);
         setHeader(tempHeader[0]);
+        setDeleteBooksAuthorId(id);
       } catch (error) {
         console.log(error);
       }
@@ -356,7 +347,9 @@ export function BookProvider({ children }) {
         handleAuthorAllBooks,
         handleRefreshAuthorsName,
         header,
-        handleAuthorAllBooksClear
+        deleteBooksAuthorId,
+        headerNoBooks,
+        handleDeleteBooksByAuthors
       }}
     >
       {children}
