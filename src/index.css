@@ -95,6 +95,9 @@ a:hover {
   letter-spacing: var(--mainLetterSpacing);
   font-family: var(--mainHeaderFontFamily);
 }
+.header {
+  margin-bottom: -2rem !important;
+}
 .books table {
   width: 95%;
   margin: 2rem auto 0 auto;
@@ -151,7 +154,7 @@ a:hover {
 
 .radio-button {
   background-color: var(--mainWhite);
-  padding: 8px 10px;
+  padding: 8px 10px 6px;
   border-radius: 5px;
 }
 /* ##### end of add author ##### */

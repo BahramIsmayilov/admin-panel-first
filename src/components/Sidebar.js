@@ -10,7 +10,7 @@ const Sidebar = () => {
   const { refreshBooks, handleRefreshAuthorsName } = React.useContext(
     BookContext
   );
-  const { refreshAuthors, handleClearInput } = React.useContext(AuthorContext);
+  const { refreshAuthors, refreshAddAuthor } = React.useContext(AuthorContext);
   return (
     <section className="sidebar bg-secondary navbar-dark">
       <nav className="navbar">
@@ -47,7 +47,7 @@ const Sidebar = () => {
           <li className="nav-item active">
             <Link
               to="/addAuthor"
-              onClick={() => handleClearInput()}
+              onClick={() => refreshAddAuthor()}
               className="nav-link"
             >
               <IoMdPersonAdd className="align-middle" />

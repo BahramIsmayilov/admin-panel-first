@@ -3,58 +3,37 @@ import React from 'react';
 import SingleAuthor from './SingleAuthor';
 import { Link } from 'react-router-dom';
 import { AuthorContext } from '../components/context/authorsContext';
-import { BookContext } from '../components/context/context';
 
 const AuthorsList = ({ authors }) => {
   const { handleClear } = React.useContext(AuthorContext);
-  const { books } = React.useContext(BookContext);
-  const [sortAuthors, setSortAuthors] = React.useState([]);
-
-  React.useEffect(() => {
-    function joinArrays() {
-      let tempnewAuthors = [];
-      for (let i = 0; i < authors.length; i++) {
-        let count = 0;
-        books.map(item => {
-          if (item.author.id === authors[i].id) {
-            count++;
-          }
-        });
-        let tempAuthors = { ...authors[i], count };
-        tempnewAuthors = [...tempnewAuthors, tempAuthors];
-        count = 0;
-      }
-      setSortAuthors(tempnewAuthors);
-    }
-    joinArrays();
-  }, [authors, books]);
+  const [sortAuthors, setSortAuthors] = React.useState(authors);
 
   // ######## sort table`s value  ########
   const handleNumber = () => {
-    const tempSort = sortAuthors.slice(0);
+    const tempSort = authors.slice(0);
     tempSort.sort((a, b) => {
       return a.id - b.id;
     });
     setSortAuthors(tempSort);
   };
   const handleName = () => {
-    const tempSort = sortAuthors.slice(0);
+    const tempSort = authors.slice(0);
     tempSort.sort((a, b) => {
       let x = a.fullName.toLowerCase();
       let y = b.fullName.toLowerCase();
       return x < y ? -1 : x > y ? 1 : 0;
     });
-    setSortAuthors(tempSort);
+    setSortAuthors(authors);
   };
   const handleBirthDate = () => {
-    const tempSort = sortAuthors.slice(0);
+    const tempSort = authors.slice(0);
     tempSort.sort((a, b) => {
       return a.birthDate - b.birthDate;
     });
     setSortAuthors(tempSort);
   };
   const handleGender = () => {
-    const tempSort = sortAuthors.slice(0);
+    const tempSort = authors.slice(0);
     tempSort.sort((a, b) => {
       let x = a.gender.toLowerCase();
       let y = b.gender.toLowerCase();
@@ -63,7 +42,7 @@ const AuthorsList = ({ authors }) => {
     setSortAuthors(tempSort);
   };
   const handleEmail = () => {
-    const tempSort = sortAuthors.slice(0);
+    const tempSort = authors.slice(0);
     tempSort.sort((a, b) => {
       let x = a.email.toLowerCase();
       let y = b.email.toLowerCase();
@@ -72,9 +51,9 @@ const AuthorsList = ({ authors }) => {
     setSortAuthors(tempSort);
   };
   const handleBooks = () => {
-    const tempSort = sortAuthors.slice(0);
+    const tempSort = authors.slice(0);
     tempSort.sort((a, b) => {
-      return b.count - a.count;
+      return b.numberOfBooks - a.numberOfBooks;
     });
     setSortAuthors(tempSort);
   };

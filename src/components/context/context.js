@@ -2,12 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import { URL } from '../../utils/URL';
-import {
-  successNotify,
-  infoNotify,
-  errorNotify,
-  redNotify
-} from './properties';
+import { successNotify, infoNotify, errorNotify } from './properties';
 
 export const BookContext = React.createContext();
 
@@ -112,7 +107,17 @@ export function BookProvider({ children }) {
     }
     getBooks();
   };
-
+  // empty value inputs
+  const emptyValue = () => {
+    setTitle('');
+    setAuthorId();
+    setCategory('');
+    setPrice('');
+    setLanguage('');
+    setPublishDate('');
+    setSingleAuthetFullName('');
+    setPageCount('');
+  };
   // handle refresh add book onClick
   const handleRefreshAuthorsName = () => {
     async function getAuthors() {
@@ -133,17 +138,7 @@ export function BookProvider({ children }) {
     setEdit(false);
     setId();
   };
-  // empty value inputs
-  const emptyValue = () => {
-    setTitle('');
-    setAuthorId('');
-    setCategory('');
-    setPrice('');
-    setLanguage('');
-    setPublishDate('');
-    setSingleAuthetFullName('');
-    setPageCount('');
-  };
+
   // handle submit
   const handleSubmit = e => {
     e.preventDefault();
@@ -151,8 +146,7 @@ export function BookProvider({ children }) {
   // clear input
   const handleClearInput = () => {
     emptyValue();
-    // setEdit(false);
-    redNotify('Successfully Clear Input`s Value !');
+    // successNotify('Successfully Clear Input`s Value !');
   };
   const handleAdd = e => {
     e.preventDefault();
@@ -178,9 +172,6 @@ export function BookProvider({ children }) {
           }
         }
       );
-      console.log('handle added');
-      console.log(response);
-
       {
         if (response.status === 200) {
           infoNotify('Successfully Added !');
@@ -220,8 +211,6 @@ export function BookProvider({ children }) {
             }
           }
         );
-        console.log('handle edited');
-        console.log(response);
         {
           if (response.status === 200) {
             successNotify('Successfully Edited !');
@@ -335,27 +324,38 @@ export function BookProvider({ children }) {
 
   // handle edit
   const handleEdit = id => {
-    const tempBook = books.find(book => book.id === id);
-    const {
-      title,
-      category,
-      price,
-      language,
-      publishDate,
-      pageCount
-    } = tempBook;
-    const { fullName } = tempBook.author;
-    const tempAuthorId = tempBook.author.id;
-    setTitle(title);
-    setAuthorId(tempAuthorId);
-    setSingleAuthetFullName(fullName);
-    setCategory(category);
-    setPrice(price);
-    setLanguage(language);
-    setPublishDate(publishDate);
-    setPageCount(pageCount);
-    setEdit(true);
-    setId(id);
+    async function getBooks() {
+      try {
+        setLoading(true);
+        const response = await fetch(`${URL}/books/${id}`);
+        const data = await response.json();
+        const tempBook = await data;
+        const {
+          title,
+          category,
+          price,
+          language,
+          publishDate,
+          pageCount
+        } = tempBook;
+        const { fullName } = tempBook.author;
+        const tempAuthorId = tempBook.author.id;
+        setTitle(title);
+        setAuthorId(tempAuthorId);
+        setSingleAuthetFullName(fullName);
+        setCategory(category);
+        setPrice(price);
+        setLanguage(language);
+        setPublishDate(publishDate);
+        setPageCount(pageCount);
+        setEdit(true);
+        setId(id);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    }
+    getBooks();
   };
 
   //**** handleAuthorAllBooks get author all books from data ****

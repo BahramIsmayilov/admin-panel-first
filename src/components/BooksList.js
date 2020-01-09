@@ -127,7 +127,7 @@ const BooksList = ({ books }) => {
         <Link to="/addBook">
           <button
             type="submit"
-            className="col-2 btn btn-dark mr-4 px-4 py-2 spacing"
+            className="col-3 col-md-4 col-lg-3 col-md-4 btn btn-dark mr-4 px-4 py-2 spacing"
           >
             Add New Book
           </button>
@@ -140,7 +140,7 @@ const BooksList = ({ books }) => {
                 : handleClear
             }
             type="submit"
-            className="col-2 btn btn-danger px-4 py-2 spacing"
+            className="col-3 col-md-4 col-lg-3 btn btn-danger px-4 py-2 spacing"
           >
             Clear All Books
           </button>

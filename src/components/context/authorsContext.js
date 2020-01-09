@@ -2,7 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import { URL } from '../../utils/URL';
-import { successNotify } from './properties';
+import { successNotify, infoNotify } from './properties';
 import { errorNotify } from './properties';
 
 export const AuthorContext = React.createContext();
@@ -45,8 +45,8 @@ export function AuthorProvider({ children }) {
         setLoading(true);
         const response = await fetch(`${URL}/authors`);
         const data = await response.json();
-        const tempBooks = await data;
-        setAuthors(tempBooks);
+        const tempAuthors = await data;
+        setAuthors(tempAuthors);
       } catch (error) {
         console.log(error);
       }
@@ -67,62 +67,68 @@ export function AuthorProvider({ children }) {
   const handleEmail = e => {
     setEmail(e.target.value);
   };
-
+  // handle edit author
+  const handleEditAuthor = e => {
+    e.preventDefault();
+    async function postEditAuthor() {
+      const response = await axios.post(
+        `${URL}/authors/add`,
+        {
+          id,
+          fullName,
+          birthDate,
+          email,
+          gender
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      setEdit(true);
+      {
+        response.status === 200
+          ? successNotify('Successfully Edited !')
+          : errorNotify();
+      }
+    }
+    postEditAuthor();
+  };
+  // handle Add author
+  const handleAddAuthor = e => {
+    e.preventDefault();
+    async function postAuthors() {
+      const response = await axios.post(
+        `${URL}/authors/add`,
+        {
+          fullName,
+          birthDate,
+          email,
+          gender
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      setId(response.data);
+      setEdit(true);
+      {
+        if (response.status === 200) {
+          infoNotify('Successfully Added !');
+          refreshAuthors();
+        } else {
+          errorNotify();
+        }
+      }
+    }
+    postAuthors();
+  };
   // handle submit
   const handleSubmit = e => {
     e.preventDefault();
-    if (edit) {
-      async function postEditAuthor() {
-        const response = await axios.post(
-          `${URL}/authors/add`,
-          {
-            id,
-            fullName,
-            birthDate,
-            email,
-            gender
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }
-        );
-        {
-          response.status === 200
-            ? successNotify('Successfully Edited !')
-            : errorNotify();
-        }
-      }
-      postEditAuthor();
-      setEdit(false);
-    } else {
-      async function postAuthors() {
-        const response = await axios.post(
-          `${URL}/authors/add`,
-          {
-            fullName,
-            birthDate,
-            email,
-            gender
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }
-        );
-        {
-          if (response.status === 200) {
-            successNotify('Successfully Added !');
-            refreshAuthors();
-          } else {
-            errorNotify();
-          }
-        }
-      }
-      postAuthors();
-    }
   };
 
   // handle Clear
@@ -169,14 +175,25 @@ export function AuthorProvider({ children }) {
   };
   // handle edit
   const handleEdit = id => {
-    const tempAuthor = authors.find(author => author.id === id);
-    const { fullName, birthDate, gender, email } = tempAuthor;
-    setFullName(fullName);
-    setBirthDate(birthDate);
-    setGender(gender);
-    setEmail(email);
-    setEdit(true);
-    setId(id);
+    async function getAuthors() {
+      try {
+        setLoading(true);
+        const response = await fetch(`${URL}/authors/${id}`);
+        const data = await response.json();
+        const tempAuthor = await data;
+        const { fullName, birthDate, gender, email } = tempAuthor;
+        setFullName(fullName);
+        setBirthDate(birthDate);
+        setGender(gender);
+        setEmail(email);
+        setEdit(true);
+        setId(id);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    }
+    getAuthors();
   };
   // handle clear input
   const handleClearInput = () => {
@@ -184,7 +201,11 @@ export function AuthorProvider({ children }) {
     setBirthDate('');
     setGender('');
     setEmail('');
+  };
+  const refreshAddAuthor = () => {
+    handleClearInput();
     setEdit(false);
+    setId();
   };
   return (
     <AuthorContext.Provider
@@ -206,7 +227,10 @@ export function AuthorProvider({ children }) {
         handleClear,
         handleClearInput,
         handleDelete,
-        refreshAuthors
+        refreshAuthors,
+        handleEditAuthor,
+        handleAddAuthor,
+        refreshAddAuthor
       }}
     >
       {children}

@@ -34,7 +34,7 @@ const AddBook = () => {
   return (
     <section className="section">
       <div className="container col-12  pb-5 ">
-        <h1 className="header text-center mb-0 mt-3">
+        <h1 className=" text-center mt-3 header">
           {edit || id ? 'Edit Book or Add New Book' : 'Add New Book'}
         </h1>
         <div className="row pt-5">
@@ -209,20 +209,6 @@ const AddBook = () => {
                 language &&
                 publishDate &&
                 pageCount ? (
-                  <button
-                    onClick={handleEditButton}
-                    type="submit"
-                    className="col-md-6 col-lg-4 btn btn-success spacing mx-auto py-2 border border-white editButtonClass"
-                  >
-                    Save
-                  </button>
-                ) : title &&
-                  handleAuthorId &&
-                  category &&
-                  price &&
-                  language &&
-                  publishDate &&
-                  pageCount ? (
                   <button
                     onClick={handleEditButton}
                     type="submit"
