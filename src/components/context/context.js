@@ -28,7 +28,7 @@ export function BookProvider({ children }) {
   const [header, setHeader] = React.useState('');
   const [headerNoBooks, setHeaderNoBooks] = React.useState(false);
   // search
-  const [searchName, setSearchName] = React.useState('R');
+  const [searchName, setSearchName] = React.useState('');
 
   //**** useEffect get books from data ****
   React.useEffect(() => {
@@ -72,19 +72,20 @@ export function BookProvider({ children }) {
   //**** useEffect search form book name ****
   useEffect(() => {
     async function searchBooks() {
-      const response = await axios.get(
+      const response = await axios.post(
         `${URL}/books/search`,
-        { title: 'Ja' },
+        { title: searchName },
         {
           headers: {
             'Content-Type': 'application/json'
           }
         }
       );
-      console.log(response);
+      setBooks(response.data);
+      console.log(response.data);
     }
     searchBooks();
-  }, []);
+  }, [searchName]);
   // handleSearchTitle();
   // book`s handle function
   const handleTitle = e => {
@@ -433,7 +434,8 @@ export function BookProvider({ children }) {
         handleDeleteBooksByAuthors,
         handleAdd,
         handleEditButton,
-        handleSubmit
+        handleSubmit,
+        setSearchName
       }}
     >
       {children}

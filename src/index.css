@@ -128,6 +128,7 @@ a:hover {
   text-align: center;
 }
 .search-title {
+  text-align: center;
   background-color: transparent;
   border-bottom: 3px solid var(--mainBlack) !important;
   margin-bottom: -1rem !important;
