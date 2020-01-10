@@ -1,12 +1,12 @@
 /* eslint-disable array-callback-return */
-import React from 'react';
+import React, { useEffect } from 'react';
 import SingleAuthor from './SingleAuthor';
 import { Link } from 'react-router-dom';
 import { AuthorContext } from '../components/context/authorsContext';
 
 const AuthorsList = ({ authors }) => {
   const { handleClear } = React.useContext(AuthorContext);
-  const [sortAuthors, setSortAuthors] = React.useState(authors);
+  const [sortAuthors, setSortAuthors] = React.useState([]);
 
   // ######## sort table`s value  ########
   const handleNumber = () => {
@@ -57,6 +57,9 @@ const AuthorsList = ({ authors }) => {
     });
     setSortAuthors(tempSort);
   };
+  useEffect(() => {
+    setSortAuthors(authors);
+  }, [authors]);
   return (
     <div className="table-list">
       <table className="table">

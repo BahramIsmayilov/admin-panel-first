@@ -1,5 +1,5 @@
 /* eslint-disable no-lone-blocks */
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { URL } from '../../utils/URL';
 import { successNotify, infoNotify, errorNotify } from './properties';
@@ -27,6 +27,8 @@ export function BookProvider({ children }) {
   // all books page`s header
   const [header, setHeader] = React.useState('');
   const [headerNoBooks, setHeaderNoBooks] = React.useState(false);
+  // search
+  const [searchName, setSearchName] = React.useState('R');
 
   //**** useEffect get books from data ****
   React.useEffect(() => {
@@ -67,7 +69,23 @@ export function BookProvider({ children }) {
     }
     getAuthors();
   }, []);
-
+  //**** useEffect search form book name ****
+  useEffect(() => {
+    async function searchBooks() {
+      const response = await axios.get(
+        `${URL}/books/search`,
+        { title: 'Ja' },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      console.log(response);
+    }
+    searchBooks();
+  }, []);
+  // handleSearchTitle();
   // book`s handle function
   const handleTitle = e => {
     setTitle(e.target.value);
@@ -278,7 +296,7 @@ export function BookProvider({ children }) {
   };
   // handle Delete
   const handleDelete = id => {
-    const tempBooks = books.filter(book => book.id !== id);
+    const tempBook = books.filter(book => book.id !== id);
     async function deleteBook() {
       const response = await fetch(`${URL}/books/delete/${id}`, {
         method: 'DELETE'
@@ -286,7 +304,7 @@ export function BookProvider({ children }) {
       {
         if (response.status === 200) {
           successNotify('Successfully Deleted !');
-          setBooks(tempBooks);
+          setBooks(tempBook);
         } else {
           errorNotify();
         }

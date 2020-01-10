@@ -14,6 +14,7 @@
   --mainDarkGreen: #209e91;
   --mainRed: #d50000;
   --mainGreen: #4caf50;
+  --mainChocolateColor: #5c3317;
   --mainSlowTransition: all 0.5s ease;
   --mainLetterSpacing: 4px;
   --mainSmallLetterSpacing: 2px;
@@ -125,6 +126,17 @@ a:hover {
 }
 .button-group {
   text-align: center;
+}
+.search-title {
+  background-color: transparent;
+  border-bottom: 3px solid var(--mainBlack) !important;
+  margin-bottom: -1rem !important;
+  padding-bottom: 0.3rem;
+  text-transform: capitalize;
+  font-family: var(--mainHeaderFontFamily);
+  font-size: 1.5rem;
+  color: var(--mainChocolateColor);
+  letter-spacing: var(--mainLetterSpacing);
 }
 /* ##### end of books ##### */
 /* ##### error ##### */

@@ -30,7 +30,7 @@ export function AuthorProvider({ children }) {
           let y = b.fullName.toLowerCase();
           return x < y ? -1 : x > y ? 1 : 0;
         });
-        setAuthors(tempSort);
+        setAuthors(tempAuthors);
       } catch (error) {
         console.log(error);
       }
@@ -164,10 +164,11 @@ export function AuthorProvider({ children }) {
         }
       }
     }
+    deleteAuthor();
     const disable = document.getElementById(id);
     if (disable) {
       disable.classList.add('disabled');
-      deleteAuthor();
+
       setTimeout(() => {
         disable.classList.remove('disabled');
       }, 6000);

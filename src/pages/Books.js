@@ -2,6 +2,7 @@ import React from 'react';
 import BooksList from '../components/BooksList';
 import Loading from '../components/Loading';
 import { BookContext } from '../components/context/context';
+import SearchForm from '../components/SearchForm';
 
 const Books = () => {
   const { books, loading, header, headerNoBooks } = React.useContext(
@@ -24,7 +25,10 @@ const Books = () => {
       ) : header === undefined ? (
         <h1>Not Found Any Book</h1>
       ) : books.length > 0 ? (
-        <h1>All Books</h1>
+        <div>
+          <h1>All Books</h1>
+          <SearchForm />
+        </div>
       ) : (
         <h1>There Are Not Any Books</h1>
       )}
