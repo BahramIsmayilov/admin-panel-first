@@ -69,7 +69,7 @@ const SearchForm = () => {
           {/*  book name */}
 
           <div className="form-group">
-            <label htmlFor="type">Search Book Name</label>
+            <label htmlFor="type">Book Name</label>
             <input
               className="form-controls search-title"
               id="name"
@@ -83,7 +83,7 @@ const SearchForm = () => {
           {/* end of  book name */}
           {/*  book category */}
           <div className="form-group">
-            <label htmlFor="category">Book Category</label>
+            <label htmlFor="category">Category</label>
             <select
               name="category"
               id="category"
@@ -104,7 +104,7 @@ const SearchForm = () => {
           {/* end of  book category */}
           {/*  book price */}
           <div className="form-group">
-            <label htmlFor="size">Book Price</label>
+            <label htmlFor="size">Price</label>
             <div className="size-inputs">
               <input
                 type="number"
@@ -127,7 +127,7 @@ const SearchForm = () => {
           {/* end of search book price */}
           {/* Max Page Count */}
           <div className="form-group mt-2">
-            <label htmlFor="count">Max Page: {pageCountRange}</label>
+            <label htmlFor="count">Page: {pageCountRange}</label>
             <input
               className="form-control "
               type="range"

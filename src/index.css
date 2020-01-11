@@ -136,7 +136,7 @@ a:hover {
   width: 75vw;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
   grid-row-gap: 2rem;
   grid-column-gap: 40px;
   align-items: center;
