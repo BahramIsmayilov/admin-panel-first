@@ -45,9 +45,7 @@ export function BookProvider({ children }) {
         const tempBooks = await data;
         const tempMaxCount = Math.max(...tempBooks.map(item => item.pageCount));
         const tempMaxPrice = Math.max(...tempBooks.map(item => item.price));
-        // const tempMinPrice = Math.max(...tempBooks.map(item => item.price));
         setMaxPrice(tempMaxPrice);
-        // setMinPrice(tempMinPrice);
         setMaxPageCount(tempMaxCount);
         setPageCountRange(tempMaxCount);
         setBooks(tempBooks);
@@ -138,6 +136,11 @@ export function BookProvider({ children }) {
         const response = await fetch(`${URL}/books`);
         const data = await response.json();
         const tempBooks = await data;
+        const tempMaxCount = Math.max(...tempBooks.map(item => item.pageCount));
+        const tempMaxPrice = Math.max(...tempBooks.map(item => item.price));
+        setMaxPrice(tempMaxPrice);
+        setMaxPageCount(tempMaxCount);
+        setPageCountRange(tempMaxCount);
         setBooks(tempBooks);
       } catch (error) {
         console.log(error);
