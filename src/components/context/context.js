@@ -1,5 +1,5 @@
 /* eslint-disable no-lone-blocks */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { URL } from '../../utils/URL';
 import { successNotify, infoNotify, errorNotify } from './properties';
@@ -7,28 +7,33 @@ import { successNotify, infoNotify, errorNotify } from './properties';
 export const BookContext = React.createContext();
 
 export function BookProvider({ children }) {
-  const [loading, setLoading] = React.useState(false);
-  const [books, setBooks] = React.useState([]);
+  const [loading, setLoading] = useState(false);
+  const [books, setBooks] = useState([]);
   // book`s parametrs
-  const [title, setTitle] = React.useState('');
-  const [authorId, setAuthorId] = React.useState();
-  const [singleAuthetFullName, setSingleAuthetFullName] = React.useState('');
-  const [category, setCategory] = React.useState('');
-  const [price, setPrice] = React.useState('');
-  const [language, setLanguage] = React.useState('');
-  const [publishDate, setPublishDate] = React.useState('');
-  const [pageCount, setPageCount] = React.useState('');
+  const [title, setTitle] = useState('');
+  const [authorId, setAuthorId] = useState();
+  const [singleAuthetFullName, setSingleAuthetFullName] = useState('');
+  const [category, setCategory] = useState('');
+  const [price, setPrice] = useState('');
+  const [language, setLanguage] = useState('');
+  const [publishDate, setPublishDate] = useState('');
+  const [pageCount, setPageCount] = useState('');
   // edit book
-  const [edit, setEdit] = React.useState(false);
-  const [id, setId] = React.useState();
+  const [edit, setEdit] = useState(false);
+  const [id, setId] = useState();
   // authors
-  const [authors, setAuthors] = React.useState([]);
-  const [deleteBooksAuthorId, setDeleteBooksAuthorId] = React.useState();
+  const [authors, setAuthors] = useState([]);
+  const [deleteBooksAuthorId, setDeleteBooksAuthorId] = useState();
   // all books page`s header
-  const [header, setHeader] = React.useState('');
-  const [headerNoBooks, setHeaderNoBooks] = React.useState(false);
+  const [header, setHeader] = useState('');
+  const [headerNoBooks, setHeaderNoBooks] = useState(false);
   // search
-  const [searchName, setSearchName] = React.useState('');
+  const [searchName, setSearchName] = useState('');
+  const [maxPageCount, setMaxPageCount] = useState(0);
+  const [pageCountRange, setPageCountRange] = useState();
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState();
+  const [searchCategory, setSearchCategory] = useState('');
 
   //**** useEffect get books from data ****
   React.useEffect(() => {
@@ -38,6 +43,13 @@ export function BookProvider({ children }) {
         const response = await fetch(`${URL}/books`);
         const data = await response.json();
         const tempBooks = await data;
+        const tempMaxCount = Math.max(...tempBooks.map(item => item.pageCount));
+        const tempMaxPrice = Math.max(...tempBooks.map(item => item.price));
+        // const tempMinPrice = Math.max(...tempBooks.map(item => item.price));
+        setMaxPrice(tempMaxPrice);
+        // setMinPrice(tempMinPrice);
+        setMaxPageCount(tempMaxCount);
+        setPageCountRange(tempMaxCount);
         setBooks(tempBooks);
       } catch (error) {
         console.log(error);
@@ -46,7 +58,6 @@ export function BookProvider({ children }) {
     }
     getBooks();
   }, []);
-
   //**** useEffect get authors from data ****
   React.useEffect(() => {
     async function getAuthors() {
@@ -71,10 +82,19 @@ export function BookProvider({ children }) {
   }, []);
   //**** useEffect search form book name ****
   useEffect(() => {
+    if (searchCategory === 'Choose...') {
+      setSearchCategory();
+    }
     async function searchBooks() {
       const response = await axios.post(
         `${URL}/books/search`,
-        { title: searchName },
+        {
+          title: searchName,
+          maxPageCount: pageCountRange,
+          priceFrom: minPrice,
+          priceTo: maxPrice,
+          category: searchCategory
+        },
         {
           headers: {
             'Content-Type': 'application/json'
@@ -85,7 +105,7 @@ export function BookProvider({ children }) {
       console.log(response.data);
     }
     searchBooks();
-  }, [searchName]);
+  }, [searchName, pageCountRange, minPrice, maxPrice, searchCategory]);
   // handleSearchTitle();
   // book`s handle function
   const handleTitle = e => {
@@ -435,7 +455,15 @@ export function BookProvider({ children }) {
         handleAdd,
         handleEditButton,
         handleSubmit,
-        setSearchName
+        setSearchName,
+        pageCountRange,
+        setPageCountRange,
+        maxPageCount,
+        setMinPrice,
+        setMaxPrice,
+        minPrice,
+        maxPrice,
+        setSearchCategory
       }}
     >
       {children}

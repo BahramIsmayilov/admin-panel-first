@@ -5,13 +5,9 @@ import { BookContext } from '../components/context/context';
 import SearchForm from '../components/SearchForm';
 
 const Books = () => {
-  const {
-    books,
-    loading,
-    header,
-    headerNoBooks,
-    setSearchName
-  } = React.useContext(BookContext);
+  const { books, loading, header, headerNoBooks } = React.useContext(
+    BookContext
+  );
   if (loading) {
     return <Loading type="spokes" color="#000" />;
   }
@@ -33,7 +29,7 @@ const Books = () => {
       ) : (
         <h1>There Are Not Any Books</h1>
       )}
-      <SearchForm setSearchName={setSearchName} />
+      <SearchForm />
       <BooksList books={books} />
     </section>
   );
