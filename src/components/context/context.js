@@ -141,6 +141,7 @@ export function BookProvider({ children }) {
         setMaxPrice(tempMaxPrice);
         setMaxPageCount(tempMaxCount);
         setPageCountRange(tempMaxCount);
+        setMinPrice(0);
         setBooks(tempBooks);
       } catch (error) {
         console.log(error);

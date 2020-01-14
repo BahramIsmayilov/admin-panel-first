@@ -45,7 +45,9 @@ const AddBook = () => {
             {edit || id ? (
               <div className="form-row mb-md-3">
                 <div className="form-group col-md-6">
-                  <label htmlFor="title">ID</label>
+                  <label htmlFor="title" className="text-left mb-2">
+                    ID
+                  </label>
                   <input
                     name="id"
                     disabled
@@ -55,7 +57,9 @@ const AddBook = () => {
                   />
                 </div>
                 <div className="form-group col-md-6">
-                  <label htmlFor="title">Name</label>
+                  <label htmlFor="title" className="text-left mb-2">
+                    Name
+                  </label>
                   <input
                     name="title"
                     type="text"
@@ -68,8 +72,10 @@ const AddBook = () => {
                 </div>
               </div>
             ) : (
-              <div className="form-group mb-md-4">
-                <label htmlFor="title">Name</label>
+              <div className="form-group  mb-md-4">
+                <label htmlFor="title" className="text-left mb-2">
+                  Name
+                </label>
                 <input
                   name="title"
                   type="text"
@@ -82,8 +88,10 @@ const AddBook = () => {
               </div>
             )}
             <div className="form-row mb-md-3">
-              <div className="form-group col-md-6">
-                <label htmlFor="author">Author</label>
+              <div className="form-group  col-md-6">
+                <label htmlFor="author" className="text-left mb-2">
+                  Author
+                </label>
                 <select
                   type="text"
                   name="author"
@@ -109,7 +117,9 @@ const AddBook = () => {
                 </select>
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="type">Category</label>
+                <label htmlFor="type" className="text-left mb-2">
+                  Category
+                </label>
                 <select
                   type="text"
                   name="category"
@@ -137,7 +147,9 @@ const AddBook = () => {
             </div>
             <div className="form-row mb-md-3">
               <div className="form-group col-md-6">
-                <label htmlFor="price">Price</label>
+                <label htmlFor="price" className="text-left mb-2">
+                  Price
+                </label>
                 <input
                   name="price"
                   type="text"
@@ -149,7 +161,9 @@ const AddBook = () => {
                 />
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="language">Language</label>
+                <label htmlFor="language" className="text-left mb-2">
+                  Language
+                </label>
                 <input
                   name="language"
                   type="text"
@@ -163,7 +177,9 @@ const AddBook = () => {
             </div>
             <div className="form-row mb-4">
               <div className="form-group col-md-6">
-                <label htmlFor="publishDate">Publish Date</label>
+                <label htmlFor="publishDate" className="text-left mb-2">
+                  Publish Date
+                </label>
                 <input
                   name="publishDate"
                   type="date"
@@ -175,7 +191,9 @@ const AddBook = () => {
                 />
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="pageCount">Page</label>
+                <label htmlFor="pageCount" className="text-left mb-2">
+                  Page
+                </label>
                 <input
                   name="pageCount"
                   type="number"

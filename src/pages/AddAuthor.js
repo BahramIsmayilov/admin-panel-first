@@ -32,7 +32,9 @@ const AddAuthor = () => {
           >
             {id ? (
               <div className="form-group mb-4">
-                <label htmlFor="title">ID</label>
+                <label htmlFor="title" className="text-left mb-2">
+                  ID
+                </label>
                 <input
                   name="id"
                   disabled
@@ -44,7 +46,9 @@ const AddAuthor = () => {
             ) : null}
             <div className="form-row mb-md-3">
               <div className="form-group col-md-6 mb-4">
-                <label htmlFor="fullName">Full Name</label>
+                <label htmlFor="fullName" className="text-left mb-2">
+                  Full Name
+                </label>
                 <input
                   name="fullName"
                   type="text"
@@ -57,7 +61,9 @@ const AddAuthor = () => {
                 />
               </div>
               <div className="form-group col-md-6 mb-4">
-                <label htmlFor="birthDate">Birthday</label>
+                <label htmlFor="birthDate" className="text-left mb-2">
+                  Birthday
+                </label>
                 <input
                   name="birthDate"
                   type="date"
@@ -72,7 +78,9 @@ const AddAuthor = () => {
             </div>
             <div className="form-row mb-md-3">
               <div className="form-group col-md-6 mb-4">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email" className="text-left mb-2">
+                  Email
+                </label>
                 <input
                   name="email"
                   type="email"
@@ -86,7 +94,7 @@ const AddAuthor = () => {
               </div>
 
               <div className="form-group  col-md-6">
-                <label className="d-block">Gender</label>
+                <label className="d-block text-left mb-2">Gender</label>
                 <div className="radio-button">
                   <div className="form-check form-check-inline">
                     <input
@@ -98,7 +106,10 @@ const AddAuthor = () => {
                       onChange={handleGender}
                       checked={gender === 'Male' ? true : false}
                     />
-                    <label className="form-check-label" htmlFor="male">
+                    <label
+                      className="form-check-label font-weight-normal m-0"
+                      htmlFor="male"
+                    >
                       Male
                     </label>
                   </div>
@@ -112,7 +123,10 @@ const AddAuthor = () => {
                       onChange={handleGender}
                       checked={gender === 'Female' ? true : false}
                     />
-                    <label className="form-check-label" htmlFor="female">
+                    <label
+                      className="form-check-label font-weight-normal m-0"
+                      htmlFor="female"
+                    >
                       Female
                     </label>
                   </div>

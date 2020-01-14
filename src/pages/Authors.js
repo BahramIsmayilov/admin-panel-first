@@ -10,7 +10,7 @@ const Authors = () => {
   }
   return (
     <section className="section books pt-4">
-      <h1>All Authors</h1>
+      <h1 className="mb-5">All Authors</h1>
       <AuthorsList authors={authors} />
     </section>
   );

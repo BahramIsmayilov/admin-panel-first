@@ -316,7 +316,7 @@ input[type='range']:focus::-ms-fill-upper {
 
 .radio-button {
   background-color: var(--mainWhite);
-  padding: 8px 10px 6px;
+  padding: 4px 10px 6px;
   border-radius: 5px;
 }
 /* ##### end of add author ##### */
