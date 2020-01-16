@@ -100,7 +100,6 @@ export function BookProvider({ children }) {
         }
       );
       setBooks(response.data);
-      console.log(response.data);
     }
     searchBooks();
   }, [searchName, pageCountRange, minPrice, maxPrice, searchCategory]);

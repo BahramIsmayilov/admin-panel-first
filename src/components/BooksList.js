@@ -16,7 +16,13 @@ const BooksList = ({ books }) => {
 
   const [selectedPage, setSelectedPage] = React.useState(0);
   let pageBooksCount = 3;
-  let pageCount = books.length / pageBooksCount;
+  let pageCount = Math.ceil(books.length / pageBooksCount);
+  let firstBookIndex = selectedPage * pageBooksCount;
+  let lastBookIndex = firstBookIndex + pageBooksCount;
+  if (books.length < lastBookIndex) {
+    lastBookIndex = books.length;
+  }
+
   const handlePageClick = e => {
     let selected = e.selected;
     setSelectedPage(selected);
@@ -91,15 +97,12 @@ const BooksList = ({ books }) => {
   // ######## end of sort table`s value  ########
   useEffect(() => {
     let tempPageBooks = [];
-    let firstBookIndex = selectedPage * pageBooksCount;
-    let lastBookIndex = firstBookIndex + pageBooksCount;
     for (let i = firstBookIndex; i < lastBookIndex; i++) {
       tempPageBooks = [...tempPageBooks, books[i]];
     }
     setPageBooks(tempPageBooks);
-    setAllBooks(books);
-  }, [selectedPage]);
-  console.log(pageBooks);
+    // setAllBooks(books);
+  }, [books, selectedPage]);
   return (
     <div className="table-list">
       <table className="table">
