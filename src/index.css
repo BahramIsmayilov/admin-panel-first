@@ -327,24 +327,38 @@ input[type='range']:focus::-ms-fill-upper {
   align-items: center;
   justify-content: space-around;
   background-color: transparent;
-  border: 3px solid var(--mainChocolateColor);
   color: var(--mainChocolateColor);
   padding: 8px;
   font-size: 1.5rem;
-  width: 40vw;
+  width: 30vw;
   text-transform: capitalize;
   margin: 0 auto 2rem;
   font-weight: 500;
-  cursor: pointer;
 }
-.actives {
-  background-color: red;
-  padding: 0 7px;
-  background-color: var(--mainChocolateColor);
-  color: var(--mainLightGray);
+
+.pagination-count {
+  padding: 0 5px 0 5px;
+  border: 2px solid var(--mainChocolateColor);
+  cursor: pointer;
   border-radius: 5px;
 }
-.break-me {
-  margin-bottom: 10px;
+.nextClassName,
+.previousClassName {
+  padding: 0 5px 0 5px;
+}
+
+.nextClassName:hover,
+.previousClassName:hover {
+  border: 2px solid var(--mainChocolateColor);
+  cursor: pointer;
+  border-radius: 5px;
+}
+.pagination-count:hover {
+  background-color: var(--mainChocolateColor);
+  color: var(--mainLightGray);
+}
+.actives {
+  background-color: var(--mainChocolateColor);
+  color: var(--mainLightGray);
 }
 /* end of paginate */

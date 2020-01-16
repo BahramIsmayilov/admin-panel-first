@@ -18,21 +18,6 @@ const BooksList = ({ books }) => {
   } = React.useContext(BookContext);
   const [pageBooks, setPageBooks] = React.useState([]);
 
-  // const [selectedPage, setSelectedPage] = React.useState(0);
-
-  // // Pagination
-  // let pageBooksCount = 3;
-  // let pageCounts = Math.ceil(books.length / pageBooksCount);
-  // let firstBookIndex = selectedPage * pageBooksCount;
-  // let lastBookIndex = firstBookIndex + pageBooksCount;
-  // if (books.length < lastBookIndex) {
-  //   lastBookIndex = books.length;
-  // }
-  // const handlePageClick = e => {
-  //   let selected = e.selected;
-  //   setSelectedPage(selected);
-  // };
-
   useEffect(() => {
     let tempPageBooks = [];
     for (let i = firstBookIndex; i < lastBookIndex; i++) {
@@ -78,6 +63,9 @@ const BooksList = ({ books }) => {
           containerClassName={'pagination'}
           subContainerClassName={'pagination pages'}
           activeClassName={'active actives'}
+          pageClassName={'pagination-count'}
+          previousClassName={'previousClassName'}
+          nextClassName={'nextClassName'}
         />
         <Link to="/addBook">
           <button
