@@ -34,6 +34,8 @@ export function BookProvider({ children }) {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState();
   const [searchCategory, setSearchCategory] = useState('');
+  // pagination
+  const [selectedPage, setSelectedPage] = React.useState(0);
 
   //**** useEffect get books from data ****
   React.useEffect(() => {
@@ -102,6 +104,7 @@ export function BookProvider({ children }) {
       setBooks(response.data);
     }
     searchBooks();
+    setSelectedPage(0);
   }, [searchName, pageCountRange, minPrice, maxPrice, searchCategory]);
   // handleSearchTitle();
   // book`s handle function
@@ -421,6 +424,18 @@ export function BookProvider({ children }) {
     getAuthorAllBooks();
   };
 
+  // Pagination
+  let pageBooksCount = 3;
+  let pageCounts = Math.ceil(books.length / pageBooksCount);
+  let firstBookIndex = selectedPage * pageBooksCount;
+  let lastBookIndex = firstBookIndex + pageBooksCount;
+  if (books.length < lastBookIndex) {
+    lastBookIndex = books.length;
+  }
+  const handlePageClick = e => {
+    let selected = e.selected;
+    setSelectedPage(selected);
+  };
   return (
     <BookContext.Provider
       value={{
@@ -466,7 +481,12 @@ export function BookProvider({ children }) {
         setMaxPrice,
         minPrice,
         maxPrice,
-        setSearchCategory
+        setSearchCategory,
+        selectedPage,
+        firstBookIndex,
+        lastBookIndex,
+        handlePageClick,
+        pageCounts
       }}
     >
       {children}

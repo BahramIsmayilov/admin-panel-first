@@ -9,130 +9,52 @@ const BooksList = ({ books }) => {
     handleClear,
     handleDeleteBooksByAuthors,
     header,
-    deleteBooksAuthorId
+    deleteBooksAuthorId,
+    selectedPage,
+    firstBookIndex,
+    lastBookIndex,
+    handlePageClick,
+    pageCounts
   } = React.useContext(BookContext);
-  const [allBooks, setAllBooks] = React.useState([]);
   const [pageBooks, setPageBooks] = React.useState([]);
 
-  const [selectedPage, setSelectedPage] = React.useState(0);
-  let pageBooksCount = 3;
-  let pageCount = Math.ceil(books.length / pageBooksCount);
-  let firstBookIndex = selectedPage * pageBooksCount;
-  let lastBookIndex = firstBookIndex + pageBooksCount;
-  if (books.length < lastBookIndex) {
-    lastBookIndex = books.length;
-  }
+  // const [selectedPage, setSelectedPage] = React.useState(0);
 
-  const handlePageClick = e => {
-    let selected = e.selected;
-    setSelectedPage(selected);
-  };
+  // // Pagination
+  // let pageBooksCount = 3;
+  // let pageCounts = Math.ceil(books.length / pageBooksCount);
+  // let firstBookIndex = selectedPage * pageBooksCount;
+  // let lastBookIndex = firstBookIndex + pageBooksCount;
+  // if (books.length < lastBookIndex) {
+  //   lastBookIndex = books.length;
+  // }
+  // const handlePageClick = e => {
+  //   let selected = e.selected;
+  //   setSelectedPage(selected);
+  // };
 
-  // ######## sort table`s value  ########
-  const handleNumber = () => {
-    const tempSort = books.slice(0);
-    tempSort.sort((a, b) => {
-      return a.id - b.id;
-    });
-    setAllBooks(tempSort);
-  };
-  const handleName = () => {
-    const tempSort = books.slice(0);
-    tempSort.sort((a, b) => {
-      let x = a.title.toLowerCase();
-      let y = b.title.toLowerCase();
-      return x < y ? -1 : x > y ? 1 : 0;
-    });
-    setAllBooks(tempSort);
-  };
-  const handleAuthor = () => {
-    const tempSort = books.slice(0);
-    tempSort.sort((a, b) => {
-      let x = a.author.fullName.toLowerCase();
-      let y = b.author.fullName.toLowerCase();
-      return x < y ? -1 : x > y ? 1 : 0;
-    });
-    setAllBooks(tempSort);
-  };
-  const handleCategory = () => {
-    const tempSort = books.slice(0);
-    tempSort.sort((a, b) => {
-      let x = a.category.toLowerCase();
-      let y = b.category.toLowerCase();
-      return x < y ? -1 : x > y ? 1 : 0;
-    });
-    setAllBooks(tempSort);
-  };
-  const handlePrice = () => {
-    const tempSort = books.slice(0);
-
-    tempSort.sort((a, b) => {
-      return parseInt(a.price) - parseInt(b.price);
-    });
-    setAllBooks(tempSort);
-  };
-  const handleLanguage = () => {
-    const tempSort = books.slice(0);
-    tempSort.sort((a, b) => {
-      let x = a.language.toLowerCase();
-      let y = b.language.toLowerCase();
-      return x < y ? -1 : x > y ? 1 : 0;
-    });
-    setAllBooks(tempSort);
-  };
-  const handlePublishDate = () => {
-    //   const tempSort = books.slice(0);
-    //   tempSort.sort((a, b) => {
-    //     return a.publishDate - b.publishDate;
-    //   });
-    //   setAllBooks(tempSort);
-  };
-  const handlePage = () => {
-    const tempSort = books.slice(0);
-    tempSort.sort((a, b) => {
-      return a.pageCount - b.pageCount;
-    });
-    setAllBooks(tempSort);
-  };
-  // ######## end of sort table`s value  ########
   useEffect(() => {
     let tempPageBooks = [];
     for (let i = firstBookIndex; i < lastBookIndex; i++) {
       tempPageBooks = [...tempPageBooks, books[i]];
     }
     setPageBooks(tempPageBooks);
-    // setAllBooks(books);
   }, [books, selectedPage]);
   return (
     <div className="table-list">
       <table className="table">
         <thead className="thead-dark">
           <tr className="text-center">
-            <th scope="col" onClick={() => handleNumber()}>
+            <th scope="col" on>
               ID
             </th>
-            <th scope="col" onClick={() => handleName()}>
-              Name
-            </th>
-            <th scope="col" onClick={() => handleAuthor()}>
-              Author
-            </th>
-            <th scope="col" onClick={() => handleCategory()}>
-              Category
-            </th>
-            <th scope="col" onClick={() => handlePrice()}>
-              Price
-            </th>
-            <th scope="col" onClick={() => handleLanguage()}>
-              Language
-            </th>
-            <th scope="col" onClick={() => handlePublishDate()}>
-              Publish
-            </th>
-            <th scope="col" onClick={() => handlePage()}>
-              Page
-            </th>
-
+            <th scope="col">Name</th>
+            <th scope="col">Author</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col">Language</th>
+            <th scope="col">Publish</th>
+            <th scope="col">Page</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
           </tr>
@@ -149,7 +71,7 @@ const BooksList = ({ books }) => {
           nextLabel={'>'}
           breakLabel={'...'}
           breakClassName={'break-me'}
-          pageCount={pageCount}
+          pageCount={pageCounts}
           marginPagesDisplayed={2}
           pageRangeDisplayed={3}
           onPageChange={handlePageClick}
