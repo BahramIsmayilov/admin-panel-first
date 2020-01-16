@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import SingleBook from './SingleBook';
 import { Link } from 'react-router-dom';
 import { BookContext } from './context/context';
+import ReactPaginate from 'react-paginate';
 
 const BooksList = ({ books }) => {
   const {
@@ -11,6 +12,15 @@ const BooksList = ({ books }) => {
     deleteBooksAuthorId
   } = React.useContext(BookContext);
   const [allBooks, setAllBooks] = React.useState([]);
+  const [pageBooks, setPageBooks] = React.useState([]);
+
+  const [selectedPage, setSelectedPage] = React.useState(0);
+  let pageBooksCount = 3;
+  let pageCount = books.length / pageBooksCount;
+  const handlePageClick = e => {
+    let selected = e.selected;
+    setSelectedPage(selected);
+  };
 
   // ######## sort table`s value  ########
   const handleNumber = () => {
@@ -80,9 +90,16 @@ const BooksList = ({ books }) => {
   };
   // ######## end of sort table`s value  ########
   useEffect(() => {
+    let tempPageBooks = [];
+    let firstBookIndex = selectedPage * pageBooksCount;
+    let lastBookIndex = firstBookIndex + pageBooksCount;
+    for (let i = firstBookIndex; i < lastBookIndex; i++) {
+      tempPageBooks = [...tempPageBooks, books[i]];
+    }
+    setPageBooks(tempPageBooks);
     setAllBooks(books);
-  }, [books]);
-
+  }, [selectedPage]);
+  console.log(pageBooks);
   return (
     <div className="table-list">
       <table className="table">
@@ -118,12 +135,25 @@ const BooksList = ({ books }) => {
           </tr>
         </thead>
         <tbody>
-          {allBooks.map(item => {
+          {pageBooks.map(item => {
             return <SingleBook key={item.id} {...item} />;
           })}
         </tbody>
       </table>
       <div className="text-center mt-4 mb-5">
+        <ReactPaginate
+          previousLabel={'<'}
+          nextLabel={'>'}
+          breakLabel={'...'}
+          breakClassName={'break-me'}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={'pagination'}
+          subContainerClassName={'pagination pages'}
+          activeClassName={'active actives'}
+        />
         <Link to="/addBook">
           <button
             type="submit"

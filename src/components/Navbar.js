@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand bg-dark navbar-dark fixed-top">
       <ul className="navbar-nav">
-        <li className="nav-item active">
+        <li className="nav-item">
           <Link to="/" className="nav-link">
             <h4>Book Admin Panel</h4>
           </Link>

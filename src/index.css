@@ -320,3 +320,31 @@ input[type='range']:focus::-ms-fill-upper {
   border-radius: 5px;
 }
 /* ##### end of add author ##### */
+
+/* paginate */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: transparent;
+  border: 3px solid var(--mainChocolateColor);
+  color: var(--mainChocolateColor);
+  padding: 8px;
+  font-size: 1.5rem;
+  width: 40vw;
+  text-transform: capitalize;
+  margin: 0 auto 2rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.actives {
+  background-color: red;
+  padding: 0 7px;
+  background-color: var(--mainChocolateColor);
+  color: var(--mainLightGray);
+  border-radius: 5px;
+}
+.break-me {
+  margin-bottom: 10px;
+}
+/* end of paginate */
