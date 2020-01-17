@@ -35,7 +35,7 @@ export function BookProvider({ children }) {
   const [maxPrice, setMaxPrice] = useState();
   const [searchCategory, setSearchCategory] = useState('');
   // pagination
-  const [selectedPage, setSelectedPage] = useState();
+  const [selectedPage, setSelectedPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
   const [totalPages, setTotalPages] = useState();
   const [totalBooks, setTotalBooks] = useState();
@@ -45,7 +45,7 @@ export function BookProvider({ children }) {
   React.useEffect(() => {
     async function getBooks() {
       try {
-        setLoading(true);
+        // setLoading(true);
         const response = await fetch(
           `${URL}/books?page=${selectedPage}&size=${pageSize}`
         );
@@ -63,7 +63,7 @@ export function BookProvider({ children }) {
       } catch (error) {
         console.log(error);
       }
-      setLoading(false);
+      // setLoading(false);
     }
     getBooks();
   }, [pageSize, selectedPage]);
@@ -436,9 +436,7 @@ export function BookProvider({ children }) {
   };
 
   // Pagination
-  const handlePageClick = e => {
-    setSelectedPage(e.selected);
-  };
+
   return (
     <BookContext.Provider
       value={{
@@ -491,8 +489,7 @@ export function BookProvider({ children }) {
         setPageSize,
         totalPages,
         totalBooks,
-        onePageBooks,
-        handlePageClick
+        onePageBooks
       }}
     >
       {children}

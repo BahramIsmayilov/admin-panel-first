@@ -4,33 +4,32 @@ import { Link } from 'react-router-dom';
 import { BookContext } from './context/context';
 import ReactPaginate from 'react-paginate';
 
-const BooksList = ({ onePageBooks }) => {
+const BooksList = () => {
   const {
     handleClear,
     handleDeleteBooksByAuthors,
     header,
     deleteBooksAuthorId,
-    handlePageClick,
-    pageCounts,
     selectedPage,
     setSelectedPage,
     pageSize,
     setPageSize,
     totalPages,
-    totalBooks
+    onePageBooks
   } = React.useContext(BookContext);
 
-  // useEffect(() => {
+  const handlePageClick = e => {
+    console.log(e.selected);
+    setSelectedPage(e.selected);
+  };
 
-  // }, [books, selectedPage]);
+  // useEffect(() => {}, [onePageBooks]);
   return (
     <div className="table-list">
       <table className="table">
         <thead className="thead-dark">
           <tr className="text-center">
-            <th scope="col" on>
-              ID
-            </th>
+            <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Author</th>
             <th scope="col">Category</th>
@@ -60,7 +59,7 @@ const BooksList = ({ onePageBooks }) => {
           onPageChange={handlePageClick}
           containerClassName={'pagination'}
           subContainerClassName={'pagination pages'}
-          activeClassName={'active actives'}
+          activeClassName={`actives`}
           pageClassName={'pagination-count'}
           previousClassName={'previousClassName'}
           nextClassName={'nextClassName'}

@@ -7,10 +7,11 @@ import SearchForm from '../components/SearchForm';
 const Books = () => {
   const {
     books,
-    onePageBooks,
+    totalBooks,
     loading,
     header,
-    headerNoBooks
+    headerNoBooks,
+    onePageBooks
   } = React.useContext(BookContext);
   if (loading) {
     return <Loading type="spokes" color="#000" />;
@@ -29,12 +30,12 @@ const Books = () => {
       ) : header === undefined ? (
         <h1>Not Found Any Book</h1>
       ) : onePageBooks.length > 0 ? (
-        <h1>All Books</h1>
+        <h1>All Books: {totalBooks}</h1>
       ) : (
         <h1>There Are Not Any Books</h1>
       )}
       <SearchForm />
-      <BooksList onePageBooks={onePageBooks} />
+      <BooksList />
     </section>
   );
 };
