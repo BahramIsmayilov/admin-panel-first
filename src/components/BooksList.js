@@ -4,27 +4,25 @@ import { Link } from 'react-router-dom';
 import { BookContext } from './context/context';
 import ReactPaginate from 'react-paginate';
 
-const BooksList = ({ books }) => {
+const BooksList = ({ onePageBooks }) => {
   const {
     handleClear,
     handleDeleteBooksByAuthors,
     header,
     deleteBooksAuthorId,
-    selectedPage,
-    firstBookIndex,
-    lastBookIndex,
     handlePageClick,
-    pageCounts
+    pageCounts,
+    selectedPage,
+    setSelectedPage,
+    pageSize,
+    setPageSize,
+    totalPages,
+    totalBooks
   } = React.useContext(BookContext);
-  const [pageBooks, setPageBooks] = React.useState([]);
 
-  useEffect(() => {
-    let tempPageBooks = [];
-    for (let i = firstBookIndex; i < lastBookIndex; i++) {
-      tempPageBooks = [...tempPageBooks, books[i]];
-    }
-    setPageBooks(tempPageBooks);
-  }, [books, selectedPage]);
+  // useEffect(() => {
+
+  // }, [books, selectedPage]);
   return (
     <div className="table-list">
       <table className="table">
@@ -45,7 +43,7 @@ const BooksList = ({ books }) => {
           </tr>
         </thead>
         <tbody>
-          {pageBooks.map(item => {
+          {onePageBooks.map(item => {
             return <SingleBook key={item.id} {...item} />;
           })}
         </tbody>
@@ -56,7 +54,7 @@ const BooksList = ({ books }) => {
           nextLabel={'>'}
           breakLabel={'...'}
           breakClassName={'break-me'}
-          pageCount={pageCounts}
+          pageCount={totalPages}
           marginPagesDisplayed={2}
           pageRangeDisplayed={3}
           onPageChange={handlePageClick}
@@ -75,7 +73,7 @@ const BooksList = ({ books }) => {
             Add New Book
           </button>
         </Link>
-        {books.length > 0 ? (
+        {onePageBooks.length > 0 ? (
           <button
             onClick={
               header
