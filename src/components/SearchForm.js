@@ -15,6 +15,7 @@ const SearchForm = () => {
     setSearchCategory
   } = React.useContext(BookContext);
   const { categories } = React.useContext(CategoriesContext);
+  console.log(minPrice, maxPrice, maxPageCount, pageCountRange);
 
   const handleSearchSubmit = e => {
     e.preventDefault();

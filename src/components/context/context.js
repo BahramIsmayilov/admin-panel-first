@@ -36,7 +36,7 @@ export function BookProvider({ children }) {
   const [searchCategory, setSearchCategory] = useState('');
   // pagination
   const [selectedPage, setSelectedPage] = useState(0);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(3);
   const [totalPages, setTotalPages] = useState();
   const [totalBooks, setTotalBooks] = useState();
   const [onePageBooks, setOnePageBooks] = useState([]);
@@ -51,11 +51,17 @@ export function BookProvider({ children }) {
         );
         const data = await response.json();
         const tempBooks = await data;
-        // const tempMaxCount = Math.max(...tempBooks.map(item => item.pageCount));
-        // const tempMaxPrice = Math.max(...tempBooks.map(item => item.price));
-        // setMaxPrice(tempMaxPrice);
-        // setMaxPageCount(tempMaxCount);
-        // setPageCountRange(tempMaxCount);
+        const tempMaxCount = Math.max(
+          ...tempBooks.content.map(item => item.pageCount)
+        );
+        const tempMaxPrice = Math.max(
+          ...tempBooks.content.map(item => item.price)
+        );
+        console.log(tempMaxPrice);
+
+        setMaxPrice(tempMaxPrice);
+        setMaxPageCount(tempMaxCount);
+        setPageCountRange(tempMaxCount);
         setTotalPages(tempBooks.totalPages);
         setTotalBooks(tempBooks.totalElements);
         setBooks(tempBooks.content);
@@ -97,7 +103,7 @@ export function BookProvider({ children }) {
     }
     async function searchBooks() {
       const response = await axios.post(
-        `${URL}/books/search`,
+        `${URL}/books/search?page=${selectedPage}&size=${pageSize}`,
         {
           title: searchName,
           maxPageCount: pageCountRange,
@@ -111,10 +117,20 @@ export function BookProvider({ children }) {
           }
         }
       );
-      setBooks(response.data);
+      setOnePageBooks(response.data.content);
+      setTotalPages(response.data.totalPages);
+      setTotalBooks(response.data.totalElements);
     }
     searchBooks();
-  }, [searchName, pageCountRange, minPrice, maxPrice, searchCategory]);
+  }, [
+    searchName,
+    pageCountRange,
+    minPrice,
+    maxPrice,
+    searchCategory,
+    selectedPage,
+    pageSize
+  ]);
   // handleSearchTitle();
   // book`s handle function
   const handleTitle = e => {
