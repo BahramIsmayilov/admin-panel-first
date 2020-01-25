@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-lone-blocks */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -40,8 +41,57 @@ export function BookProvider({ children }) {
   const [totalPages, setTotalPages] = useState();
   const [totalBooks, setTotalBooks] = useState();
   const [onePageBooks, setOnePageBooks] = useState([]);
+  const [pahingId, setPagingId] = useState(false);
+  const [pahingIdCount, setPagingIdCount] = useState();
+  const [selectedPageId, setSelectedPageId] = useState(0);
+
+  // Pagination
+  function handlePageClick(e) {
+    if (pahingId) {
+      console.log(selectedPageId, e.selected);
+      handleAuthorAllBooks(pahingIdCount);
+      setSelectedPageId(e.selected);
+    } else {
+      setSelectedPage(e.selected);
+      console.log(selectedPage, e.selected);
+    }
+  }
+
+  //**** handleAuthorAllBooks get author all books from data ****
+  const handleAuthorAllBooks = id => {
+    setPagingIdCount(id);
+    setPagingId(true);
+    // handleRefreshAuthorsName();
+    console.log(id, selectedPageId, pageSize);
+
+    async function getAuthorAllBooks() {
+      try {
+        // setLoading(true);
+        const response = await fetch(
+          `${URL}/books/by-author/${id}?page=${selectedPageId}&size=${pageSize}`
+        );
+        const data = await response.json();
+        const tempBooks = await data;
+        let tempHeader = tempBooks.content.map(
+          item => tempBooks.content[0].author.fullName
+        );
+        console.log(tempBooks);
+        setHeader(tempHeader[0]);
+        setDeleteBooksAuthorId(id);
+        setTotalPages(tempBooks.totalPages);
+        setTotalBooks(tempBooks.totalElements);
+        // setBooks(tempBooks.content);
+        setOnePageBooks(tempBooks.content);
+      } catch (error) {
+        console.log(error);
+      }
+      // setLoading(false);
+    }
+    getAuthorAllBooks();
+  };
 
   //**** useEffect get books from data ****
+  // eslint-disable-next-line no-unused-expressions
   React.useEffect(() => {
     async function getBooks() {
       try {
@@ -142,6 +192,7 @@ export function BookProvider({ children }) {
   // refresh function books data
   const refreshBooks = () => {
     setHeader('');
+    setPagingId(false);
     async function getBooks() {
       try {
         // setLoading(true);
@@ -412,29 +463,6 @@ export function BookProvider({ children }) {
     getBooks();
   };
 
-  //**** handleAuthorAllBooks get author all books from data ****
-  const handleAuthorAllBooks = id => {
-    handleRefreshAuthorsName();
-    async function getAuthorAllBooks() {
-      try {
-        setLoading(true);
-        const response = await fetch(`${URL}/books/by-author/${id}`);
-        const data = await response.json();
-        const tempBooks = await data;
-        setBooks(tempBooks);
-        let tempHeader = tempBooks.map(item => tempBooks[0].author.fullName);
-        setHeader(tempHeader[0]);
-        setDeleteBooksAuthorId(id);
-      } catch (error) {
-        console.log(error);
-      }
-      setLoading(false);
-    }
-    getAuthorAllBooks();
-  };
-
-  // Pagination
-
   return (
     <BookContext.Provider
       value={{
@@ -487,7 +515,10 @@ export function BookProvider({ children }) {
         setPageSize,
         totalPages,
         totalBooks,
-        onePageBooks
+        onePageBooks,
+        pahingId,
+        pahingIdCount,
+        handlePageClick
       }}
     >
       {children}

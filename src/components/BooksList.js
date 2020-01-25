@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import SingleBook from './SingleBook';
 import { Link } from 'react-router-dom';
 import { BookContext } from './context/context';
@@ -10,18 +10,10 @@ const BooksList = () => {
     handleDeleteBooksByAuthors,
     header,
     deleteBooksAuthorId,
-    selectedPage,
-    setSelectedPage,
-    pageSize,
-    setPageSize,
     totalPages,
-    onePageBooks
+    onePageBooks,
+    handlePageClick
   } = React.useContext(BookContext);
-
-  const handlePageClick = e => {
-    console.log(e.selected);
-    setSelectedPage(e.selected);
-  };
 
   return (
     <div className="table-list">

@@ -219,6 +219,7 @@ export function AuthorProvider({ children }) {
   // pagination
   const handlePageClick = e => {
     setSelectedPage(e.selected);
+    console.log(selectedPage, e.selected);
   };
   return (
     <AuthorContext.Provider

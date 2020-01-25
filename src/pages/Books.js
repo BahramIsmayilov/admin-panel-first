@@ -6,7 +6,6 @@ import SearchForm from '../components/SearchForm';
 
 const Books = () => {
   const {
-    books,
     totalBooks,
     loading,
     header,
@@ -22,7 +21,7 @@ const Books = () => {
         <h1>
           {header}`s{' '}
           {onePageBooks.length > 1
-            ? 'Books'
+            ? `Books: ${totalBooks}`
             : onePageBooks.length === 0 && headerNoBooks
             ? 'All Books deleted'
             : 'Book'}
