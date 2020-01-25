@@ -3,60 +3,14 @@ import React, { useEffect } from 'react';
 import SingleAuthor from './SingleAuthor';
 import { Link } from 'react-router-dom';
 import { AuthorContext } from '../components/context/authorsContext';
+import ReactPaginate from 'react-paginate';
 
 const AuthorsList = ({ authors }) => {
-  const { handleClear } = React.useContext(AuthorContext);
+  const { handleClear, totalPages, handlePageClick } = React.useContext(
+    AuthorContext
+  );
   const [sortAuthors, setSortAuthors] = React.useState([]);
 
-  // ######## sort table`s value  ########
-  const handleNumber = () => {
-    const tempSort = authors.slice(0);
-    tempSort.sort((a, b) => {
-      return a.id - b.id;
-    });
-    setSortAuthors(tempSort);
-  };
-  const handleName = () => {
-    const tempSort = authors.slice(0);
-    tempSort.sort((a, b) => {
-      let x = a.fullName.toLowerCase();
-      let y = b.fullName.toLowerCase();
-      return x < y ? -1 : x > y ? 1 : 0;
-    });
-    setSortAuthors(authors);
-  };
-  const handleBirthDate = () => {
-    const tempSort = authors.slice(0);
-    tempSort.sort((a, b) => {
-      return a.birthDate - b.birthDate;
-    });
-    setSortAuthors(tempSort);
-  };
-  const handleGender = () => {
-    const tempSort = authors.slice(0);
-    tempSort.sort((a, b) => {
-      let x = a.gender.toLowerCase();
-      let y = b.gender.toLowerCase();
-      return x < y ? -1 : x > y ? 1 : 0;
-    });
-    setSortAuthors(tempSort);
-  };
-  const handleEmail = () => {
-    const tempSort = authors.slice(0);
-    tempSort.sort((a, b) => {
-      let x = a.email.toLowerCase();
-      let y = b.email.toLowerCase();
-      return x < y ? -1 : x > y ? 1 : 0;
-    });
-    setSortAuthors(tempSort);
-  };
-  const handleBooks = () => {
-    const tempSort = authors.slice(0);
-    tempSort.sort((a, b) => {
-      return b.numberOfBooks - a.numberOfBooks;
-    });
-    setSortAuthors(tempSort);
-  };
   useEffect(() => {
     setSortAuthors(authors);
   }, [authors]);
@@ -65,26 +19,14 @@ const AuthorsList = ({ authors }) => {
       <table className="table">
         <thead className="thead-dark">
           <tr className="text-center">
-            <th scope="col-1" onClick={() => handleNumber()}>
-              ID
-            </th>
-            <th scope="col" onClick={() => handleName()}>
-              Full Name
-            </th>
-            <th scope="col" onClick={() => handleBirthDate()}>
-              Birthday
-            </th>
-            <th scope="col" onClick={() => handleGender()}>
-              Gender
-            </th>
-            <th scope="col" onClick={() => handleEmail()}>
-              Email
-            </th>
+            <th scope="col-1">ID</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Email</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
-            <th scope="col" onClick={() => handleBooks()}>
-              Books
-            </th>
+            <th scope="col">Books</th>
           </tr>
         </thead>
         <tbody>
@@ -94,6 +36,22 @@ const AuthorsList = ({ authors }) => {
         </tbody>
       </table>
       <div className="text-center mt-4 mb-5">
+        <ReactPaginate
+          previousLabel={'<'}
+          nextLabel={'>'}
+          breakLabel={'...'}
+          breakClassName={'break-me'}
+          pageCount={totalPages}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={'pagination'}
+          subContainerClassName={'pagination pages'}
+          activeClassName={`actives`}
+          pageClassName={'pagination-count'}
+          previousClassName={'previousClassName'}
+          nextClassName={'nextClassName'}
+        />
         <Link to="/addAuthor">
           <button
             type="submit"

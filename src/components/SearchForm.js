@@ -15,7 +15,6 @@ const SearchForm = () => {
     setSearchCategory
   } = React.useContext(BookContext);
   const { categories } = React.useContext(CategoriesContext);
-  console.log(minPrice, maxPrice, maxPageCount, pageCountRange);
 
   const handleSearchSubmit = e => {
     e.preventDefault();
@@ -110,7 +109,7 @@ const SearchForm = () => {
               <input
                 type="number"
                 name="min"
-                value={minPrice}
+                placeholder="min"
                 onChange={searchMinPrice}
                 ref={searchMinPriceValue}
                 className="size-input search-title"
@@ -118,7 +117,7 @@ const SearchForm = () => {
               <input
                 type="number"
                 name="max"
-                value={maxPrice}
+                placeholder="max"
                 onChange={searchMaxPrice}
                 ref={searchMaxPriceValue}
                 className="size-input search-title"
@@ -126,21 +125,19 @@ const SearchForm = () => {
             </div>
           </div>
           {/* end of search book price */}
-          {/* Max Page Count */}
-          <div className="form-group mt-2">
-            <label htmlFor="count">Page: {pageCountRange}</label>
-            <input
-              className="form-control "
-              type="range"
-              name="count"
-              id="count"
-              step="1"
-              min={0}
-              value={pageCountRange}
-              max={maxPageCount}
-              onChange={searchMaxPageCount}
-              ref={searchMaxPageValue}
-            />
+          {/* Page Count */}
+          <div className="form-group">
+            <label htmlFor="size">Max Page</label>
+            <div className="size-inputs">
+              <input
+                type="number"
+                name="count"
+                id="count"
+                onChange={searchMaxPageCount}
+                ref={searchMaxPageValue}
+                className="size-input search-title"
+              />
+            </div>
           </div>
           {/* end of Max Page Count*/}
         </form>

@@ -23,7 +23,6 @@ const BooksList = () => {
     setSelectedPage(e.selected);
   };
 
-  // useEffect(() => {}, [onePageBooks]);
   return (
     <div className="table-list">
       <table className="table">

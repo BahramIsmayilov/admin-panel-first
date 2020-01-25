@@ -4,13 +4,14 @@ import Loading from '../components/Loading';
 import { AuthorContext } from '../components/context/authorsContext';
 
 const Authors = () => {
-  const { authors, loading } = React.useContext(AuthorContext);
+  const { authors, loading, totalAuthors } = React.useContext(AuthorContext);
   if (loading) {
     return <Loading type="spokes" color="#000" />;
   }
+
   return (
     <section className="section books pt-4">
-      <h1 className="mb-5">All Authors</h1>
+      <h1 className="mb-5">All Authors : {totalAuthors}</h1>
       <AuthorsList authors={authors} />
     </section>
   );

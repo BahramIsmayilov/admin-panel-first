@@ -1,5 +1,5 @@
 /* eslint-disable no-lone-blocks */
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { URL } from '../../utils/URL';
 import { successNotify, infoNotify } from './properties';
@@ -8,49 +8,57 @@ import { errorNotify } from './properties';
 export const AuthorContext = React.createContext();
 
 export function AuthorProvider({ children }) {
-  const [loading, setLoading] = React.useState(false);
-  const [authors, setAuthors] = React.useState([]);
-  const [id, setId] = React.useState();
-  const [fullName, setFullName] = React.useState('');
-  const [birthDate, setBirthDate] = React.useState('');
-  const [gender, setGender] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [edit, setEdit] = React.useState(false);
+  const [loading, setLoading] = useState(false);
+  const [authors, setAuthors] = useState([]);
+  const [id, setId] = useState();
+  const [fullName, setFullName] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
+  const [edit, setEdit] = useState(false);
+  // pagination
+  const [selectedPage, setSelectedPage] = useState(0);
+  const [pageSize, setPageSize] = useState(3);
+  const [totalPages, setTotalPages] = useState();
+  const [totalAuthors, setTotalAuthors] = useState();
+  const [onePageBooks, setOnePageBooks] = useState([]);
 
   React.useEffect(() => {
     async function getAuthors() {
       try {
-        setLoading(true);
-        const response = await fetch(`${URL}/authors`);
+        // setLoading(true);
+        const response = await fetch(
+          `${URL}/authors?page=${selectedPage}&size=${pageSize}`
+        );
         const data = await response.json();
         const tempAuthors = await data;
-        const tempSort = tempAuthors.slice(0);
-        tempSort.sort((a, b) => {
-          let x = a.fullName.toLowerCase();
-          let y = b.fullName.toLowerCase();
-          return x < y ? -1 : x > y ? 1 : 0;
-        });
-        setAuthors(tempAuthors);
+        setAuthors(tempAuthors.content);
+        setTotalPages(tempAuthors.totalPages);
+        setTotalAuthors(tempAuthors.totalElements);
       } catch (error) {
         console.log(error);
       }
-      setLoading(false);
+      // setLoading(false);
     }
     getAuthors();
-  }, []);
+  }, [selectedPage, pageSize]);
   // refresh function authors data
   const refreshAuthors = () => {
     async function getAuthors() {
       try {
-        setLoading(true);
-        const response = await fetch(`${URL}/authors`);
+        // setLoading(true);
+        const response = await fetch(
+          `${URL}/authors?page=${selectedPage}&size=${pageSize}`
+        );
         const data = await response.json();
         const tempAuthors = await data;
-        setAuthors(tempAuthors);
+        setAuthors(tempAuthors.content);
+        setTotalPages(tempAuthors.totalPages);
+        setTotalAuthors(tempAuthors.totalElements);
       } catch (error) {
         console.log(error);
       }
-      setLoading(false);
+      // setLoading(false);
     }
     getAuthors();
   };
@@ -208,6 +216,10 @@ export function AuthorProvider({ children }) {
     setEdit(false);
     setId();
   };
+  // pagination
+  const handlePageClick = e => {
+    setSelectedPage(e.selected);
+  };
   return (
     <AuthorContext.Provider
       value={{
@@ -231,7 +243,10 @@ export function AuthorProvider({ children }) {
         refreshAuthors,
         handleEditAuthor,
         handleAddAuthor,
-        refreshAddAuthor
+        refreshAddAuthor,
+        totalPages,
+        handlePageClick,
+        totalAuthors
       }}
     >
       {children}

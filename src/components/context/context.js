@@ -51,17 +51,6 @@ export function BookProvider({ children }) {
         );
         const data = await response.json();
         const tempBooks = await data;
-        const tempMaxCount = Math.max(
-          ...tempBooks.content.map(item => item.pageCount)
-        );
-        const tempMaxPrice = Math.max(
-          ...tempBooks.content.map(item => item.price)
-        );
-        console.log(tempMaxPrice);
-
-        setMaxPrice(tempMaxPrice);
-        setMaxPageCount(tempMaxCount);
-        setPageCountRange(tempMaxCount);
         setTotalPages(tempBooks.totalPages);
         setTotalBooks(tempBooks.totalElements);
         setBooks(tempBooks.content);
@@ -79,15 +68,10 @@ export function BookProvider({ children }) {
     async function getAuthors() {
       try {
         setLoading(true);
-        const response = await fetch(`${URL}/authors`);
+        const response = await fetch(`${URL}/authors?page=&size=`);
         const data = await response.json();
         const tempAuthors = await data;
-        const tempSort = tempAuthors.slice(0);
-        // tempSort.sort((a, b) => {
-        //   let x = a.fullName.toLowerCase();
-        //   let y = b.fullName.toLowerCase();
-        //   return x < y ? -1 : x > y ? 1 : 0;
-        // });
+        const tempSort = tempAuthors.content;
         setAuthors(tempSort);
       } catch (error) {
         console.log(error);
@@ -131,6 +115,7 @@ export function BookProvider({ children }) {
     selectedPage,
     pageSize
   ]);
+
   // handleSearchTitle();
   // book`s handle function
   const handleTitle = e => {
@@ -159,23 +144,20 @@ export function BookProvider({ children }) {
     setHeader('');
     async function getBooks() {
       try {
-        setLoading(true);
+        // setLoading(true);
         const response = await fetch(
           `${URL}/books?page=${selectedPage}&size=${pageSize}`
         );
         const data = await response.json();
         const tempBooks = await data;
-        const tempMaxCount = Math.max(...tempBooks.map(item => item.pageCount));
-        const tempMaxPrice = Math.max(...tempBooks.map(item => item.price));
-        setMaxPrice(tempMaxPrice);
-        setMaxPageCount(tempMaxCount);
-        setPageCountRange(tempMaxCount);
-        setMinPrice(0);
+        setTotalPages(tempBooks.totalPages);
+        setTotalBooks(tempBooks.totalElements);
         setBooks(tempBooks.content);
+        setOnePageBooks(tempBooks.content);
       } catch (error) {
         console.log(error);
       }
-      setLoading(false);
+      // setLoading(false);
     }
     getBooks();
   };
