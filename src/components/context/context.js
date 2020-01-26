@@ -41,7 +41,7 @@ export function BookProvider({ children }) {
   const [totalPages, setTotalPages] = useState();
   const [totalBooks, setTotalBooks] = useState();
   const [onePageBooks, setOnePageBooks] = useState([]);
-  const [pahingId, setPagingId] = useState(false);
+  const [pagingId, setPagingId] = useState(false);
   const [pageIdCount, setPageIdCount] = useState();
   const [selectedPageId, setSelectedPageId] = useState(0);
 
@@ -79,7 +79,7 @@ export function BookProvider({ children }) {
 
   // Pagination
   function handlePageClick(e) {
-    if (pahingId) {
+    if (pagingId) {
       console.log(selectedPageId, e.selected);
       setSelectedPageId(e.selected);
       handleAuthorAllBooks(pageIdCount, e.selected);
@@ -99,7 +99,7 @@ export function BookProvider({ children }) {
       `if search change post context 148, setSelectedPage(0): ${selectedPage}`
     );
     async function searchBooks() {
-      console.log('hello world useeffect');
+      console.log(`hello world useeffect ${pageIdCount}`);
       const response = await axios.post(
         `${URL}/books/search?page=${selectedPage}&size=${pageSize}`,
         {
@@ -107,7 +107,8 @@ export function BookProvider({ children }) {
           maxPageCount: pageCountRange,
           priceFrom: minPrice,
           priceTo: maxPrice,
-          category: searchCategory
+          category: searchCategory,
+          authorId: pageIdCount
         },
         {
           headers: {
@@ -127,7 +128,8 @@ export function BookProvider({ children }) {
     maxPrice,
     searchCategory,
     selectedPage,
-    pageSize
+    pageSize,
+    pageIdCount
   ]);
 
   // handleSearchTitle();
@@ -159,6 +161,7 @@ export function BookProvider({ children }) {
     setHeader('');
     setPagingId(false);
     setSelectedPage(0);
+    setPageIdCount();
     async function getBooks() {
       try {
         // setLoading(true);
@@ -486,7 +489,7 @@ export function BookProvider({ children }) {
         totalPages,
         totalBooks,
         onePageBooks,
-        pahingId,
+        pagingId,
         pageIdCount,
         handlePageClick
       }}

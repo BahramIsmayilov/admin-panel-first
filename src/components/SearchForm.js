@@ -17,16 +17,6 @@ const SearchForm = () => {
     e.preventDefault();
   };
 
-  // if (
-  //   searchName !== '' &&
-  //   pageCountRange !== undefined &&
-  //   minPrice > 0 &&
-  //   maxPrice !== undefined &&
-  //   searchCategory !== 'Choose...'
-  // ) {
-  //   setSelectedPage(0);
-  // }
-
   // search Name
   const searchNameValue = React.useRef('');
   React.useEffect(() => {

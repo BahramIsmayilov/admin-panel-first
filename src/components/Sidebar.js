@@ -32,14 +32,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="nav-item active">
-            <Link
-              to="/authors"
-              onClick={() => {
-                refreshAuthors();
-                refreshBooks();
-              }}
-              className="nav-link"
-            >
+            <Link to="/authors" onClick={refreshAuthors} className="nav-link">
               <GoPerson className="align-middle" />
               <span className="align-middle">Authors</span>
             </Link>
