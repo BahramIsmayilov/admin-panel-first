@@ -30,7 +30,6 @@ export function BookProvider({ children }) {
   const [headerNoBooks, setHeaderNoBooks] = useState(false);
   // search
   const [searchName, setSearchName] = useState('');
-  const [maxPageCount, setMaxPageCount] = useState(0);
   const [pageCountRange, setPageCountRange] = useState();
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState();
@@ -162,6 +161,11 @@ export function BookProvider({ children }) {
     setPagingId(false);
     setSelectedPage(0);
     setPageIdCount();
+    setSearchName('');
+    setPageCountRange();
+    setMinPrice(0);
+    setMaxPrice();
+    setSearchCategory('');
     async function getBooks() {
       try {
         // setLoading(true);
@@ -476,7 +480,6 @@ export function BookProvider({ children }) {
         setSearchName,
         pageCountRange,
         setPageCountRange,
-        maxPageCount,
         setMinPrice,
         setMaxPrice,
         minPrice,
