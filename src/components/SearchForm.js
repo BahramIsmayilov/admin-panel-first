@@ -6,13 +6,10 @@ const SearchForm = () => {
   const {
     setMinPrice,
     setMaxPrice,
-    minPrice,
-    maxPrice,
     setSearchName,
-    maxPageCount,
-    pageCountRange,
     setPageCountRange,
-    setSearchCategory
+    setSearchCategory,
+    setSelectedPage
   } = React.useContext(BookContext);
   const { categories } = React.useContext(CategoriesContext);
 
@@ -20,12 +17,27 @@ const SearchForm = () => {
     e.preventDefault();
   };
 
+  // if (
+  //   searchName !== '' &&
+  //   pageCountRange !== undefined &&
+  //   minPrice > 0 &&
+  //   maxPrice !== undefined &&
+  //   searchCategory !== 'Choose...'
+  // ) {
+  //   setSelectedPage(0);
+  // }
+
   // search Name
   const searchNameValue = React.useRef('');
   React.useEffect(() => {
     searchNameValue.current.focus();
   }, []);
   const searchBookName = () => {
+    let oldValue = '';
+    if (oldValue !== searchNameValue.current.value) {
+      setSelectedPage(0);
+      oldValue = searchNameValue.current.value;
+    }
     setSearchName(searchNameValue.current.value);
   };
   // search Category
@@ -35,6 +47,11 @@ const SearchForm = () => {
     searchCategoryValue.current.focus();
   }, []);
   const searchBookCategory = () => {
+    let oldValue = '';
+    if (oldValue !== searchCategoryValue.current.value) {
+      setSelectedPage(0);
+      oldValue = searchCategoryValue.current.value;
+    }
     setSearchCategory(searchCategoryValue.current.value);
   };
   // search min price
@@ -43,6 +60,11 @@ const SearchForm = () => {
     searchMinPriceValue.current.focus();
   }, []);
   const searchMinPrice = () => {
+    let oldValue = '';
+    if (oldValue !== searchMinPriceValue.current.value) {
+      setSelectedPage(0);
+      oldValue = searchMinPriceValue.current.value;
+    }
     setMinPrice(searchMinPriceValue.current.value);
   };
   // search max price
@@ -51,6 +73,11 @@ const SearchForm = () => {
     searchMaxPriceValue.current.focus();
   }, []);
   const searchMaxPrice = () => {
+    let oldValue = '';
+    if (oldValue !== searchMaxPriceValue.current.value) {
+      setSelectedPage(0);
+      oldValue = searchMaxPriceValue.current.value;
+    }
     setMaxPrice(searchMaxPriceValue.current.value);
   };
   // search max page count
@@ -59,6 +86,11 @@ const SearchForm = () => {
     searchMaxPageValue.current.focus();
   }, []);
   const searchMaxPageCount = () => {
+    let oldValue = '';
+    if (oldValue !== searchMaxPageValue.current.value) {
+      setSelectedPage(0);
+      oldValue = searchMaxPageValue.current.value;
+    }
     setPageCountRange(searchMaxPageValue.current.value);
   };
 

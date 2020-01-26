@@ -42,16 +42,17 @@ export function BookProvider({ children }) {
   const [totalBooks, setTotalBooks] = useState();
   const [onePageBooks, setOnePageBooks] = useState([]);
   const [pahingId, setPagingId] = useState(false);
-  const [pahingIdCount, setPagingIdCount] = useState();
+  const [pageIdCount, setPageIdCount] = useState();
   const [selectedPageId, setSelectedPageId] = useState(0);
 
   // Pagination
   function handlePageClick(e) {
     if (pahingId) {
       console.log(selectedPageId, e.selected);
-      handleAuthorAllBooks(pahingIdCount);
+      handleAuthorAllBooks(pageIdCount);
       setSelectedPageId(e.selected);
     } else {
+      console.log('hello world handlePageClick');
       setSelectedPage(e.selected);
       console.log(selectedPage, e.selected);
     }
@@ -59,7 +60,7 @@ export function BookProvider({ children }) {
 
   //**** handleAuthorAllBooks get author all books from data ****
   const handleAuthorAllBooks = id => {
-    setPagingIdCount(id);
+    setPageIdCount(id);
     setPagingId(true);
     // handleRefreshAuthorsName();
     console.log(id, selectedPageId, pageSize);
@@ -91,62 +92,57 @@ export function BookProvider({ children }) {
   };
 
   //**** useEffect get books from data ****
-  // eslint-disable-next-line no-unused-expressions
-  React.useEffect(() => {
-    async function getBooks() {
-      try {
-        // setLoading(true);
-        const response = await fetch(
-          `${URL}/books?page=${selectedPage}&size=${pageSize}`
-        );
-        const data = await response.json();
-        const tempBooks = await data;
-        setTotalPages(tempBooks.totalPages);
-        setTotalBooks(tempBooks.totalElements);
-        setBooks(tempBooks.content);
-        setOnePageBooks(tempBooks.content);
-      } catch (error) {
-        console.log(error);
-      }
-      // setLoading(false);
-    }
-    getBooks();
-  }, [pageSize, selectedPage]);
+  // React.useEffect(() => {
+  //   console.log(`get context 96, setSelectedPage(0)${selectedPage}`);
+  //   async function getBooks() {
+  //     try {
+  //       // setLoading(true);
+  //       const response = await fetch(
+  //         `${URL}/books?page=${selectedPage}&size=${pageSize}`
+  //       );
+  //       const data = await response.json();
+  //       const tempBooks = await data;
+  //       setTotalPages(tempBooks.totalPages);
+  //       setTotalBooks(tempBooks.totalElements);
+  //       setBooks(tempBooks.content);
+  //       setOnePageBooks(tempBooks.content);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //     // setLoading(false);
+  //   }
+  //   getBooks();
+  // }, [pageSize, selectedPage]);
 
   //**** useEffect get authors from data ****
-  React.useEffect(() => {
-    async function getAuthors() {
-      try {
-        setLoading(true);
-        const response = await fetch(`${URL}/authors?page=&size=`);
-        const data = await response.json();
-        const tempAuthors = await data;
-        const tempSort = tempAuthors.content;
-        setAuthors(tempSort);
-      } catch (error) {
-        console.log(error);
-      }
-      setLoading(false);
-    }
-    getAuthors();
-  }, []);
+  // React.useEffect(() => {
+  //   async function getAuthors() {
+  //     try {
+  //       setLoading(true);
+  //       const response = await fetch(`${URL}/authors?page=&size=`);
+  //       const data = await response.json();
+  //       const tempAuthors = await data;
+  //       const tempSort = tempAuthors.content;
+  //       setAuthors(tempSort);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //     setLoading(false);
+  //   }
+  //   getAuthors();
+  // }, []);
+
   //**** useEffect search form book name ****
   useEffect(() => {
     if (searchCategory === 'Choose...') {
       setSearchCategory();
     }
-    if (
-      searchName !== '' ||
-      pageCountRange !== undefined ||
-      minPrice > 0 ||
-      maxPrice !== undefined ||
-      searchCategory !== 'Choose...'
-    ) {
-      setSelectedPage(0);
-    }
-    console.log();
 
+    console.log(
+      `if search change post context 148, setSelectedPage(0): ${selectedPage}`
+    );
     async function searchBooks() {
+      console.log('hello world useeffect');
       const response = await axios.post(
         `${URL}/books/search?page=${selectedPage}&size=${pageSize}`,
         {
@@ -200,10 +196,12 @@ export function BookProvider({ children }) {
   const handlePageCount = e => {
     setPageCount(e.target.value);
   };
+
   // refresh function books data
   const refreshBooks = () => {
     setHeader('');
     setPagingId(false);
+    setSelectedPage(0);
     async function getBooks() {
       try {
         // setLoading(true);
@@ -223,6 +221,7 @@ export function BookProvider({ children }) {
     }
     getBooks();
   };
+
   // empty value inputs
   const emptyValue = () => {
     setTitle('');
@@ -238,16 +237,19 @@ export function BookProvider({ children }) {
   const handleRefreshAuthorsName = () => {
     async function getAuthors() {
       try {
-        setLoading(true);
-        const response = await fetch(`${URL}/authors`);
+        // setLoading(true);
+        const response = await fetch(
+          `${URL}/authors?page=${selectedPage}&size=${pageSize}`
+        );
         const data = await response.json();
         const tempAuthors = await data;
-        const tempSort = tempAuthors.slice(0);
-        setAuthors(tempSort);
+        setAuthors(tempAuthors.content);
+        // setTotalPages(tempAuthors.totalPages);
+        // setTotalAuthors(tempAuthors.totalElements);
       } catch (error) {
         console.log(error);
       }
-      setLoading(false);
+      // setLoading(false);
     }
     getAuthors();
     emptyValue();
@@ -292,7 +294,7 @@ export function BookProvider({ children }) {
         if (response.status === 200) {
           infoNotify('Successfully Added !');
           setId(response.data);
-          refreshBooks();
+          // refreshBooks();
         } else {
           errorNotify();
         }
@@ -366,7 +368,7 @@ export function BookProvider({ children }) {
           if (response.status === 200) {
             infoNotify('Successfully Added !');
             setId(response.data);
-            refreshBooks();
+            // refreshBooks();
           } else {
             errorNotify();
           }
@@ -528,7 +530,7 @@ export function BookProvider({ children }) {
         totalBooks,
         onePageBooks,
         pahingId,
-        pahingIdCount,
+        pageIdCount,
         handlePageClick
       }}
     >
