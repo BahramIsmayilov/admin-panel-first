@@ -135,9 +135,17 @@ export function BookProvider({ children }) {
     if (searchCategory === 'Choose...') {
       setSearchCategory();
     }
-    if (searchName !== '') {
+    if (
+      searchName !== '' ||
+      pageCountRange !== undefined ||
+      minPrice > 0 ||
+      maxPrice !== undefined ||
+      searchCategory !== 'Choose...'
+    ) {
       setSelectedPage(0);
     }
+    console.log();
+
     async function searchBooks() {
       const response = await axios.post(
         `${URL}/books/search?page=${selectedPage}&size=${pageSize}`,
