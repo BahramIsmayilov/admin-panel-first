@@ -45,31 +45,17 @@ export function BookProvider({ children }) {
   const [pageIdCount, setPageIdCount] = useState();
   const [selectedPageId, setSelectedPageId] = useState(0);
 
-  // Pagination
-  function handlePageClick(e) {
-    if (pahingId) {
-      console.log(selectedPageId, e.selected);
-      handleAuthorAllBooks(pageIdCount);
-      setSelectedPageId(e.selected);
-    } else {
-      console.log('hello world handlePageClick');
-      setSelectedPage(e.selected);
-      console.log(selectedPage, e.selected);
-    }
-  }
-
   //**** handleAuthorAllBooks get author all books from data ****
-  const handleAuthorAllBooks = id => {
+  const handleAuthorAllBooks = (id, selected) => {
     setPageIdCount(id);
     setPagingId(true);
-    // handleRefreshAuthorsName();
-    console.log(id, selectedPageId, pageSize);
+    console.log(id, selected, pageSize);
 
     async function getAuthorAllBooks() {
       try {
         // setLoading(true);
         const response = await fetch(
-          `${URL}/books/by-author/${id}?page=${selectedPageId}&size=${pageSize}`
+          `${URL}/books/by-author/${id}?page=${selected}&size=${pageSize}`
         );
         const data = await response.json();
         const tempBooks = await data;
@@ -91,53 +77,24 @@ export function BookProvider({ children }) {
     getAuthorAllBooks();
   };
 
-  //**** useEffect get books from data ****
-  // React.useEffect(() => {
-  //   console.log(`get context 96, setSelectedPage(0)${selectedPage}`);
-  //   async function getBooks() {
-  //     try {
-  //       // setLoading(true);
-  //       const response = await fetch(
-  //         `${URL}/books?page=${selectedPage}&size=${pageSize}`
-  //       );
-  //       const data = await response.json();
-  //       const tempBooks = await data;
-  //       setTotalPages(tempBooks.totalPages);
-  //       setTotalBooks(tempBooks.totalElements);
-  //       setBooks(tempBooks.content);
-  //       setOnePageBooks(tempBooks.content);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //     // setLoading(false);
-  //   }
-  //   getBooks();
-  // }, [pageSize, selectedPage]);
-
-  //**** useEffect get authors from data ****
-  // React.useEffect(() => {
-  //   async function getAuthors() {
-  //     try {
-  //       setLoading(true);
-  //       const response = await fetch(`${URL}/authors?page=&size=`);
-  //       const data = await response.json();
-  //       const tempAuthors = await data;
-  //       const tempSort = tempAuthors.content;
-  //       setAuthors(tempSort);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //     setLoading(false);
-  //   }
-  //   getAuthors();
-  // }, []);
+  // Pagination
+  function handlePageClick(e) {
+    if (pahingId) {
+      console.log(selectedPageId, e.selected);
+      setSelectedPageId(e.selected);
+      handleAuthorAllBooks(pageIdCount, e.selected);
+    } else {
+      console.log(' handlePageClick');
+      setSelectedPage(e.selected);
+      console.log(selectedPage, e.selected);
+    }
+  }
 
   //**** useEffect search form book name ****
   useEffect(() => {
     if (searchCategory === 'Choose...') {
       setSearchCategory();
     }
-
     console.log(
       `if search change post context 148, setSelectedPage(0): ${selectedPage}`
     );
