@@ -135,6 +135,9 @@ export function BookProvider({ children }) {
     if (searchCategory === 'Choose...') {
       setSearchCategory();
     }
+    if (searchName !== '') {
+      setSelectedPage(0);
+    }
     async function searchBooks() {
       const response = await axios.post(
         `${URL}/books/search?page=${selectedPage}&size=${pageSize}`,
