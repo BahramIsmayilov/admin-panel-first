@@ -21,7 +21,6 @@ export function AuthorProvider({ children }) {
   const [pageSize, setPageSize] = useState(3);
   const [totalPages, setTotalPages] = useState();
   const [totalAuthors, setTotalAuthors] = useState();
-  const [onePageBooks, setOnePageBooks] = useState([]);
 
   React.useEffect(() => {
     async function getAuthors() {

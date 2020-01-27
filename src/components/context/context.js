@@ -58,11 +58,7 @@ export function BookProvider({ children }) {
     if (searchCategory === 'Choose...') {
       setSearchCategory();
     }
-    console.log(
-      `if search change post context 148, setSelectedPage(0): ${selectedPage}`
-    );
     async function searchBooks() {
-      console.log(`hello world useeffect ${pageIdCount}`);
       const response = await axios.post(
         `${URL}/books/search?page=${selectedPage}&size=${pageSize}`,
         {
@@ -161,6 +157,22 @@ export function BookProvider({ children }) {
     setSingleAuthetFullName('');
     setPageCount('');
   };
+  // from data all authors
+  React.useEffect(() => {
+    async function getAuthors() {
+      try {
+        // setLoading(true);
+        const response = await fetch(`${URL}/authors`);
+        const data = await response.json();
+        const tempAuthors = await data;
+        setAuthors(tempAuthors.content);
+      } catch (error) {
+        console.log(error);
+      }
+      // setLoading(false);
+    }
+    getAuthors();
+  }, []);
   // handle refresh add book onClick
   const handleRefreshAuthorsName = () => {
     async function getAuthors() {
@@ -227,6 +239,7 @@ export function BookProvider({ children }) {
     }
     postBooks();
   };
+
   // handle Edit Book button
   const handleEditButton = e => {
     e.preventDefault();
@@ -286,9 +299,6 @@ export function BookProvider({ children }) {
             }
           }
         );
-        console.log('handle added');
-        console.log(response);
-
         {
           if (response.status === 200) {
             infoNotify('Successfully Added !');
